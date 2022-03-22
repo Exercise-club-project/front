@@ -50,24 +50,36 @@ const Signin = ({navigation}) => {
     }
     const onLogin = async () => {
         try {
-          const response = await axios.post(
+          const response = await axios.get(
             'http://23.23.240.178:8080/auth/login',
             {
             // 여기서 이메일, 비밀번호를 백엔드에 보내서 상태값 얻음
               email: email,
               password: password,
-            },
-          );
+            }, {
+              headers: {
+                  'Content-Type': 'x-ww-form-urlencoded'
+              }
+      }
+      );
           // 어떻게 얻지? SUCCESSS 얻었다고 치고 나중에 고치자
-          const token= response.data;
-          if(token.result === "SUCCESS"){
-            AsyncStorage.setItem('token', token);
-            navigation.navigate('Profile');
-          }
-          else{
+          //{
+           // result = "SUCCESS"
+           // data = "token값" 
+          //}
+          console.log('token :', response.data.data);
+          const token= response.data.data;
+          if (token === null) {
             Alert.alert('존재하지 않는 계정입니다');
+            // navigation.navigate('Profile');
+          } else {
+            AsyncStorage.setItem('token', token);
+            // 요청 후 응답에서 토큰이 있을 경우 Splash로
+            navigation.navigate('Splash');
           }
         } catch (e) {
+          console.log(email)
+          console.log(password)
           console.log(e);
         }
       };

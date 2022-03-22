@@ -27,7 +27,7 @@ export const requestSignUpF = async data => {
     
   
     const response = await API.post(signUpURL, body, {
-      headers: { 'content-type': 'multipart/form-data' },
+      headers: { 'Content-type': 'application/json' },
     });
     return response;
   };
