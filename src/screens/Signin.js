@@ -5,9 +5,10 @@ import {Button,Image, Input, ErrorMessage} from '../components';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import { validateEmail, removeWhitespace } from '../util';
+import { UserContext ,ProgressContext} from '../contexts';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
 flex: 1;
@@ -26,6 +27,8 @@ color: #111111;
 const Signin = ({navigation}) => {
     const insets = useSafeAreaInsets();
     const theme = useContext(ThemeContext);
+    const {setUser} = useContext(UserContext);
+    const {spinner} = useContext(ProgressContext);
 
     const [email ,setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,35 +45,40 @@ const Signin = ({navigation}) => {
         const changedEmail = removeWhitespace(email);
         setEmail(changedEmail);
         setErrorMessage(
-             validateEmail(changedEmail) ? '' : 'Please verify your email'
+             validateEmail(changedEmail) ? '' : '이메일을 확인해주세요'
               );
     }
     const _handlePasswordChange = password=>{
         setPassword(removeWhitespace(password));
     }
-    const onLogin = async () => {
-        try {
-          const response = await axios.post(
-            'http://23.23.240.178:8080/auth/login',
-            {
-            // 여기서 이메일, 비밀번호를 백엔드에 보내서 상태값 얻음
-              email: email,
-              password: password,
-            },
-          );
-          // 어떻게 얻지? SUCCESSS 얻었다고 치고 나중에 고치자
-          const token= response.data;
-          if(token.result === "SUCCESS"){
-            AsyncStorage.setItem('token', token);
-            navigation.navigate('Profile');
-          }
-          else{
-            Alert.alert('존재하지 않는 계정입니다');
-          }
-        } catch (e) {
-          console.log(e);
+    const onLogin = async() =>{
+      try{
+        spinner.start();
+        const response = await axios.post(
+          'http://23.23.240.178:8080/auth/login',
+          {
+            email: email,
+            password: password,
+          },
+        );
+        const token = response.data.data;
+        if(token === null){
+          Alert.alert('계정이 존재하지 않습니다');
         }
-      };
+        else{
+          AsyncStorage.setItem('token', token);
+          setUser(token.accessToken);
+          // ..contexts의 User에서 token의 accessToken을 받아서 로그인 성공유무를 나눔
+        }
+      }
+      catch(e){
+        console.log(e);
+      }
+      finally{
+        spinner.stop();
+      }
+    };
+    
     
     return (
         <KeyboardAwareScrollView 
@@ -98,6 +106,7 @@ const Signin = ({navigation}) => {
         />
         <ErrorMessage message={errorMessage} />
         <Button title="로그인" onPress={onLogin} disabled={disabled}/>
+        {/* <Button title="로그인" onPress={() => navigation.navigate('Profile')} disabled={disabled}/> */}
         <Button 
         title="회원가입" 
         onPress={() => navigation.navigate('Signup')}
