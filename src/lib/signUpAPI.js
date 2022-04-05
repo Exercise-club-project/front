@@ -2,7 +2,7 @@ import { API } from './API';
 
 const signUpURL = '/auth/register';
 
-export const request = async data =>{
+export const requestSignUp = async data =>{
     const postingData = {
         email: data.email,
         name: data.name,
@@ -26,8 +26,11 @@ export const requestSignUpF = async data => {
     body.append('phoneNumber', data.phonenumber);
     
   
-    const response = await API.post(signUpURL, body, {
+    const response = await API.post(
+      signUpURL, 
+      body, {
       headers: { 'Content-type': 'application/json' },
-    });
+    }
+    );
     return response;
   };

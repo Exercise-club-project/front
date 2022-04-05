@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect ,useContext} from 'react';
 import styled from 'styled-components/native';
-import {Button,Image, Input} from '../components';
+import {Button,Image, Input,ErrorMessage} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Alert } from 'react-native';
+import {validateEmail,removeWhitespace} from '../util';
+import { UserContext, ProgressContext } from '../contexts';
 
 const Container = styled.View`
 flex: 1;
@@ -15,42 +18,103 @@ font-size: 30px;
 color: #111111;
 `;
 
-const Signup = () => {
-    const [name ,setName] = useState('');
+const Signup = ({navigation}) => {
+    const {spinner} = useContext(ProgressContext);
+    const {setUser} = useContext(UserContext);
     const [email ,setEmail] = useState('');
+    const [name ,setName] = useState('');
+    const [birthday, setBirthday] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
-    const [year, setYear] = useState('');
-    const [phonenumber, setPhoneNumber] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [errorMessage,setErrorMessage] = useState('');
+    const [disabled, setDisabled] = useState(true);
 
-    const refEmail = useRef(null);
+    const refName = useRef(null);
     const refPassword = useRef(null);
     const refPasswordConfirm = useRef(null);
-    const refYear = useRef(null);
+    const refBirthday = useRef(null);
     const refPhoneNumber = useRef(null);
+    const refDidMount = useRef(null);
 
+    useEffect(() => {
+        setDisabled(
+            !(name && email && password && passwordConfirm && birthday && phoneNumber
+                && !errorMessage)
+            );
+    }, [email,name,password,passwordConfirm,birthday,phoneNumber,errorMessage]);
+
+    useEffect(() => {
+        if(refDidMount.current){
+            let error = '';
+            if(!name) error = '이름을 입력해주세요!';
+            else if(!email) error = '이메일을 입력해주세요!';
+            else if(!validateEmail(email)) error = '이메일 형식을 확인해주세요!';
+            else if(password.length < 6) error = '비밀번호는 6자리가 넘어야합니다!';
+            else if(password !== passwordConfirm) { error = '비밀번호가 일치하지 않습니다!';}
+            else if (!birthday) error = '생년월일(xxxx-xx-xx)을 입력해주세요!';
+            else if (!phoneNumber) error = '전화번호를 입력해주세요!';
+            setErrorMessage(error);
+        }
+        else{
+            refDidMount.current = true;
+        }
+        
+    }, {email,name,password,passwordConfirm})
     const _handleSignupBtnPress = () => {
-        console.log('signin');
+        spinner.start();
+        fetch('http://23.23.240.178:8080/auth/register',{
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+             },
+            body : JSON.stringify({
+                email: email,
+                name: name,
+                birthday: birthday,
+                password: password,
+                phoneNumber: phoneNumber,
+            })
+          })
+          .then((response)=> response.json())
+          .then((responseJson) => {
+            if(responseJson.result === 'SUCCESS'){
+                //setUser(user);
+                setUser(responseJson.data);
+                //navigation.navigate('Signin');
+            }
+            else{
+    
+            }
+          })
+          .catch ((e) =>{
+            console.log(responseJson.data)
+            console.log(e);
+          })
+          .finally(()=>spinner.stop());
     }
     return (
         <KeyboardAwareScrollView extraScrollHeight={20}>
     <Container>
         <Input 
-        label = "Name" 
-        placeholder = "Name" 
-        returnKeyType = "next" 
-        value = {name} 
-        onChangeText = {setName}
-        onSubmitEditing = {() => refEmail.current.focus()}
-        />
-        <Input 
-        ref = {refEmail}
         label = "Email" 
         placeholder = "Email" 
         returnKeyType = "next" 
         value = {email} 
         onChangeText = {setEmail}
+        onSubmitEditing = {() => refName.current.focus()}
+        onBlur={()=> setEmail(removeWhitespace(email))}
+        />
+         <Input 
+        ref = {refName}
+        label = "Name" 
+        placeholder = "Name" 
+        returnKeyType = "next" 
+        value = {name} 
+        onChangeText = {setName}
         onSubmitEditing = {() => refPassword.current.focus()}
+        onBlur={()=> setName(name.trim())}
+        maxLength={12}
         />
         <Input 
         ref = {refPassword}
@@ -61,6 +125,8 @@ const Signup = () => {
         onChangeText = {setPassword}
         isPassword={true}
         onSubmitEditing = {() => refPasswordConfirm.current.focus()}
+        onBlur = {() => setPassword(removeWhitespace(password))}
+
         />
         <Input 
         ref = {refPasswordConfirm}
@@ -71,14 +137,15 @@ const Signup = () => {
         onChangeText = {setPasswordConfirm}
         isPassword={true}
         onSubmitEditing = {() => refYear.current.focus()}
+        onBlur = {() => setPasswordConfirm(removeWhitespace(passwordConfirm))}
         />
         <Input 
-        ref = {refYear}
-        label = "Year" 
-        placeholder = "Year" 
+        ref = {refBirthday}
+        label = "Birthday" 
+        placeholder = "Birthday" 
         returnKeyType = "next" 
-        value = {year} 
-        onChangeText = {setYear}
+        value = {birthday} 
+        onChangeText = {setBirthday}
         isPassword={true}
         onSubmitEditing = {() => refPhoneNumber.current.focus()}
         />
@@ -87,12 +154,17 @@ const Signup = () => {
         label = "PhoneNumber" 
         placeholder = "PhoneNumber" 
         returnKeyType = "done" 
-        value = {phonenumber} 
+        value = {phoneNumber} 
         onChangeText = {setPhoneNumber}
         isPassword={true}
         onSubmitEditing = {_handleSignupBtnPress}
         />
-        <Button title="로그인" onPress={_handleSignupBtnPress}/>
+        <ErrorMessage message = {errorMessage}/>
+        <Button 
+        title="회원가입" 
+        onPress={_handleSignupBtnPress}
+        disabled = {disabled}
+        />
         
     </Container>
     </KeyboardAwareScrollView>

@@ -5,9 +5,8 @@ import {Button,Image, Input, ErrorMessage} from '../components';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
 import { validateEmail, removeWhitespace } from '../util';
+import { UserContext ,ProgressContext} from '../contexts';
 
 const Container = styled.View`
 flex: 1;
@@ -26,6 +25,8 @@ color: #111111;
 const Signin = ({navigation}) => {
     const insets = useSafeAreaInsets();
     const theme = useContext(ThemeContext);
+    const {setUser} = useContext(UserContext);
+    const {spinner} = useContext(ProgressContext);
 
     const [email ,setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -42,46 +43,43 @@ const Signin = ({navigation}) => {
         const changedEmail = removeWhitespace(email);
         setEmail(changedEmail);
         setErrorMessage(
-             validateEmail(changedEmail) ? '' : 'Please verify your email'
+             validateEmail(changedEmail) ? '' : '이메일을 확인해주세요'
               );
     }
     const _handlePasswordChange = password=>{
         setPassword(removeWhitespace(password));
     }
-    const onLogin = async () => {
-        try {
-          const response = await axios.get(
-            'http://23.23.240.178:8080/auth/login',
-            {
-            // 여기서 이메일, 비밀번호를 백엔드에 보내서 상태값 얻음
-              email: email,
-              password: password,
-            }, {
-              headers: {
-                  'Content-Type': 'x-ww-form-urlencoded'
-              }
-      }
-      );
-          // 어떻게 얻지? SUCCESSS 얻었다고 치고 나중에 고치자
-          //{
-           // result = "SUCCESS"
-           // data = "token값" 
-          //}
-          console.log('token :', response.data.data);
-          const token= response.data.data;
-          if (token === null) {
-            Alert.alert('존재하지 않는 계정입니다');
-            // navigation.navigate('Profile');
-          } else {
-            AsyncStorage.setItem('token', token);
-            // 요청 후 응답에서 토큰이 있을 경우 Splash로
-            navigation.navigate('Splash');
-          }
-        } catch (e) {
-          console.log(email)
-          console.log(password)
-          console.log(e);
+    const onLogin = () => {
+      spinner.start();
+      fetch('http://23.23.240.178:8080/auth/login',{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+         },
+        body : JSON.stringify({
+          email: email,
+          password: password,
+        })
+      })
+      .then((response)=> response.json())
+      .then((responseJson) => {
+        if(responseJson.result === 'SUCCESS'){
+         //setUser(user);
+          setUser(responseJson.data.accessToken);
+          //AsyncStorage.setItem('token', responseJson.data.accessToken);
+         // navigation.navigate('Profile');
+          //AsyncStorage.setItem('token', token);
         }
+        else{
+          Alert.alert('존재하지 않는 계정입니다');
+        }
+      })
+      .catch ((e) =>{
+        console.log(email)
+        console.log(password)
+        console.log(e);
+      })
+      .finally(()=>spinner.stop());
       };
     
     return (
@@ -110,6 +108,7 @@ const Signin = ({navigation}) => {
         />
         <ErrorMessage message={errorMessage} />
         <Button title="로그인" onPress={onLogin} disabled={disabled}/>
+        {/* <Button title="로그인" onPress={() => navigation.navigate('Profile')} disabled={disabled}/> */}
         <Button 
         title="회원가입" 
         onPress={() => navigation.navigate('Signup')}
