@@ -61,38 +61,37 @@ const Signup = ({navigation}) => {
         }
         
     }, {email,name,password,passwordConfirm})
-    const _handleSignupBtnPress = () => {
-        spinner.start();
-        fetch('http://23.23.240.178:8080/auth/register',{
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-             },
-            body : JSON.stringify({
+    const _handleSignupBtnPress = async() =>{
+        try{
+          spinner.start();
+          const response = await axios.post(
+            'http://23.23.240.178:8080/auth/register',
+            {
                 email: email,
                 name: name,
                 birthday: birthday,
                 password: password,
                 phoneNumber: phoneNumber,
-            })
-          })
-          .then((response)=> response.json())
-          .then((responseJson) => {
-            if(responseJson.result === 'SUCCESS'){
-                //setUser(user);
-                setUser(responseJson.data);
-                //navigation.navigate('Signin');
-            }
-            else{
-    
-            }
-          })
-          .catch ((e) =>{
-            console.log(responseJson.data)
-            console.log(e);
-          })
-          .finally(()=>spinner.stop());
-    }
+            },
+          );
+          // 위의 Request를 보내면
+          // Response로 result랑 data만 옴
+          const userid = response.data.data;
+          if(response.data.result === "SUCCESS"){
+            navigation.navigate('Signin');
+            AsyncStorage.setItem('userid', userid);
+          }
+          else{
+            Alert.alert('회원 생성에 실패하였습니다');
+          }
+        }
+        catch(e){
+          console.log(e);
+        }
+        finally{
+          spinner.stop();
+        }
+      };
     return (
         <KeyboardAwareScrollView extraScrollHeight={20}>
     <Container>

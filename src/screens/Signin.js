@@ -7,6 +7,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { Alert } from 'react-native';
 import { validateEmail, removeWhitespace } from '../util';
 import { UserContext ,ProgressContext} from '../contexts';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
 flex: 1;
@@ -49,38 +51,34 @@ const Signin = ({navigation}) => {
     const _handlePasswordChange = password=>{
         setPassword(removeWhitespace(password));
     }
-    const onLogin = () => {
-      spinner.start();
-      fetch('http://23.23.240.178:8080/auth/login',{
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-         },
-        body : JSON.stringify({
-          email: email,
-          password: password,
-        })
-      })
-      .then((response)=> response.json())
-      .then((responseJson) => {
-        if(responseJson.result === 'SUCCESS'){
-         //setUser(user);
-          setUser(responseJson.data.accessToken);
-          //AsyncStorage.setItem('token', responseJson.data.accessToken);
-         // navigation.navigate('Profile');
-          //AsyncStorage.setItem('token', token);
+    const onLogin = async() =>{
+      try{
+        spinner.start();
+        const response = await axios.post(
+          'http://23.23.240.178:8080/auth/login',
+          {
+            email: email,
+            password: password,
+          },
+        );
+        const token = response.data.data;
+        if(token === null){
+          Alert.alert('계정이 존재하지 않습니다');
         }
         else{
-          Alert.alert('존재하지 않는 계정입니다');
+          AsyncStorage.setItem('token', token);
+          setUser(token.accessToken);
+          // ..contexts의 User에서 token의 accessToken을 받아서 로그인 성공유무를 나눔
         }
-      })
-      .catch ((e) =>{
-        console.log(email)
-        console.log(password)
+      }
+      catch(e){
         console.log(e);
-      })
-      .finally(()=>spinner.stop());
-      };
+      }
+      finally{
+        spinner.stop();
+      }
+    };
+    
     
     return (
         <KeyboardAwareScrollView 
