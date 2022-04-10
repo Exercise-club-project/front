@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { CreateMeeting } from '../screens';
+//import { CreateMeeting } from '../screens';
 import Form from './Form';
 const Stack = createStackNavigator();
 
@@ -18,7 +18,6 @@ const Main = () => {
       }}
     >
       <Stack.Screen name = "Form" component={Form}/>
-      <Stack.Screen name = "CreateMeeting" component={CreateMeeting}/>
     </Stack.Navigator>
   );
 };

@@ -53,7 +53,7 @@ const Signin = ({navigation}) => {
     }
     const onLogin = async() =>{
       try{
-        spinner.start();
+        //spinner.start();
         const response = await axios.post(
           'http://23.23.240.178:8080/auth/login',
           {
@@ -68,14 +68,18 @@ const Signin = ({navigation}) => {
         else{
           AsyncStorage.setItem('token', token);
           setUser(token.accessToken);
+          
           // ..contexts의 User에서 token의 accessToken을 받아서 로그인 성공유무를 나눔
+
         }
       }
       catch(e){
+        console.log(email)
+        console.log(password)
         console.log(e);
       }
       finally{
-        spinner.stop();
+        //spinner.stop();
       }
     };
     

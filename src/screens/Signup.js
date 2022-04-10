@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect ,useContext} from 'react';
 import styled from 'styled-components/native';
-import {Button,Image, Input,ErrorMessage} from '../components';
+import {Button,Input,ErrorMessage} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
 import {validateEmail,removeWhitespace} from '../util';
-import { UserContext, ProgressContext } from '../contexts';
+import { ProgressContext } from '../contexts';
+import axios from 'axios';
 
 const Container = styled.View`
 flex: 1;
@@ -20,13 +21,14 @@ color: #111111;
 
 const Signup = ({navigation}) => {
     const {spinner} = useContext(ProgressContext);
-    const {setUser} = useContext(UserContext);
     const [email ,setEmail] = useState('');
     const [name ,setName] = useState('');
     const [birthday, setBirthday] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
+    const [sex, setSex] = useState('');
+
     const [errorMessage,setErrorMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
 
@@ -35,14 +37,15 @@ const Signup = ({navigation}) => {
     const refPasswordConfirm = useRef(null);
     const refBirthday = useRef(null);
     const refPhoneNumber = useRef(null);
+    const refSex = useRef(null);
     const refDidMount = useRef(null);
 
     useEffect(() => {
         setDisabled(
             !(name && email && password && passwordConfirm && birthday && phoneNumber
-                && !errorMessage)
+                && sex && !errorMessage)
             );
-    }, [email,name,password,passwordConfirm,birthday,phoneNumber,errorMessage]);
+    }, [email,name,password,passwordConfirm,birthday,phoneNumber, sex, errorMessage]);
 
     useEffect(() => {
         if(refDidMount.current){
@@ -54,6 +57,7 @@ const Signup = ({navigation}) => {
             else if(password !== passwordConfirm) { error = '비밀번호가 일치하지 않습니다!';}
             else if (!birthday) error = '생년월일(xxxx-xx-xx)을 입력해주세요!';
             else if (!phoneNumber) error = '전화번호를 입력해주세요!';
+            else if (!sex) error = "성별을 선택해주세요!";
             setErrorMessage(error);
         }
         else{
@@ -63,7 +67,7 @@ const Signup = ({navigation}) => {
     }, {email,name,password,passwordConfirm})
     const _handleSignupBtnPress = async() =>{
         try{
-          spinner.start();
+          //spinner.start();
           const response = await axios.post(
             'http://23.23.240.178:8080/auth/register',
             {
@@ -71,6 +75,7 @@ const Signup = ({navigation}) => {
                 name: name,
                 birthday: birthday,
                 password: password,
+                sex: sex,
                 phoneNumber: phoneNumber,
             },
           );
@@ -78,7 +83,7 @@ const Signup = ({navigation}) => {
           // Response로 result랑 data만 옴
           const userid = response.data.data;
           if(response.data.result === "SUCCESS"){
-            navigation.navigate('Signin');
+            navigation.navigate('SelectClub');
             AsyncStorage.setItem('userid', userid);
           }
           else{
@@ -89,7 +94,7 @@ const Signup = ({navigation}) => {
           console.log(e);
         }
         finally{
-          spinner.stop();
+          //spinner.stop();
         }
       };
     return (
@@ -152,9 +157,19 @@ const Signup = ({navigation}) => {
         ref = {refPhoneNumber}
         label = "PhoneNumber" 
         placeholder = "PhoneNumber" 
-        returnKeyType = "done" 
+        returnKeyType = "next" 
         value = {phoneNumber} 
         onChangeText = {setPhoneNumber}
+        isPassword={true}
+        onSubmitEditing = {() => refSex.current.focus()}
+        />
+        <Input 
+        ref = {refSex}
+        label = "sex" 
+        placeholder = "sex" 
+        returnKeyType = "done" 
+        value = {sex} 
+        onChangeText = {setSex}
         isPassword={true}
         onSubmitEditing = {_handleSignupBtnPress}
         />
