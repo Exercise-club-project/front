@@ -89,7 +89,7 @@ const Signin = ({navigation}) => {
         extraScrollHeight={20} 
         contentContainerStyle = {{flex:1}}>
     <Container insets = {insets}>
-        <Image url=""/>
+        {/* <Image url=""/> 이후에 이미지 추가 할 것*/}
         <Input 
         ref = {refemail}
         label = "Email" 

@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import {Button,Input,ErrorMessage} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
-import {validateEmail,removeWhitespace} from '../util';
+import {validateEmail,validateBirthday,validatePhonenumber,removeWhitespace} from '../util';
 import { ProgressContext } from '../contexts';
 import axios from 'axios';
 
@@ -55,8 +55,10 @@ const Signup = ({navigation}) => {
             else if(!validateEmail(email)) error = '이메일 형식을 확인해주세요!';
             else if(password.length < 6) error = '비밀번호는 6자리가 넘어야합니다!';
             else if(password !== passwordConfirm) { error = '비밀번호가 일치하지 않습니다!';}
-            else if (!birthday) error = '생년월일(xxxx-xx-xx)을 입력해주세요!';
+            else if (!birthday) error = '생년월일을 입력해주세요!';
+            else if (!validateBirthday) error = '생년월일 형식을 확인해주세요! (xxxx-xx-xx)';
             else if (!phoneNumber) error = '전화번호를 입력해주세요!';
+            else if (!validatePhonenumber) error = '전화번호 형식을 확인해주세요! (xxx-xxxx-xxxx)!';
             else if (!sex) error = "성별을 선택해주세요!";
             setErrorMessage(error);
         }
@@ -64,7 +66,7 @@ const Signup = ({navigation}) => {
             refDidMount.current = true;
         }
         
-    }, {email,name,password,passwordConfirm})
+    }, [email,name,password,passwordConfirm]) // 2번째 인자 {}로 되어 오류발생, []로 변경하여 오류 해결
     const _handleSignupBtnPress = async() =>{
         try{
           //spinner.start();
