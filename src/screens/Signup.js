@@ -64,7 +64,7 @@ const Signup = ({navigation}) => {
             refDidMount.current = true;
         }
         
-    }, {email,name,password,passwordConfirm})
+    }, [email,name,password,passwordConfirm]) // 2번째 인자 {}로 되어 오류발생, []로 변경하여 오류 해결
     const _handleSignupBtnPress = async() =>{
         try{
           //spinner.start();
