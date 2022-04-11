@@ -12,7 +12,7 @@ const Container = styled.View`
 const StyledText = styled.Text`
   font-size: 30px;
 `;
-const MyClub = ({navigation}) =>{
+const MyClub = () =>{
     return (
     <Container>
     </Container>
