@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { ThemeContext } from 'styled-components/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Signin, Signup, SelectClub} from '../screens';
+import { Signin, Signup, SelectClub, QR} from '../screens'; //QR화면 이동을 위해 QR 추가
 import {MaterialIcons} from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
@@ -16,7 +16,7 @@ const Auth = () => {
     >
         <Stack.Screen 
         name="Signin" 
-        component={Signin} 
+        component={Signin} //첫 화면이 QR로 넘어가게 임시 수정
         options ={{headerShown:false}}
         />
         <Stack.Screen 
