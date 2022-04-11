@@ -50,15 +50,15 @@ const Signup = ({navigation}) => {
     useEffect(() => {
         if(refDidMount.current){
             let error = '';
-            if(!name) error = '이름을 입력해주세요!';
-            else if(!email) error = '이메일을 입력해주세요!';
+            if(!email) error = '이메일을 입력해주세요!';
             else if(!validateEmail(email)) error = '이메일 형식을 확인해주세요!';
+            else if(!name) error = '이름을 입력해주세요!';
             else if(password.length < 6) error = '비밀번호는 6자리가 넘어야합니다!';
             else if(password !== passwordConfirm) { error = '비밀번호가 일치하지 않습니다!';}
             else if (!birthday) error = '생년월일을 입력해주세요!';
-            else if (!validateBirthday) error = '생년월일 형식을 확인해주세요! (xxxx-xx-xx)';
+            else if (!validateBirthday(birthday)) error = '생년월일 형식을 확인해주세요! (xxxx-xx-xx)';
             else if (!phoneNumber) error = '전화번호를 입력해주세요!';
-            else if (!validatePhonenumber) error = '전화번호 형식을 확인해주세요! (xxx-xxxx-xxxx)!';
+            else if (!validatePhonenumber(phoneNumber)) error = '전화번호 형식을 확인해주세요! (xxx-xxxx-xxxx)!';
             else if (!sex) error = "성별을 선택해주세요!";
             setErrorMessage(error);
         }
@@ -83,13 +83,16 @@ const Signup = ({navigation}) => {
           );
           // 위의 Request를 보내면
           // Response로 result랑 data만 옴
-          const userid = response.data.data;
+          //const userid = response.data.data;
           if(response.data.result === "SUCCESS"){
-            navigation.navigate('SelectClub');
-            AsyncStorage.setItem('userid', userid);
+            navigation.navigate('Signin');
+            // 회원가입 후 로그인 화면으로 이동
+            // AsyncStorage.setItem('userid', userid);
           }
           else{
-            Alert.alert('회원 생성에 실패하였습니다');
+            const res = response.data.result;
+            console.log(res);
+            Alert.alert(response.data.data);
           }
         }
         catch(e){
@@ -142,39 +145,37 @@ const Signup = ({navigation}) => {
         value = {passwordConfirm} 
         onChangeText = {setPasswordConfirm}
         isPassword={true}
-        onSubmitEditing = {() => refYear.current.focus()}
+        onSubmitEditing = {() => refBirthday.current.focus()}
         onBlur = {() => setPasswordConfirm(removeWhitespace(passwordConfirm))}
         />
         <Input 
         ref = {refBirthday}
         label = "Birthday" 
-        placeholder = "Birthday" 
+        placeholder = "xxxx-xx-xx" 
         returnKeyType = "next" 
         value = {birthday} 
         onChangeText = {setBirthday}
-        isPassword={true}
         onSubmitEditing = {() => refPhoneNumber.current.focus()}
         />
         <Input 
         ref = {refPhoneNumber}
         label = "PhoneNumber" 
-        placeholder = "PhoneNumber" 
+        placeholder = "010-xxxx-xxxx" 
         returnKeyType = "next" 
         value = {phoneNumber} 
         onChangeText = {setPhoneNumber}
-        isPassword={true}
         onSubmitEditing = {() => refSex.current.focus()}
         />
         <Input 
         ref = {refSex}
-        label = "sex" 
-        placeholder = "sex" 
+        label = "Sex" 
+        placeholder = "M/F" 
         returnKeyType = "done" 
         value = {sex} 
         onChangeText = {setSex}
-        isPassword={true}
         onSubmitEditing = {_handleSignupBtnPress}
         />
+        
         <ErrorMessage message = {errorMessage}/>
         <Button 
         title="회원가입" 

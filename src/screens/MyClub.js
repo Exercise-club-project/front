@@ -9,14 +9,13 @@ const Container = styled.View`
   align-items: center;
   padding: 0 20px;
 `;
-// const StyledText = styled.Text`
-//   font-size: 30px;
-// `;
-const Home = ({navigation}) =>{
+const StyledText = styled.Text`
+  font-size: 30px;
+`;
+const MyClub = ({navigation}) =>{
     return (
     <Container>
-        <Button title = "모임 만들기" onPress = {() => navigation.navigate('CreateMeeting')}/>
     </Container>
     )
 }
-export default Home;
+export default MyClub;
