@@ -17,7 +17,7 @@ const Container = styled.View`
   align-items: center;
   padding: 0 20px;
 `;
-const QR = () =>{
+const QR = ({navigation}) =>{
 
   const theme = useContext(ThemeContext);
 
@@ -41,7 +41,8 @@ const QR = () =>{
       </View>
 
       <Button 
-      title="뒤로 가기"  //버튼 화면 연결 필요
+      title="뒤로 가기"  //뒤로가기 버튼 'Home'화면으로 연결 완료
+      onPress={() => navigation.navigate('Home')}
       />
     </View>
     );

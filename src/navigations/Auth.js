@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import { ThemeContext } from 'styled-components/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { Signin, Signup, SelectClub, QR} from '../screens'; //QR화면 이동을 위해 QR 추가
+import { Signin, Signup, SelectClub, QR, Home} from '../screens'; //QR화면 이동을 위해 QR 추가, Home화면으로 버튼 연결을 위해 Home추가
 import {MaterialIcons} from '@expo/vector-icons';
 
 const Stack = createStackNavigator();
@@ -38,6 +38,12 @@ const Auth = () => {
         <Stack.Screen 
         name="SelectClub" 
         component={SelectClub} 
+        options ={{headerShown:false}}
+        />
+
+        <Stack.Screen 
+        name="Home" 
+        component={Home} 
         options ={{headerShown:false}}
         />
 
