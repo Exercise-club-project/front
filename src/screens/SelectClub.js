@@ -33,6 +33,7 @@ const SelectClub = () =>{
       Alert.alert('토큰이 생성되어있지 않습니다!');
     }
     else{
+      Alert.alert('토큰 생성!');
       setUser(token);
       // setUser는 token유무에 따라 Main화면 Auth화면으로 갈리게 함
     }
