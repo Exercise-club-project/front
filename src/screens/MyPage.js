@@ -1,5 +1,4 @@
-import React,{useContext} from 'react';
-import { UserContext } from '../contexts';
+import React from 'react';
 import styled from 'styled-components/native';
 import {Button} from '../components';
 
@@ -8,13 +7,12 @@ flex: 1;
 background-color: ${({theme}) => theme.background};
 `;
 
-const MyPage = ({navigation, route}) => {
-    const {setUser} = useContext(UserContext);
+const MyPage = ({navigation}) => {
     return (
     <Container>
-    <Button title = "로그아웃"
-    onPress={() => setUser({})}
-    />
+    <Button title = "내 정보" onPress = {() => navigation.navigate('MyInfo')}/>
+    <Button title = "활동 내역" onPress = {() => navigation.navigate('MyAct')}/>
+    <Button title = "나의 동아리" onPress = {() => navigation.navigate('MyClub')}/>
     </Container>
     );
 };

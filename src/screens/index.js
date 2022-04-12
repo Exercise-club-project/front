@@ -5,4 +5,9 @@ import Home from "./Home";
 import MyPage from "./MyPage";
 import QR from "./QR";
 import Ranking from "./Ranking"
-export {Signin, Signup, SelectClub, Home, MyPage, QR, Ranking};
+import CreateMeeting from "./CreateMeeting";
+import MyInfo from "./MyInfo";
+import MyAct from "./MyAct";
+import MyClub from "./MyClub";
+export {Signin, Signup, SelectClub, CreateMeeting, Home, MyPage, QR, Ranking,
+    MyInfo, MyAct, MyClub};

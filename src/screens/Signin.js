@@ -62,20 +62,22 @@ const Signin = ({navigation}) => {
           },
         );
         const token = response.data.data;
-        if(token === null){
-          Alert.alert('계정이 존재하지 않습니다');
+        if(response.data.result === "SUCCESS"){
+          AsyncStorage.setItem('accessToken', token.accessToken);
+          // 로그인성공시 accessToken을 받음
+          navigation.navigate('SelectClub');
+          // 로그인성공시 동아리 선택화면으로 이동
         }
         else{
-          AsyncStorage.setItem('token', token);
-          setUser(token.accessToken);
+          Alert.alert('계정이 존재하지 않습니다');
+          setUser(token.accessToken); // 로그인 후 동아리 선택으로 넘어가므로
+          // 이 함수는 동아리선택화면으로 넘기자
           
           // ..contexts의 User에서 token의 accessToken을 받아서 로그인 성공유무를 나눔
 
         }
       }
       catch(e){
-        console.log(email)
-        console.log(password)
         console.log(e);
       }
       finally{
