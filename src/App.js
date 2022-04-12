@@ -17,5 +17,5 @@ const App = () => {
     </ThemeProvider>
     );
 };
-// 브랜치 테스트
+// 브랜치 커밋 테스트
 export default App;
