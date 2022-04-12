@@ -11,6 +11,16 @@ const Container = styled.View`
   padding: 0 20px;
 `;
 const Ranking = () =>{
+
+  const clubdata = {
+    header:["순위", "동아리", "학교", "점수"],
+    data: [
+      {num:"1", name:"FLY",school:"단국대학교 죽전캠퍼스", score:"1000"},
+      {num:"2", name:"굿민턴",school:"서강대학교", score:"900"},
+      {num:"3", name:"KUBC",school:"고려대학교", score:"800"},
+    ],
+  };
+
     return (
     <View style={style.container}>
 
@@ -42,6 +52,7 @@ const Ranking = () =>{
       </View>
 
       <ScrollView style={{backgroundColor: 'white',}}>
+        
         <View style={style.tablerow}>
           <View style={style.tablenum}>
             <Text>1</Text>
@@ -56,20 +67,25 @@ const Ranking = () =>{
             <Text>1000</Text>
           </View>
         </View>
-        <View style={style.tablerow}>
-          <View style={style.tablenum}>
-            <Text>1</Text>
+
+        {clubdata.data.map((club)=>{
+          return (
+            <View style={style.tablerow}>
+            <View style={style.tablenum}>
+              <Text>{club.num}</Text>
+            </View>
+            <View style={style.tablename}>
+              <Text>{club.name}</Text>
+            </View>
+            <View style={style.tableschool}>
+              <Text>{club.school}</Text>
+            </View>
+            <View style={style.tablescore}>
+              <Text>{club.score}</Text>
+            </View>
           </View>
-          <View style={style.tablename}>
-            <Text>FLY</Text>
-          </View>
-          <View style={style.tableschool}>
-            <Text>단국대학교 죽전캠퍼스</Text>
-          </View>
-          <View style={style.tablescore}>
-            <Text>1000</Text>
-          </View>
-        </View>
+          );
+        })}
       </ScrollView>
     </View>
     );
