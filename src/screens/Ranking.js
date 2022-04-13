@@ -70,7 +70,7 @@ const Ranking = () =>{
 
         {clubdata.data.map((club)=>{
           return (
-            <View style={style.tablerow}>
+            <View style={style.tablerow} key={club.name}>
             <View style={style.tablenum}>
               <Text>{club.num}</Text>
             </View>
