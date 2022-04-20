@@ -64,7 +64,6 @@ const Signin = ({navigation}) => {
         const token = response.data.data;
         if(response.data.result === "SUCCESS"){
           AsyncStorage.setItem('accessToken', token.accessToken);
-          AsyncStorage.setItem('accessTokenTime', token.accessTokenTime);
           // 로그인성공시 accessToken을 받음
           navigation.navigate('SelectClub');
           // 로그인성공시 동아리 선택화면으로 이동
