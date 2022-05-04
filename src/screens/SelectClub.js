@@ -1,8 +1,13 @@
-import React, {Component} from 'react';
+import React, {useState,useRef, setUser, Component} from 'react';
 import styled from 'styled-components/native';
 import {Button, Input} from '../components';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserContext ,ProgressContext} from '../contexts';
+// import { FlatList, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { removeWhitespace } from '../util';
+import request from '../funtion/request';
+import { UserContext} from '../contexts';
+import { FlatList } from 'react-native-gesture-handler';
+import { Alert } from 'react-native';
 // import ReactSearchBox from "react-search-box";
 // import Autocomplete from 'react-native-autocomplete-input'; // 왜 안되냐
 
@@ -20,32 +25,92 @@ const Explain = styled.Text`
   font-size: 15px;
 `;
 
-const SelectClub = () =>{
-  const [coleeage ,setColleage] = useState('');
+const Search = styled.View`
+flex: 3;
+background-color: white;
+align-items: center;
+justify-content: center;
+flex-direction: row;
+margin-left: 30px;
+margin-top: 50px;
+`
 
-  const {setUser} = useContext(UserContext);
+const Touchable = styled.TouchableOpacity`
+    margin-Left: 20px;
+    width: 40px;
+`;
+
+const List = styled.View`
+flex : 6;
+`;
+
+
+const SelectClub = () =>{
+  const [colleage ,setColleage] = useState('');
+
+  // const {setUser} = useContext(UserContext);
   // setUser가 Signin에서 쓸때랑 색깔이 왜다르지? -> 노란색이 되어야 할텐데
-  
-  const IsToken = () => {
-    const token = AsyncStorage.getItem('accessToken');
-    // Signin에서 setItem으로 받은 accessToken사용
-    if(token === NULL){ // 없을경우 (이 화면으로 넘어오면 NULL일리가 없음, 로그인이 성공했다는 거니까) 
-      Alert.alert('토큰이 생성되어있지 않습니다!');
+  const refcolleage = useRef(null);
+
+  const _handleColleageChange = colleage=>{
+    setColleage(removeWhitespace(colleage)); // 대학교 공백제거
+}
+
+const onClub = async() =>{
+    const response = await request({
+      method : 'GET',
+      url : `/user/group/search/${colleage}`,
+    });
+    // "result": "SUCCESS",
+    // "data": [
+    //     {
+    //         "clubName": "club2",
+    //         "school": "dankook",
+    //         "leader": "park"
+    //     }
+    // ]
+    const array = response.data;
+    console.log(array);
+    {array.map((item) =>{
+      console.log(item.clubName)
+      console.log(item.school)
+      console.log(item.leader)
+      Alert.alert(item.clubName)
+    })
     }
-    else{
-      setUser(token);
-      // setUser는 token유무에 따라 Main화면 Auth화면으로 갈리게 함
-    }
-  }
+    //setClub(response.data);
+};
     return (
     <Container>
-        <StyledText>동아리 선택</StyledText>
-        <Explain>
+      <StyledText>동아리 선택</StyledText>
+      <Explain>
             가입 후 첫 로그인이시군요!
-            활동하고 계신 동아리를 선택해주세요
-        </Explain>
+      </Explain>
+      <Explain>
+            활동하고 계신 동아리를 선택해주세요!
+      </Explain>
+      <Search>
+        <Input 
+          ref = {refcolleage}
+          label = "검색(학교이름)" 
+          placeholder = "colleage" 
+          returnKeyType = "done" 
+          value = {colleage} 
+          onChangeText = {_handleColleageChange}
+        />
+       <Touchable onPress={onClub}>
+           <Icon name="search" size={30} />
+        </Touchable>
+      </Search>
+      <List>
 
-        <Button title = "선택 완료" onPress = {IsToken}/>
+        <FlatList
+
+
+        />
+
+      </List>
+      <Button title = "선택 완료" onPress = {onClub}/>
     </Container>
     )
 }

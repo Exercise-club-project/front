@@ -84,15 +84,15 @@ const Signup = ({navigation}) => {
           // 위의 Request를 보내면
           // Response로 result랑 data만 옴
           //const userid = response.data.data;
-          if(response.data.result === "SUCCESS"){
+          const res = response.data;
+          if(res.result === "SUCCESS"){
+            const MyUserId = JSON.stringify(res.data);
+            AsyncStorage.setItem('MyUserId', MyUserId);
             navigation.navigate('Signin');
             // 회원가입 후 로그인 화면으로 이동
-            // AsyncStorage.setItem('userid', userid);
           }
           else{
-            const res = response.data.result;
-            console.log(res);
-            Alert.alert(response.data.data);
+            Alert.alert(res.data);
           }
         }
         catch(e){

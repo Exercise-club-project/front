@@ -10,9 +10,9 @@ const Navigation = () => {
     const {inProgress} = useContext(ProgressContext);
     return (
     <NavigationContainer>
-       {user.accessToken ?  <Auth/> : <Main/> } 
+       {/* {user.accessToken ?  <Auth/> : <Main/> }  */}
        {/* Accestoken이 있으면 Main으로 없으면 Auth로 */}
-       {/* {user.accessToken ? <Auth/> : <Main/>} */}
+       {user ? <Auth/> : <Main/>}
        {inProgress && <Spinner/>}
     </NavigationContainer>
     )
