@@ -1,4 +1,4 @@
-import React, {useState,useRef, setUser, Component} from 'react';
+import React, {useState,useRef, useContext} from 'react';
 import styled from 'styled-components/native';
 import {Button, Input} from '../components';
 // import { FlatList, TouchableOpacity, View } from 'react-native';
@@ -45,10 +45,9 @@ flex : 6;
 `;
 
 
-const SelectClub = () =>{
+const SelectClub = (navigation) =>{
   const [colleage ,setColleage] = useState('');
 
-  // const {setUser} = useContext(UserContext);
   // setUser가 Signin에서 쓸때랑 색깔이 왜다르지? -> 노란색이 되어야 할텐데
   const refcolleage = useRef(null);
 
@@ -69,16 +68,19 @@ const onClub = async() =>{
     //         "leader": "park"
     //     }
     // ]
-    const array = response.data;
-    console.log(array);
-    {array.map((item) =>{
-      console.log(item.clubName)
-      console.log(item.school)
-      console.log(item.leader)
-      Alert.alert(item.clubName)
-    })
-    }
-    //setClub(response.data);
+    const groupId = response.id;// id는 추후 결정될 것
+    AsyncStorage.setItem('groupId', groupId);
+};
+
+const upClub = async() =>{
+  const groupId = AsyncStorage.getItem('groupId');
+  const response = await request({
+    method : 'GET',
+    url : `/user/group/join/${groupId}`,
+  });
+  const MyGroupId = response.data;
+  AsyncStorage.setItem('MyGroupId', MyGroupId);
+  navigation.navigate('Main');
 };
     return (
     <Container>
@@ -110,7 +112,7 @@ const onClub = async() =>{
         />
 
       </List>
-      <Button title = "선택 완료" onPress = {onClub}/>
+      <Button title = "선택 완료" onPress = {upClub}/>
     </Container>
     )
 }

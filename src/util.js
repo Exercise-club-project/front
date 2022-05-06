@@ -23,6 +23,7 @@ export const validateEmail = email => {
     return regex.test(phoneSex);
   };
 
+  // 나중에 수정해야할것 지금은 xxxx-xx-xx ->  xxxx-xx-xx xx:xx
   export const validateTime = time => {
     const regex = /^(19[0-9][0-9]|20\d{2})+-(0[0-9]|1[0-2])+-(0[1-9]|[1-2][0-9]|3[0-1])$/;
     return regex.test(time);

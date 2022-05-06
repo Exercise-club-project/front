@@ -9,5 +9,8 @@ import CreateMeeting from "./CreateMeeting";
 import MyInfo from "./MyInfo";
 import MyAct from "./MyAct";
 import MyClub from "./MyClub";
+import Auth from "../navigations/Auth";
+import Main from "../navigations/Main";
+import SplashScreen from "./SplashScreen";
 export {Signin, Signup, SelectClub, CreateMeeting, Home, MyPage, QR, Ranking,
-    MyInfo, MyAct, MyClub};
+    MyInfo, MyAct, MyClub,Auth,Main,SplashScreen};

@@ -1,9 +1,10 @@
 import React,{useState,useRef,useEffect} from 'react';
 import styled from 'styled-components/native';
-import {Button, Input,ErrorMessage} from '../components';
+import { Picker } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {Button, Input,ErrorMessage} from '../components';
 import request from '../funtion/request';
-// import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
@@ -24,6 +25,7 @@ const CreateMeeting = ({navigation}) =>{
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [description, setDescription] = useState('');
+  const [error,setError] = useState('');
   const [errorMessage,setErrorMessage] = useState('');
   const [disabled, setDisabled] =useState(true);
 
@@ -31,6 +33,7 @@ const CreateMeeting = ({navigation}) =>{
   const refStart = useRef(null);
   const refEnd = useRef(null);
   const refDesc = useRef(null);
+
   const refDidMount = useRef(null);
 
   useEffect(() => {
@@ -54,21 +57,25 @@ useEffect(() => {
     }
     
 }, [meetingName,startDate,endDate])
+
   const _handleCreateMeetingBtnPress = async() =>{
     const response = await request({
       method : 'POST',
-      url : '/meeting/create',
+      url : 'user/meeting/create',
       data: {
-          meetingName : meetingName,
-          meetingType : meetingType,
-          startDate : startDate,
-          endDate : endDate,
-          description  : description
+          meetingName,
+          meetingType,
+          startDate,
+          endDate,
+          description
       },
     });
-    const res = response.data;
+    console.log(meetingName,meetingType,startDate,endDate,description)
+    const res = response;
+    console.log(res);
     if(res.result == SUCCESS){
       const MeetingId = JSON.stringify(res.data);
+      navigation.navigate('Home');
       AsyncStorage.setItem('MeetingId', MeetingId);
     }
     else{

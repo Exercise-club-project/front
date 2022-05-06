@@ -73,7 +73,12 @@ const Signin = ({navigation}) => {
           // 로그인성공시 accessToken을 받음
             AsyncStorage.setItem('accessToken', token.accessToken);
             AsyncStorage.setItem('refreshToken', token.refreshToken);
-            navigation.navigate('SelectClub');
+            
+            // 동아리 id를 받은 상태라면 Main으로 아니라면 동아리 선택화면으로!!
+            AsyncStorage.getItem('MyGroupId').then((value) =>
+            navigation.replace(value === null ? 'SelectClub': 'Main'),
+      );
+            
           // 로그인성공시 동아리 선택화면으로 이동
         }
         else{
