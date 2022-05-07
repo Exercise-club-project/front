@@ -14,8 +14,8 @@ const SplashScreen = ({navigation}) => {
       //If not then send for Authentication
       //else send to Home Screen
       AsyncStorage.getItem('accessToken').then((value) =>
-        // navigation.replace(value === null ? 'Main': 'Auth'),
-        navigation.replace(value === null ? 'Auth': 'Main'),
+        navigation.replace(value === null ? 'Main': 'Auth'),
+        // navigation.replace(value === null ? 'Auth': 'Main'),
       );
     }, 3000);
   }, []);

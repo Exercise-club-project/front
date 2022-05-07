@@ -2,8 +2,6 @@ import react from "react";
 import { StatusBar } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import {theme} from './theme';
-import Navigation from "./navigations";
-import {UserProvider, ProgressProvider} from './contexts';
 import Auth from "./navigations/Auth";
 import Main from "./navigations/Main";
 import { SplashScreen } from "./screens";
@@ -18,8 +16,6 @@ const App = () => {
     console.log(token);
     return (
     <ThemeProvider theme={theme}>
-        <ProgressProvider> 
-            {/* 로딩아이콘 */}
         <StatusBar backgroundColor={theme.background} barStyle="dark-content"/>
         <NavigationContainer>
              {/* {user.accessToken ?  <Auth/> : <Main/> }  */}
@@ -48,7 +44,6 @@ const App = () => {
                 />
             </Stack.Navigator>
         </NavigationContainer>
-        </ProgressProvider>
     </ThemeProvider>
     );
 };

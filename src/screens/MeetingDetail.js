@@ -1,3 +1,5 @@
+// HOME에서 ItemContainer클릭하면 넘어오는 화면
+// 데이터 똥값 입력해서 받아온 후 화면 구성하기
 import React,{useState,useRef,useEffect} from 'react';
 import styled from 'styled-components/native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -15,7 +17,7 @@ const Container = styled.View`
   padding: 0 20px;
 `;
 
-const CreateMeeting = ({navigation}) =>{
+const MeetingDetail = ({navigation}) =>{
   const [meetingName, setMeetingName] = useState('');
   const [meetingType, setMeetingType] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -145,4 +147,4 @@ useEffect(() => {
     </KeyboardAwareScrollView>
     )
 }
-export default CreateMeeting;
+export default MeetingDetail;

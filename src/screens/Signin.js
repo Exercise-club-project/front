@@ -27,8 +27,6 @@ color: #111111;
 const Signin = ({navigation}) => {
     const insets = useSafeAreaInsets();
     const theme = useContext(ThemeContext);
-    const {setUser} = useContext(UserContext);
-    const {spinner} = useContext(ProgressContext);
 
     const [email ,setEmail] = useState('');
     const [password, setPassword] = useState('');

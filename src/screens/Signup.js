@@ -22,8 +22,6 @@ color: #111111;
 `;
 
 const Signup = ({navigation}) => {
-    const {setUser} = useContext(UserContext);
-    const {spinner} = useContext(ProgressContext);
 
     const [email ,setEmail] = useState('');
     const [name ,setName] = useState('');
@@ -93,6 +91,7 @@ const Signup = ({navigation}) => {
           //const userid = response.data.data;
           const res = response.data;
           if(res.result === "SUCCESS"){
+            // const MyUserId = JSON.stringify(res.data);
             const MyUserId = res.data;
             console.log(MyUserId); // 잘뜸
             AsyncStorage.setItem('MyUserId', MyUserId);

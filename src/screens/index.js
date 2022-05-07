@@ -12,5 +12,6 @@ import MyClub from "./MyClub";
 import Auth from "../navigations/Auth";
 import Main from "../navigations/Main";
 import SplashScreen from "./SplashScreen";
+import MeetingDetail from "./MeetingDetail";
 export {Signin, Signup, SelectClub, CreateMeeting, Home, MyPage, QR, Ranking,
-    MyInfo, MyAct, MyClub,Auth,Main,SplashScreen};
+    MyInfo, MyAct, MyClub,Auth,Main,SplashScreen,MeetingDetail};
