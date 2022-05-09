@@ -21,11 +21,11 @@ const Container = styled.View`
 // `;
 
 const ItemContainer = styled.TouchableOpacity`
-  flex-direction : row;
+  flex-direction: row;
   align-items: center;
   border-bottom-width: 1px;
   border-color : #111111;
-  padding: 15px 60px;
+  padding: 15px 20px;
 `;
 const ItemTextContainer = styled.View`
   flex-direction: column;
@@ -70,29 +70,16 @@ const TESTDATA = [
     meetingType: "총회",
     startTime: "2022-04-09 15:30",
   },
-  {
-    meetingId: 4,
-    meetingName: "모임4",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 5,
-    meetingName: "모임5",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
 ];
 
-const Home = ({navigation}) =>{
+const MyPage_Act = ({navigation}) =>{
   const [Meeting, setMeeting] = useState([]);
   const renderItem = ({ item }) => (
     <ItemContainer onPress = {() => navigation.navigate('MeetingDetail',{
-      id : item.meetingId,
+      meetingId : item.meetingId,
     }
     )}>
       <ItemTextContainer>
-          <Text>{item.meetingId}</Text>
           <ItemTitle>{item.meetingName}</ItemTitle>
           <ItemType>{item.meetingType}</ItemType>
           <Text>시작시간 : </Text>
@@ -103,36 +90,26 @@ const Home = ({navigation}) =>{
   );
 
   const getMeeting = async () => {
-    const groupId = AsyncStorage.getItem('groupId');
       const res = await request({
         method: 'GET',
-        url: `/user/meeting/get/${groupId}`,
+        url: `/user/meeting/history`,
       });
     
-    //   "data": [
-    //     {
-    //         "id" : 1
-    //         "name": "모임1",
-    //         "type": "정기모임",
-    //         "startTime": "2022-04-09 21:00"
-    //     }
-    // ]
-    // 이 데이터 형식에 id를 추가해야할것으로 보임
-
+    // 로그인 후 넘어오지를 않아서 accesstoken이 없는듯
+    // 로그인 하고 넘어와도 에러 500이 뜸
       if(res.result === "SUCCESS"){
         setMeeting(res.data);
       }
   };
 
   useEffect(() => {
-     //getMeeting();
-     setMeeting(TESTDATA)
+     getMeeting();
+     //setMeeting(TESTDATA)
   }, []);
 
     return (
     <Container>
         <View style={styles.groupList}>
-        <Text>실시간 모임</Text>
         {Meeting.length ? (
           // 배열이 하나라도 차있다면
           <FlatList
@@ -164,4 +141,4 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
 })
-export default Home;
+export default MyPage_Act;

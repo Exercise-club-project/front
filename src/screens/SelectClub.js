@@ -5,7 +5,6 @@ import {Button, Input} from '../components';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { removeWhitespace } from '../util';
 import request from '../funtion/request';
-import { UserContext} from '../contexts';
 import { FlatList } from 'react-native-gesture-handler';
 import { Alert } from 'react-native';
 // import ReactSearchBox from "react-search-box";

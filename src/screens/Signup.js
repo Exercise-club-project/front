@@ -4,9 +4,7 @@ import {Button,Input,ErrorMessage} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
 import {validateEmail,validateBirthday,validatePhonenumber,removeWhitespace} from '../util';
-import { UserContext,ProgressContext } from '../contexts';
 import axios from 'axios';
-import { createIconSetFromFontello } from 'react-native-vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`

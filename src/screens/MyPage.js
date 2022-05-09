@@ -11,7 +11,7 @@ const MyPage = ({navigation}) => {
     return (
     <Container>
     <Button title = "내 정보" onPress = {() => navigation.navigate('MyInfo')}/>
-    <Button title = "활동 내역" onPress = {() => navigation.navigate('MyAct')}/>
+    <Button title = "활동 내역" onPress = {() => navigation.navigate('MyPage_MeetingDetail')}/>
     <Button title = "나의 동아리" onPress = {() => navigation.navigate('MyClub')}/>
     </Container>
     );

@@ -27,6 +27,7 @@ export const theme = {
     inputLabel: Colors.grey_1,
     inputPlaceholder: Colors.grey_1,
     inputBorder: Colors.grey_1,
+    inputDisabled: Colors.grey_0,
 
     // Spinner
     spinnerBackground: Colors.black,
@@ -35,4 +36,10 @@ export const theme = {
     //Tab
     tabBtnActive: Colors.main,
     tabBtnInactive: Colors.grey_1,
+
+    itemBorder: Colors.grey_0,
+    itemTime: Colors.grey_1,
+    itemDesc: Colors.grey_1,
+    itemIcon: Colors.text,
+
 };

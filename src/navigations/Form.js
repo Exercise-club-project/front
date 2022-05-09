@@ -32,6 +32,7 @@ const Form = ({navigation, route}) => {
               name: 'home',
               focused,
             }),
+            headerShown:false
         }}/>
         <Tab.Screen name = "Ranking" component = {Ranking}
         options={{
@@ -40,6 +41,7 @@ const Form = ({navigation, route}) => {
                 name: 'bar-chart',
                 focused,
               }),
+              headerShown:false
           }}/>
         <Tab.Screen name = "MyPage" component = {MyPage}
         options={{
@@ -48,6 +50,7 @@ const Form = ({navigation, route}) => {
                 name: 'person',
                 focused,
               }),
+              headerShown:false
           }}/>
         <Tab.Screen name = "QR" component = {QR}
         options={{
@@ -56,6 +59,7 @@ const Form = ({navigation, route}) => {
                 name: 'qr-code',
                 focused,
               }),
+              headerShown:false
           }}/>
     </Tab.Navigator>
     );

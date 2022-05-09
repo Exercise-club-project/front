@@ -67,15 +67,19 @@ useEffect(() => {
       },
     });
     // 로그인을 통해 accessToken을 받지않아 오류가 생기는것일듯
+    // 왜 오류나지?
+    
     console.log(response.result)
     if(response.result == SUCCESS){
-      const MeetingId = response.data;
-      console.log(MeetingId);
-      AsyncStorage.setItem('MeetingId', MeetingId);
+      // const MeetingId = response.data;
+      // console.log(MeetingId);
+      // AsyncStorage.setItem('MeetingId', MeetingId);
+           // 근데 한 사람이 두개의 모임을 생성하면 어싱크스토리지에는 어떻게 저장되지?
+           // 어싱크스토리지는 아닌거같은데 더좀 알아봐보자
       navigation.navigate('Home');
-      AsyncStorage.getItem('MeetingId').then((value) =>
-            console.log(value),
-      ) 
+      // AsyncStorage.getItem('MeetingId').then((value) =>
+      //       console.log(value),
+      // ) 
     }
     else{
       console.log(response.data);
