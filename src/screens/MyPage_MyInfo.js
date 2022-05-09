@@ -12,10 +12,10 @@ const Container = styled.View`
 const StyledText = styled.Text`
   font-size: 30px;
 `;
-const MyClub = () =>{
+const MyPage_MyInfo = ({navigation}) =>{
     return (
     <Container>
     </Container>
     )
 }
-export default MyClub;
+export default MyPage_MyInfo;

@@ -109,9 +109,10 @@ const Home = ({navigation}) =>{
         url: `/user/meeting/get/${groupId}`,
       });
     
+      // res.data =>
     //   "data": [
     //     {
-    //         "id" : 1
+    //         "id" : 1 // 백엔드에 추가요청 해야함
     //         "name": "모임1",
     //         "type": "정기모임",
     //         "startTime": "2022-04-09 21:00"
@@ -125,7 +126,7 @@ const Home = ({navigation}) =>{
   };
 
   useEffect(() => {
-     //getMeeting();
+     //getMeeting(); // api data 수정 된 후 사용
      setMeeting(TESTDATA)
   }, []);
 

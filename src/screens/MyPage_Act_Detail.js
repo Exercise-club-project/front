@@ -21,7 +21,7 @@ const TESTDATA =
   }
 ;
 
-const MeetingDetail = ({route , navigation}) =>{
+const MyPage_Act_Detail = ({route , navigation}) =>{
   console.log(route.params.id);
 
   const [Meeting, setMeeting] = useState({});
@@ -65,7 +65,6 @@ const MeetingDetail = ({route , navigation}) =>{
        <Input label="시작시간" value={Meeting.startDate} disabled/>
        <Input label="종료시간" value={Meeting.endDate} disabled/>
        <Input label="설명" value={Meeting.description} disabled/>
-      <Button title = "QR 스캔하기" onPress = {() => navigation.navigate('QRScanner')}/>
     </Container>
     
     )
@@ -79,4 +78,4 @@ const Container = styled.View`
   padding: 0 20px;
 `;
 
-export default MeetingDetail;
+export default MyPage_Act_Detail;

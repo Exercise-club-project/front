@@ -6,14 +6,15 @@ import MyPage from "./MyPage";
 import QR from "./QR";
 import Ranking from "./Ranking"
 import CreateMeeting from "./CreateMeeting";
-import MyInfo from "./MyInfo";
+import MyPage_MyInfo from "./MyPage_MyInfo";
 import MyPage_Act from "./MyPage_Act";
-import MyClub from "./MyClub";
+import MyPage_MyClub from "./MyPage_MyClub";
 //import Auth from "../navigations/Auth";
 //import Main from "../navigations/Main";
 import SplashScreen from "./SplashScreen";
 import MeetingDetail from "./MeetingDetail";
 import QRScanner from "./QRScanner";
+import MyPage_Act_Detail from "./MyPage_Act_Detail";
 export {Signin, Signup, SelectClub, CreateMeeting, Home, MyPage, QR, Ranking,
-    MyInfo, MyPage_Act, MyClub,SplashScreen,MeetingDetail,QRScanner};
+    MyPage_MyInfo, MyPage_Act, MyPage_MyClub,SplashScreen,MeetingDetail,MyPage_Act_Detail,QRScanner};
     //Auth,Main,

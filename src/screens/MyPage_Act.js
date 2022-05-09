@@ -75,7 +75,7 @@ const TESTDATA = [
 const MyPage_Act = ({navigation}) =>{
   const [Meeting, setMeeting] = useState([]);
   const renderItem = ({ item }) => (
-    <ItemContainer onPress = {() => navigation.navigate('MeetingDetail',{
+    <ItemContainer onPress = {() => navigation.navigate('MyPage_Act_Detail',{
       meetingId : item.meetingId,
     }
     )}>
@@ -95,16 +95,29 @@ const MyPage_Act = ({navigation}) =>{
         url: `/user/meeting/history`,
       });
     
-    // 로그인 후 넘어오지를 않아서 accesstoken이 없는듯
-    // 로그인 하고 넘어와도 에러 500이 뜸
+      // res.data =>
+    //   "data": [
+    //     {
+    //         "id" : 1 // 백엔드에 추가요청 해야함
+    //         "name": "모임1",
+    //         "type": "정기모임",
+    //         "startTime": "2022-04-09 21:00"
+    //     },
+    //     {
+    //         "id" : 2 // 백엔드에 추가요청 해야함
+    //         "name": "모임2",
+    //         "type": "정기모임",
+    //         "startTime": "2022-04-09 21:00"
+    //     }
+    // ]
       if(res.result === "SUCCESS"){
         setMeeting(res.data);
       }
   };
 
   useEffect(() => {
-     getMeeting();
-     //setMeeting(TESTDATA)
+     // getMeeting(); // api data 수정 된 후 사용
+     setMeeting(TESTDATA)
   }, []);
 
     return (
@@ -122,7 +135,6 @@ const MyPage_Act = ({navigation}) =>{
           <Text style={styles.text}>생성된 모임이 없습니다!</Text>
         )}
       </View>
-      <Button title = "모임 만들기" onPress = {() => navigation.navigate('CreateMeeting')}/>
     </Container>
     
     )
