@@ -113,7 +113,7 @@ const Home = ({navigation}) =>{
           </View>
         {Meeting.length ? (
           // 배열이 하나라도 차있다면
-          <FlatList style={style.FlatListstyle}
+          <FlatList style={{paddingBottom:10,}}
             data={Meeting}
             keyExtractor={item => item.meetingName}
             renderItem={renderItem}
@@ -154,15 +154,12 @@ const style = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
-  FlatListstyle: {
-    flex:1,
-    paddingBottom: 10,
-  },
   ItemContainerstyle: {
+    flex:1,
     marginLeft:20, 
     marginRight:20, 
     marginTop:10, 
-    margintBottom:5, 
+    marginBottom:5, 
     borderWidth:1,
     alignItems: 'center',
     backgroundColor: '#EDEDED',
