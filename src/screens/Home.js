@@ -51,6 +51,24 @@ const TESTDATA = [
     meetingType: "총회",
     startTime: "2022-04-09 15:30",
   },
+  {
+    meetingId: 3,
+    meetingName: "모임3",
+    meetingType: "총회",
+    startTime: "2022-04-09 15:30",
+  },
+  {
+    meetingId: 4,
+    meetingName: "모임4",
+    meetingType: "총회",
+    startTime: "2022-04-09 15:30",
+  },
+  {
+    meetingId: 5,
+    meetingName: "모임5",
+    meetingType: "총회",
+    startTime: "2022-04-09 15:30",
+  },
 ];
 
 const Home = ({navigation}) =>{
@@ -133,6 +151,8 @@ const Home = ({navigation}) =>{
 
 const style = StyleSheet.create({
   groupList: {
+    flex:1,
+    marginTop:10,
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
