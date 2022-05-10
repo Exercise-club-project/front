@@ -1,16 +1,13 @@
 import react from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+import { PieChart } from 'react-minimal-pie-chart';
 
 const ClubDetail = () => {
 
     return (
         <View style={style.backview}>
-            <View style={style.sideview}></View>
-
-            <View style={{flex:1,}}>
-                <View style={{flex:1, maxHeight:100,}}></View>
-                <View style={{flex:1, backgroundColor:'gray', maxHeight:100, flexDirection: 'row'}}>
+            <View style={{flex:1,marginTop:10,}}>
+                <View style={{flex:1, backgroundColor:'#c4c4c4', maxHeight:80, flexDirection: 'row'}}>
 
                     <View style={style.bigbox1}>
                         <Text style={{fontSize: 30,fontWeight: 'bold',}}>FLY</Text>
@@ -38,29 +35,62 @@ const ClubDetail = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red'}}>1</Text>
+                            <Text style={{fontSize:20, fontWeight:'bold',marginHorizontal:10, color:'red'}}>1</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>
                 </View>
 
                 <View style={style.bigbox3}>
-                    <View style={{flex:1, maxHeight:40,backgroundColor:'green',}}>
-                        <View style={{flex:1, backgroundColor:'skyblue',flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
+                    <View style={{flex:1, maxHeight:40,}}>
+                        <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
                             <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
                         </View>
                     </View>
 
-                    <View style={{flex:1, backgroundColor:'red', alignItems:'center', justifyContent:'center'}}>
-                        <View style={{height:80, width:80,backgroundColor:'green'}}></View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center', paddingTop:'5%',paddingBottom:'10%',}}>
+                        <PieChart
+                            data={[
+                                { title: '정기모임', value: 525, color: 'red' },
+                                { title: '번개모임', value: 525, color: 'blue' },
+                                { title: '총회', value: 1050, color: 'green' },
+                            ]}
+                            />
+                            {/* npm install react-minimal-pie-chart 필요함 */}
                     </View>
                 </View>
 
-                <View style={{flex:2, backgroundColor:'blue', marginTop:20, }}></View>
+                <View style={style.bottombox}>
+                    <View style={{flexDirection:'row',height:40, justifyContent:'space-around',}}>
+                        <Text style={{fontSize:16, fontWeight: 'bold', paddingRight: '20%'}}>종류</Text>
+                        <Text style={{fontSize:16, fontWeight: 'bold', paddingRight: '10%'}}>점수</Text>
+                    </View>
+
+                    <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'red'}}></View></View>
+                    <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
+                    </View>
+
+                    <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'blue'}}></View></View>
+                    <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
+                    </View>
+
+                    <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'green'}}></View></View>
+                    <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>1050</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>50.00%</Text></View>
+                    </View>
+                </View>
             </View>
 
-            <View style={style.sideview}></View>
+           
         </View>
         
     );
@@ -70,9 +100,7 @@ const style = StyleSheet.create({
     backview: {
         flex:1, 
         flexDirection: 'row',
-    },
-    sideview:{
-        width: 30, 
+        paddingHorizontal: 30,
     },
     bigbox1: {
         flex: 1,
@@ -95,7 +123,7 @@ const style = StyleSheet.create({
     bigbox2: {
         flex:1,
         borderWidth: 2,
-        maxHeight: 140,
+        maxHeight: 110,
         marginTop: 20, 
         marginBottom:20,
     },
@@ -120,12 +148,15 @@ const style = StyleSheet.create({
         flex:1,
         maxHeight: 30,
         flexDirection: 'row', 
-        alignItems: 'baseline', 
+        alignItems: 'baseline',
     },
     bigbox3: {
         flex:2,
-        maxHeight:200,
-        backgroundColor:'gray',
+        maxHeight:300,
+        backgroundColor:'#c4c4c4',
+    },
+    bottombox: {
+        marginTop:20,
     },
 });
 
