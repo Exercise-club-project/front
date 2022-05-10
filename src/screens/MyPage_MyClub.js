@@ -1,21 +1,11 @@
-import React from 'react';
-import styled from 'styled-components/native';
-import {Button} from '../components';
+import React from "react";
+import {  View } from "react-native";
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.background};
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
-const StyledText = styled.Text`
-  font-size: 30px;
-`;
-const MyPage_MyClub = () =>{
-    return (
-    <Container>
-    </Container>
-    )
+const MyPage_MyClub = () => {
+  return (
+    <View >
+    </View>
+  );
 }
+
 export default MyPage_MyClub;
