@@ -14,6 +14,7 @@ import request from '../funtion/request';
 const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
+  padding: 0px 30px;
 `;
 
 const ItemContainer = styled.TouchableOpacity`
@@ -137,8 +138,6 @@ const style = StyleSheet.create({
     maxHeight: '100%',
     marginTop:10,
     marginBottom: 10,
-    marginLeft: 30,
-    marginRight: 30,
     borderWidth: 2,
   },
   textmeetingName: {
