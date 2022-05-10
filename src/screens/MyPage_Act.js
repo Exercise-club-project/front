@@ -41,7 +41,7 @@ const TESTDATA = [
 const MyPage_Act = ({navigation}) =>{
   const [Meeting, setMeeting] = useState([]);
   const renderItem = ({ item }) => (
-    <ItemContainer style={style.ItemContainerstyle} onPress = {() => navigation.navigate('MeetingDetail',{
+    <ItemContainer style={style.ItemContainerstyle} onPress = {() => navigation.navigate('MyPage_Act_Detail',{
       id : item.meetingId,
     }
     )}>   
