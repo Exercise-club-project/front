@@ -4,8 +4,8 @@ import {Button,Input,ErrorMessage} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
 import {validateEmail,validateBirthday,validatePhonenumber,removeWhitespace} from '../util';
-import { ProgressContext } from '../contexts';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
 flex: 1;
@@ -20,7 +20,7 @@ color: #111111;
 `;
 
 const Signup = ({navigation}) => {
-    const {spinner} = useContext(ProgressContext);
+
     const [email ,setEmail] = useState('');
     const [name ,setName] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -60,13 +60,16 @@ const Signup = ({navigation}) => {
             else if (!phoneNumber) error = '전화번호를 입력해주세요!';
             else if (!validatePhonenumber(phoneNumber)) error = '전화번호 형식을 확인해주세요! (xxx-xxxx-xxxx)!';
             else if (!sex) error = "성별을 선택해주세요!";
+            else{
+              error = '';
+            }
             setErrorMessage(error);
         }
         else{
             refDidMount.current = true;
         }
         
-    }, [email,name,password,passwordConfirm]) // 2번째 인자 {}로 되어 오류발생, []로 변경하여 오류 해결
+    }, [email,name,password,passwordConfirm,birthday,phoneNumber,sex]) // 2번째 인자 {}로 되어 오류발생, []로 변경하여 오류 해결
     const _handleSignupBtnPress = async() =>{
         try{
           //spinner.start();
@@ -84,15 +87,17 @@ const Signup = ({navigation}) => {
           // 위의 Request를 보내면
           // Response로 result랑 data만 옴
           //const userid = response.data.data;
-          if(response.data.result === "SUCCESS"){
+          const res = response.data;
+          if(res.result === "SUCCESS"){
+            // const MyUserId = JSON.stringify(res.data);
+            const MyUserId = res.data;
+            console.log(MyUserId); // 잘뜸
+            AsyncStorage.setItem('MyUserId', MyUserId);
             navigation.navigate('Signin');
             // 회원가입 후 로그인 화면으로 이동
-            // AsyncStorage.setItem('userid', userid);
           }
           else{
-            const res = response.data.result;
-            console.log(res);
-            Alert.alert(response.data.data);
+            Alert.alert(res.data);
           }
         }
         catch(e){
