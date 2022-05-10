@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import {Button} from '../components';
 import {
     StyleSheet,
     View,

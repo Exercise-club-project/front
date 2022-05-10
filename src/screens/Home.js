@@ -8,7 +8,6 @@ import {
   Text,
 } from 'react-native';
 import {Button} from '../components';
-import { MaterialIcons } from '@expo/vector-icons';
 import request from '../funtion/request';
 
 
@@ -31,24 +30,6 @@ const TESTDATA = [
     meetingId: 2,
     meetingName: "모임2",
     meetingType: "번개모임",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 3,
-    meetingName: "모임3",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 4,
-    meetingName: "모임4",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 5,
-    meetingName: "모임5",
-    meetingType: "총회",
     startTime: "2022-04-09 15:30",
   },
   {
@@ -125,6 +106,7 @@ const Home = ({navigation}) =>{
 
     return (
     <Container>
+      <View style={{flex:1, paddingBottom:10,}}>
         <View style={style.groupList}>
           <View style={{margin:5,}}>
             <Text style={{fontSize: 18,fontWeight: 'bold',}}>실시간 모임</Text>
@@ -143,6 +125,7 @@ const Home = ({navigation}) =>{
           </View>
         )}
       </View>
+      </View>
       <Button title = "모임 만들기" onPress = {() => navigation.navigate('CreateMeeting')}/>
     </Container>
     
@@ -151,7 +134,7 @@ const Home = ({navigation}) =>{
 
 const style = StyleSheet.create({
   groupList: {
-    flex:1,
+    maxHeight: '100%',
     marginTop:10,
     marginBottom: 10,
     marginLeft: 30,
