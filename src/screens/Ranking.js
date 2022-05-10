@@ -2,16 +2,11 @@ import React from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from "react-native";
 import styled from 'styled-components/native';
+import Rank_index from '../navigations/Rank_index';
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.background};
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
+
 const Ranking = () =>{
-  return (
+    return (
     <View style={style.container}>
       <Rank_index/>
     </View>
