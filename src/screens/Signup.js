@@ -92,6 +92,8 @@ const Signup = ({navigation}) => {
             const MyUserId = JSON.stringify(res.data);
             // const MyUserId = res.data;
             AsyncStorage.setItem('MyUserId', JSON.stringify(MyUserId));
+            // userid받는 부분
+            // api변경요청 -> 로그인화면으로
             navigation.navigate('Signin');
             // 회원가입 후 로그인 화면으로 이동
           }
