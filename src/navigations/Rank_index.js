@@ -2,7 +2,9 @@ import React,{useContext, useEffect} from 'react';
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { createAppContainer } from "react-navigation";
 import Header from "../components/Header";
-import { Ranking_Club, Ranking_Me_Club,Ranking_Me_Whole } from "../screens";
+import Ranking_Club from '../screens/Ranking_Club';
+import Ranking_Me_Club from '../screens/Ranking_Me_Club';
+import Ranking_Me_Whole from '../screens/Ranking_Me_Whole';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 // const TabNavigator = createMaterialTopTabNavigator(
 //   {
