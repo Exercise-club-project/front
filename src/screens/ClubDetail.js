@@ -1,9 +1,43 @@
 import react from "react";
 import { StyleSheet, Text, View } from "react-native";
-
+import { PieChart } from "react-native-chart-kit";
 
 const ClubDetail = () => {
 
+    const data = [
+        {
+          name: "정기모임",
+          score: 525,
+          color: "#00CFFF",
+          legendFontColor: "#7F7F7F",
+          legendFontSize: 15
+        },
+        {
+          name: "번개모임",
+          score: 525,
+          color: "#046B99",
+          legendFontColor: "#7F7F7F",
+          legendFontSize: 15
+        },
+        {
+          name: "총회",
+          score: 1050,
+          color: "#1C304A",
+          legendFontColor: "#7F7F7F",
+          legendFontSize: 15
+        },
+      ];
+      const chartConfig = {
+        backgroundGradientFrom: "#1E2923",
+        backgroundGradientFromOpacity: 0,
+        backgroundGradientTo: "#08130D",
+        backgroundGradientToOpacity: 0.5,
+        color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+        strokeWidth: 2, // optional, default 3
+        barPercentage: 0.5,
+        useShadowColorFromDataset: false // optional
+      };
+      
     return (
         <View style={style.backview}>
 
@@ -43,15 +77,26 @@ const ClubDetail = () => {
                 </View>
 
                 <View style={style.bigbox3}>
-                    <View style={{flex:1, maxHeight:40,backgroundColor:'#c4c4c4',}}>
+                    <View style={{flex:1, maxHeight:40,}}>
                         <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
                             <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
                         </View>
                     </View>
 
-                    <View style={{flex:1, backgroundColor:'red', alignItems:'center', justifyContent:'center'}}>
-                        <View style={{height:80, width:80,backgroundColor:'green'}}></View>
+                    <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        <PieChart
+                            data={data}
+                            width={150}
+                            height={150}
+                            chartConfig={chartConfig}
+                            accessor={"score"}
+                            backgroundColor={"transparent"}
+                            paddingLeft={"20"}
+                            center={[10, 10]}
+                            absolute
+                            hasLegend={false}
+                            />
                     </View>
                 </View>
 
@@ -62,21 +107,21 @@ const ClubDetail = () => {
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'red'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'blue'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'green'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>1050</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>50.00%</Text></View>
@@ -146,7 +191,8 @@ const style = StyleSheet.create({
     bigbox3: {
         flex:2,
         maxHeight:300,
-        backgroundColor:'#c4c4c4',
+        borderWidth: 2,
+        backgroundColor: '#ededed'
     },
     bottombox: {
         flex:2,
