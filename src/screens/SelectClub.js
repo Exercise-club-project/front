@@ -86,6 +86,8 @@ const storeMygroupId = async (value) => {
   try {
     const jsonValue = JSON.stringify(value)
     await AsyncStorage.setItem("MygroupId", jsonValue)
+    // MygroupId 받는 부분
+    // api변경요청 -> 로그인화면으로
   } catch (e) {
     // saving error
   }
@@ -102,19 +104,11 @@ const onClub = async() =>{
 
 const upClub = async() =>{
   //console.log("분류");
-  AsyncStorage.getItem('groupId',(err, value) =>{
-    if(err){
-      console.log(err);
-    }
-    else{
-      setClubId(JSON.parse(value));
-    }
-  });
- // console.log("groupId: ", clubId); // 잘오는데 왜 아래 api가 먹통이냐아아아아
+  const groupId = await AsyncStorage.getItem('groupId');
  
   const response = await request({
     method : 'POST',
-    url : `/user/group/join/${clubId}`,
+    url : `/user/group/join/${groupId}`,
   });
   if(response.result ==="SUCCESS"){
    // console.log("MygroupId",response.data);

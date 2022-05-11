@@ -98,9 +98,9 @@ useEffect(() => {
       onChangeText = {setMeetingName}
       onSubmitEditing = {() => refType.current.focus()}
       />
+      
       <RNPickerSelect
       ref = {refType}
-      label = "meetingType" 
       placeholder={{
         label: meetingType,
       }}

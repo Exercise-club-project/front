@@ -75,6 +75,7 @@ const Home = ({navigation}) =>{
           <Text style={style.textstartTime}>{item.startTime}</Text>
           </View>
       </View>
+
     </ItemContainer>
   );
 
