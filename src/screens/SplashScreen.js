@@ -14,11 +14,12 @@ const SplashScreen = ({navigation}) => {
       //If not then send for Authentication
       //else send to Home Screen
       AsyncStorage.getItem('accessToken').then((value) =>
-        // navigation.replace(value === null ? 'Main': 'Auth'),
+        // navigation.replace(value === null ? 'Main': 'Auth'), // 아래가 맞음
         navigation.replace(value === null ? 'Auth': 'Main'), // accessToken이 비어있을때 Auth로
-        // 왜 Main으로가지?
+        // // 왜 Main으로가지?
       );
     }, 3000);
+
   }, []);
 
   return (

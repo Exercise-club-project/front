@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Button} from '../components';
 import request from '../funtion/request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Container = styled.View`
@@ -64,6 +65,12 @@ const Home = ({navigation}) =>{
         <View style={{flexDirection: 'row', }}>
           {/* <Text>{item.meetingId}</Text> */}
           <View style={style.meetingNamebox}>
+
+            <Text style={style.textmeetingName}>{item.name}</Text>
+            </View>
+          <View style={style.meetingTypebox}>
+            <Text style={style.textmeetingType}>{item.type}</Text>
+
             <Text style={style.textmeetingName}>{item.meetingName}</Text>
             </View>
           <View style={style.meetingTypebox}>
@@ -78,22 +85,11 @@ const Home = ({navigation}) =>{
   );
 
   const getMeeting = async () => {
-    const groupId = AsyncStorage.getItem('groupId');
+    const groupId = await AsyncStorage.getItem('MygroupId');
       const res = await request({
         method: 'GET',
         url: `/user/meeting/get/${groupId}`,
       });
-    
-      // res.data =>
-    //   "data": [
-    //     {
-    //         "id" : 1 // 백엔드에 추가요청 해야함
-    //         "name": "모임1",
-    //         "type": "정기모임",
-    //         "startTime": "2022-04-09 21:00"
-    //     }
-    // ]
-    // 이 데이터 형식에 id를 추가해야할것으로 보임
 
       if(res.result === "SUCCESS"){
         setMeeting(res.data);
@@ -101,8 +97,8 @@ const Home = ({navigation}) =>{
   };
 
   useEffect(() => {
-     //getMeeting(); // api data 수정 된 후 사용
-     setMeeting(TESTDATA)
+     getMeeting(); // api data 수정 된 후 사용
+     //setMeeting(TESTDATA)
   }, []);
 
     return (
@@ -116,7 +112,7 @@ const Home = ({navigation}) =>{
           // 배열이 하나라도 차있다면
           <FlatList style={{paddingBottom:10,}}
             data={Meeting}
-            keyExtractor={item => item.meetingName}
+            keyExtractor={item => item.meetingId}
             renderItem={renderItem}
           />
         ) : (

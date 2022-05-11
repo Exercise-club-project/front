@@ -89,10 +89,9 @@ const Signup = ({navigation}) => {
           //const userid = response.data.data;
           const res = response.data;
           if(res.result === "SUCCESS"){
-            // const MyUserId = JSON.stringify(res.data);
-            const MyUserId = res.data;
-            console.log(MyUserId); // 잘뜸
-            AsyncStorage.setItem('MyUserId', MyUserId);
+            const MyUserId = JSON.stringify(res.data);
+            // const MyUserId = res.data;
+            AsyncStorage.setItem('MyUserId', JSON.stringify(MyUserId));
             navigation.navigate('Signin');
             // 회원가입 후 로그인 화면으로 이동
           }

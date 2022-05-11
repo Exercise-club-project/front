@@ -1,7 +1,9 @@
-import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import React,{useEffect, useState } from 'react';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from "react-native";
 import styled from 'styled-components/native';
+import request from '../funtion/request';
+import axios from 'axios';
 
 const Container = styled.View`
   flex: 1;
@@ -10,15 +12,28 @@ const Container = styled.View`
   align-items: center;
   padding: 0 20px;
 `;
-const Ranking_Me_Club = () =>{
+const Ranking_Me_Club = ({navigation}) =>{
 
-  const clubdata = {
-    data: [
-      {num:"1", name:"수빈홍",club:"FLY", score:"1000"},
-      {num:"2", name:"수홍빈",club:"굿민턴", score:"900"},
-      {num:"3", name:"빈수홍",club:"KUBC", score:"800"},
-    ],
+  const [clubdata, setclubdata] = useState([]);
+  const getRank = async() =>{
+    try{
+      const res = await request({
+        method: 'GET',
+        url: `/rank/group/user`,
+      });
+
+      if(res.result === "SUCCESS"){
+        setclubdata(res.data);
+      };
+    }
+    catch(e){
+      console.log(e);
+    }
   };
+  useEffect(() => {
+    getRank(); // api data 수정 된 후 사용
+    //setMeeting(TESTDATA)
+ }, []);
 
     return (
     <View style={style.container}>
@@ -40,9 +55,11 @@ const Ranking_Me_Club = () =>{
       <ScrollView style={{backgroundColor: 'white',}}>
         
 
-        {clubdata.data.map((club)=>{
+        {clubdata.map((club)=>{
           return (
-            <View style={style.tablerow} key={club.name}>
+            <TouchableOpacity style={style.tablerow} key={club.num} 
+          onPress = {() => navigation.navigate('Ranking_MemberInfo')}
+          >
             <View style={style.tablenum}>
               <Text>{club.num}</Text>
             </View>
@@ -55,7 +72,7 @@ const Ranking_Me_Club = () =>{
             <View style={style.tablescore}>
               <Text>{club.score}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           );
         })}
       </ScrollView>

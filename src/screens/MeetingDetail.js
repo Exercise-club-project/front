@@ -1,13 +1,6 @@
 import React,{useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import {
-  Alert,
-  FlatList,
-  StyleSheet,
-  View,
-} from 'react-native';
 import {Button, Input} from '../components';
-import request from '../funtion/request';
 import axios from 'axios';
 
 const TESTDATA = 
@@ -23,40 +16,30 @@ const TESTDATA =
 
 const MeetingDetail = ({route , navigation}) =>{
   console.log(route.params.id);
-
+  const meetingId = route.params.id;
   const [Meeting, setMeeting] = useState({});
 
-  const getMeeting = async () => {
- 
-      const res = await request({
-        method: 'GET',
-        url: `/user/meetingInfo/get/${route.params.id}`,
-      });
-    
-    // 로그인 후 넘어오지를 않아서 accesstoken이 없는듯
-    // 로그인 하고 넘어와도 에러 500이 뜸
-      if(res.result === "SUCCESS"){
-        setMeeting(res.data);
-      }
-  };
   // 헤더에 accessToken 추가하지 않은 버전
-  const getMeeting2 = async () => {
- 
-    const res = await axios.get({
-      url: `/user/meetingInfo/get/${route.params.id}`,
-    });
-  
-  // 로그인 후 넘어오지를 않아서 accesstoken이 없는듯
-  // 로그인 하고 넘어와도 에러 500이 뜸
-    if(res.data.result === "SUCCESS"){
-      setMeeting(res.data.data);
+  const getMeeting = async() =>{
+    try{
+      const response = await axios.get(
+        `http://23.23.240.178:8080/user/meetingInfo/get/${meetingId}`,
+      );
+      if(response.data.result === "SUCCESS"){
+        console.log('result : ', response.data.result);
+        console.log('data : ',response.data.data);
+        setMeeting(response.data.data);
+      }
     }
-};
+    catch(e){
+      console.log(e);
+    }
+  };
 
 
   useEffect(() => {
-    // getMeeting();
-     setMeeting(TESTDATA)
+     getMeeting(); // 왜 안되는지 아직 모르겠음
+    //setMeeting(TESTDATA); // 임시 데이터
   }, []);
     return (
     <Container>
