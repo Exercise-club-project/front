@@ -6,11 +6,9 @@ const ClubDetail = () => {
 
     return (
         <View style={style.backview}>
-            <View style={style.sideview}></View>
 
             <View style={{flex:1,}}>
-                <View style={{flex:1, maxHeight:100,}}></View>
-                <View style={{flex:1, backgroundColor:'gray', maxHeight:100, flexDirection: 'row'}}>
+                <View style={{flex:1, backgroundColor:'#c4c4c4', marginTop:30, maxHeight:100, flexDirection: 'row'}}>
 
                     <View style={style.bigbox1}>
                         <Text style={{fontSize: 30,fontWeight: 'bold',}}>FLY</Text>
@@ -45,8 +43,8 @@ const ClubDetail = () => {
                 </View>
 
                 <View style={style.bigbox3}>
-                    <View style={{flex:1, maxHeight:40,backgroundColor:'green',}}>
-                        <View style={{flex:1, backgroundColor:'skyblue',flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
+                    <View style={{flex:1, maxHeight:40,backgroundColor:'#c4c4c4',}}>
+                        <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
                             <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
                         </View>
@@ -57,7 +55,6 @@ const ClubDetail = () => {
                     </View>
                 </View>
 
-<<<<<<< HEAD
                 <View style={style.bottombox}>
                     <View style={{flexDirection:'row',height:30, justifyContent:'space-around',}}>
                         <Text style={{fontSize:16, fontWeight: 'bold', paddingRight: '20%'}}>종류</Text>
@@ -87,12 +84,6 @@ const ClubDetail = () => {
                 </View>
             </View>
 
-=======
-                <View style={{flex:2, backgroundColor:'blue', marginTop:20, }}></View>
-            </View>
-
-            <View style={style.sideview}></View>
->>>>>>> parent of 1a1fd9b (ClubDetail화면 디자인 완성 (파이차트 참고 : https://www.npmjs.com/package/react-minimal-pie-chart ))
         </View>
         
     );
@@ -102,9 +93,7 @@ const style = StyleSheet.create({
     backview: {
         flex:1, 
         flexDirection: 'row',
-    },
-    sideview:{
-        width: 30, 
+        paddingHorizontal: 30,
     },
     bigbox1: {
         flex: 1,
@@ -156,7 +145,6 @@ const style = StyleSheet.create({
     },
     bigbox3: {
         flex:2,
-<<<<<<< HEAD
         maxHeight:300,
         backgroundColor:'#c4c4c4',
     },
@@ -164,12 +152,8 @@ const style = StyleSheet.create({
         flex:2,
         maxHeight:150,
         marginTop:20,
+        marginBottom: 20,
     }
-=======
-        maxHeight:200,
-        backgroundColor:'gray',
-    },
->>>>>>> parent of 1a1fd9b (ClubDetail화면 디자인 완성 (파이차트 참고 : https://www.npmjs.com/package/react-minimal-pie-chart ))
 });
 
 export default ClubDetail;
