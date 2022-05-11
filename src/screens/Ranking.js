@@ -6,7 +6,6 @@ import Rank_index from '../navigations/Rank_index';
 
 
 const Ranking = () =>{
-
     return (
     <View style={style.container}>
       <Rank_index/>

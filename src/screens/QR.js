@@ -10,18 +10,12 @@ import { ThemeContext } from 'styled-components/native';
 // 15초마다 남은 시간 갱신 + 정보 업데이트 함수 구현 필요
 // error message 추가 필요 (?)
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.background};
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
 const QR = ({navigation}) =>{
 
   const theme = useContext(ThemeContext);
 
   return (
+    <View style={{flex:1, paddingHorizontal:30, backgroundColor:'white'}}>
     <View style ={styles.qrcontainer}>
       <QRCode
       //value = qr값 임시로 access 토큰 값 입력해두었음
@@ -33,8 +27,8 @@ const QR = ({navigation}) =>{
       >
       </QRCode>
       <Text style={styles.maintext}>참여 QR코드</Text>
-      <Text>동아리 운영진에게</Text>
-      <Text>위의 QR코드를 보여주세요.</Text>
+      <Text style={{fontSize: 16, marginBottom:2,}}>동아리 운영진에게</Text>
+      <Text style={{fontSize: 16}}>위의 QR코드를 보여주세요.</Text>
 
       <View style={{flexDirection: 'row'}// 남은시간, 초 구분을 위해 가로정렬
       }>
@@ -42,10 +36,12 @@ const QR = ({navigation}) =>{
       <Text style={styles.resttime}>15초</Text>
       </View>
 
+      
       <Button 
       title="뒤로 가기"  //뒤로가기 버튼 'Home'화면으로 연결 완료
       onPress={() => navigation.navigate('Home')}
       />
+      </View>
     </View>
     );
   };
@@ -55,9 +51,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: 'white',
   },
   maintext:{
     marginTop: 20,
+    marginBottom: 10,
     fontSize: 20,
     fontWeight: 'bold',
   },

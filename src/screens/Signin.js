@@ -80,7 +80,10 @@ const Signin = ({navigation}) => {
         // "refreshTokenTime": 604800000
 
         if(response.data.result === "SUCCESS"){
+
          // AsyncStorage.setItem('accessToken', token.accessToken);
+
+         
           // 로그인성공시 accessToken을 받음
             accessToken(token.accessToken);
             refreshToken(token.refreshToken);
