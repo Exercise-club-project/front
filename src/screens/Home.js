@@ -65,16 +65,10 @@ const Home = ({navigation}) =>{
         <View style={{flexDirection: 'row', }}>
           {/* <Text>{item.meetingId}</Text> */}
           <View style={style.meetingNamebox}>
-
             <Text style={style.textmeetingName}>{item.name}</Text>
             </View>
           <View style={style.meetingTypebox}>
             <Text style={style.textmeetingType}>{item.type}</Text>
-
-            <Text style={style.textmeetingName}>{item.meetingName}</Text>
-            </View>
-          <View style={style.meetingTypebox}>
-            <Text style={style.textmeetingType}>{item.meetingType}</Text>
             </View>
         </View>
           <View style={{paddingVertical:5}}>
