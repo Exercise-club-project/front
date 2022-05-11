@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { CreateMeeting,MeetingDetail,MyPage_Act,MyPage_MyClub,MyPage_MyInfo,QRScanner,MyPage_Act_Detail } from '../screens';
+import { CreateMeeting,MeetingDetail,MyPage_Act,MyPage_MyClub,MyPage_MyInfo,
+  QRScanner,MyPage_Act_Detail, Ranking_ClubDetail,Ranking_MemberInfo } from '../screens';
 import Form from './Form';
 const Stack = createStackNavigator();
 
@@ -25,6 +26,8 @@ const Main = () => {
       <Stack.Screen name = "MyPage_MyClub" component={MyPage_MyClub}/>
       <Stack.Screen name = "MyPage_MyInfo" component={MyPage_MyInfo}/>
       <Stack.Screen name = "QRScanner" component={QRScanner}/>
+      <Stack.Screen name = "Ranking_ClubDetail" component={Ranking_ClubDetail}/>
+      <Stack.Screen name = "Ranking_MemberInfo" component={Ranking_MemberInfo}/>
     </Stack.Navigator>
   );
 };

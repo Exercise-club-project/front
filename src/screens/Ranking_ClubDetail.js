@@ -1,4 +1,8 @@
+
+import React from "react";
+
 import react from "react";
+
 import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 

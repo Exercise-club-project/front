@@ -55,6 +55,7 @@ useEffect(() => {
 }, [meetingName,startDate,endDate])
 
   const _handleCreateMeetingBtnPress = async() =>{
+    console.log(meetingName,meetingType,startDate,endDate,description)
     const response = await request({
       method : 'POST',
       url : 'user/meeting/create',
@@ -70,7 +71,8 @@ useEffect(() => {
     // 왜 오류나지?
     
     console.log(response.result)
-    if(response.result == SUCCESS){
+    if(response.result === "SUCCESS"){
+      console.log('MeetingId : ', response.data);
       // const MeetingId = response.data;
       // console.log(MeetingId);
       // AsyncStorage.setItem('MeetingId', MeetingId);
