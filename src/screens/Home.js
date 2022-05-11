@@ -8,53 +8,22 @@ import {
   Text,
 } from 'react-native';
 import {Button} from '../components';
-import { MaterialIcons } from '@expo/vector-icons';
 import request from '../funtion/request';
 
 
 const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.background};
+  padding: 0px 30px;
 `;
-// const StyledText = styled.Text`
-//   font-size: 30px;
-// `;
 
 const ItemContainer = styled.TouchableOpacity`
-  flex-direction : row;
-  align-items: center;
-  border-bottom-width: 1px;
-  border-color : #111111;
-  padding: 15px 60px;
 `;
-const ItemTextContainer = styled.View`
-  flex-direction: column;
-  border-color : #a6a6a6;
-  background-color: #a6a6a6;
-`;
-const ItemTitle = styled.Text`
-  font-size: 20px;
-  font-weight: 600;
-  border-color : #a6a6a6;
-`;
-const ItemType = styled.Text`
-  font-size: 18px;
-  margin-top: 3px;
-  border-color : #a6a6a6;
-`;
-const ItemTime = styled.Text`
-  font-size: 12px;
-`;
-const ItemIcon = styled(MaterialIcons).attrs(({ theme }) => ({
-  name: 'keyboard-arrow-right',
-  size: 24,
-  color: theme.itemIcon,
-}))``;
 
 const TESTDATA = [
   {
     meetingId: 1,
-    meetingName: "모임1",
+    meetingName: "24일 정기모임!!!",
     meetingType: "정기모임",
     startTime: "2022-04-09 15:30",
   },
@@ -87,18 +56,24 @@ const TESTDATA = [
 const Home = ({navigation}) =>{
   const [Meeting, setMeeting] = useState([]);
   const renderItem = ({ item }) => (
-    <ItemContainer onPress = {() => navigation.navigate('MeetingDetail',{
+    <ItemContainer style={style.ItemContainerstyle} onPress = {() => navigation.navigate('MeetingDetail',{
       id : item.meetingId,
     }
-    )}>
-      <ItemTextContainer>
-          <Text>{item.meetingId}</Text>
-          <ItemTitle>{item.meetingName}</ItemTitle>
-          <ItemType>{item.meetingType}</ItemType>
-          <Text>시작시간 : </Text>
-          <ItemTime>{item.startTime}</ItemTime>
-          <ItemIcon />
-      </ItemTextContainer>
+    )}>   
+      <View style={{width:'90%', flexDirection: 'column',}}>
+        <View style={{flexDirection: 'row', }}>
+          {/* <Text>{item.meetingId}</Text> */}
+          <View style={style.meetingNamebox}>
+            <Text style={style.textmeetingName}>{item.meetingName}</Text>
+            </View>
+          <View style={style.meetingTypebox}>
+            <Text style={style.textmeetingType}>{item.meetingType}</Text>
+            </View>
+        </View>
+          <View style={{paddingVertical:5}}>
+          <Text style={style.textstartTime}>{item.startTime}</Text>
+          </View>
+      </View>
     </ItemContainer>
   );
 
@@ -132,19 +107,25 @@ const Home = ({navigation}) =>{
 
     return (
     <Container>
-        <View style={styles.groupList}>
-        <Text>실시간 모임</Text>
+      <View style={{flex:1, paddingBottom:10,}}>
+        <View style={style.groupList}>
+          <View style={{margin:5,}}>
+            <Text style={{fontSize: 18,fontWeight: 'bold',}}>실시간 모임</Text>
+          </View>
         {Meeting.length ? (
           // 배열이 하나라도 차있다면
-          <FlatList
+          <FlatList style={{paddingBottom:10,}}
             data={Meeting}
             keyExtractor={item => item.meetingName}
             renderItem={renderItem}
           />
         ) : (
           // 배열이 비어있다면
-          <Text style={styles.text}>생성된 모임이 없습니다!</Text>
+          <View style={style.meetingEmptybox}>
+            <Text style={{fontSize: 16}}>진행 예정인 모임이 없습니다.</Text>
+          </View>
         )}
+      </View>
       </View>
       <Button title = "모임 만들기" onPress = {() => navigation.navigate('CreateMeeting')}/>
     </Container>
@@ -152,17 +133,50 @@ const Home = ({navigation}) =>{
     )
 }
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
   groupList: {
-    marginTop: 80,
+    maxHeight: '100%',
+    marginTop:10,
     marginBottom: 10,
-    flex: 1,
-    height: 380,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderWidth: 2,
   },
-  text: {
-    fontSize: 25,
+  textmeetingName: {
+    fontSize:18
+  },
+  textmeetingType: {
+    fontSize:16, 
+    fontWeight: 'bold'
+  },
+  textstartTime: {
+    fontSize:14
+  },
+  meetingEmptybox: {
+    flex:1, 
+    minHeight: 200,
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  ItemContainerstyle: {
+    flex:1,
+    marginLeft:20, 
+    marginRight:20, 
+    marginTop:10, 
+    marginBottom:5, 
+    borderWidth:1,
+    alignItems: 'center',
+    backgroundColor: '#EDEDED',
+  },
+  meetingNamebox:{
+    flex:3,
+    minWidth: 150,
+    paddingVertical: 5,
+  },
+  meetingTypebox: {
+    flex:1,
+    minWidth:60,
+    paddingVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 export default Home;
