@@ -57,6 +57,7 @@ const ClubDetail = () => {
                     </View>
                 </View>
 
+<<<<<<< HEAD
                 <View style={style.bottombox}>
                     <View style={{flexDirection:'row',height:30, justifyContent:'space-around',}}>
                         <Text style={{fontSize:16, fontWeight: 'bold', paddingRight: '20%'}}>종류</Text>
@@ -86,6 +87,12 @@ const ClubDetail = () => {
                 </View>
             </View>
 
+=======
+                <View style={{flex:2, backgroundColor:'blue', marginTop:20, }}></View>
+            </View>
+
+            <View style={style.sideview}></View>
+>>>>>>> parent of 1a1fd9b (ClubDetail화면 디자인 완성 (파이차트 참고 : https://www.npmjs.com/package/react-minimal-pie-chart ))
         </View>
         
     );
@@ -149,6 +156,7 @@ const style = StyleSheet.create({
     },
     bigbox3: {
         flex:2,
+<<<<<<< HEAD
         maxHeight:300,
         backgroundColor:'#c4c4c4',
     },
@@ -157,6 +165,11 @@ const style = StyleSheet.create({
         maxHeight:150,
         marginTop:20,
     }
+=======
+        maxHeight:200,
+        backgroundColor:'gray',
+    },
+>>>>>>> parent of 1a1fd9b (ClubDetail화면 디자인 완성 (파이차트 참고 : https://www.npmjs.com/package/react-minimal-pie-chart ))
 });
 
 export default ClubDetail;
