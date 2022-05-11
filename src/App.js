@@ -22,7 +22,8 @@ const App = () => {
             {/* Accestoken이 있으면 Main으로 없으면 Auth로 */}
             {/* {token ? <Main/>: <Auth/>}
             {token ? <Auth/>: <Main/>} */}
-            <Stack.Navigator initialRouteName="SplashScreen">
+            {/* <Stack.Navigator initialRouteName="SplashScreen"> */}
+            <Stack.Navigator initialRouteName="Auth">
                 <Stack.Screen
                 name="SplashScreen"
                 component={SplashScreen}

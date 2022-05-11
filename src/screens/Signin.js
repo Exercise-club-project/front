@@ -48,6 +48,20 @@ const Signin = ({navigation}) => {
     const _handlePasswordChange = password=>{
         setPassword(removeWhitespace(password));
     }
+    const accessToken = async (value) => {
+      try {
+        await AsyncStorage.setItem('accessToken', value)
+      } catch (e) {
+        // saving error
+      }
+    }
+    const refreshToken = async (value) => {
+      try {
+        await AsyncStorage.setItem('refreshToken', value)
+      } catch (e) {
+        // saving error
+      }
+    }
     const onLogin = async() =>{
       try{
         //spinner.start();
@@ -68,16 +82,18 @@ const Signin = ({navigation}) => {
         if(response.data.result === "SUCCESS"){
          // AsyncStorage.setItem('accessToken', token.accessToken);
           // 로그인성공시 accessToken을 받음
-            AsyncStorage.setItem('accessToken', token.accessToken);
-            AsyncStorage.setItem('refreshToken', token.refreshToken);
+            accessToken(token.accessToken);
+            refreshToken(token.refreshToken);
+            // AsyncStorage.setItem('accessToken', token.accessToken);
+            // AsyncStorage.setItem('refreshToken', token.refreshToken);
             console.log(token.accessToken);
             // 동아리 id를 받은 상태라면 Main으로 아니라면 동아리 선택화면으로!!
-            // AsyncStorage.getItem('MyGroupId').then((value) =>
-            // navigation.replace(value === null ? 'SelectClub': 'Main'),
-            // );
+            AsyncStorage.getItem('MyGroupId').then((value) =>
+            navigation.replace(value === null ? 'SelectClub': 'Main'),
+            );
             
             // 동아리 id 받기전 임시 main 이동
-            navigation.navigate('Main')
+            // navigation.navigate('Main');
             
           // 로그인성공시 동아리 선택화면으로 이동
         }

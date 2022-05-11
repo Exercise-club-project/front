@@ -26,7 +26,9 @@ const QR = ({navigation}) =>{
       <QRCode
       //value = qr값 임시로 access 토큰 값 입력해두었음
       value ="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0ODExNDQ5NSwiZXhwIjoxNjQ4MTE2Mjk1fQ.8UVUiogz6SeJKGaxX_BfcA5FtTWxofeQuFi1QSHfs4M"
+      
       color="black"
+      
       size={200} //qr코드 크기
       >
       </QRCode>

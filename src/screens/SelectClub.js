@@ -3,12 +3,16 @@ import styled from 'styled-components/native';
 import {Button, Input} from '../components';
 // import { FlatList, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
 import { removeWhitespace } from '../util';
 import request from '../funtion/request';
-import { FlatList } from 'react-native-gesture-handler';
-import { Alert } from 'react-native';
-// import ReactSearchBox from "react-search-box";
-// import Autocomplete from 'react-native-autocomplete-input'; // 왜 안되냐
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Container = styled.View`
   flex: 1;
@@ -44,42 +48,84 @@ flex : 6;
 `;
 
 
-const SelectClub = (navigation) =>{
+const SelectClub = ({navigation}) =>{
   const [colleage ,setColleage] = useState('');
+  const [clubId,setClubId] = useState('');
+  const [colleages, setColleages] = useState([]);
 
-  // setUser가 Signin에서 쓸때랑 색깔이 왜다르지? -> 노란색이 되어야 할텐데
   const refcolleage = useRef(null);
+
+  const renderItem = ({ item }) => (
+    <ItemContainer onPress = {
+      () => {storegroupId(item.clubId);
+        console.log("groupId: ", item.clubId);
+      Alert.alert('동아리 선택 완료!');
+      }
+  }>
+      <ItemTextContainer>
+          <ItemClubName>동아리명 : {item.clubName}</ItemClubName>
+          <ItemSchool>학교명 : {item.school}</ItemSchool>
+          <ItemLeader>회장 : {item.leader}</ItemLeader>
+      </ItemTextContainer>
+    </ItemContainer>
+  );
 
   const _handleColleageChange = colleage=>{
     setColleage(removeWhitespace(colleage)); // 대학교 공백제거
 }
+const storegroupId = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem("groupId", jsonValue)
+  } catch (e) {
+    // saving error
+  }
+}
 
+const storeMygroupId = async (value) => {
+  try {
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem("MygroupId", jsonValue)
+  } catch (e) {
+    // saving error
+  }
+}
 const onClub = async() =>{
     const response = await request({
       method : 'GET',
       url : `/user/group/search/${colleage}`,
     });
-    // "result": "SUCCESS",
-    // "data": [
-    //     {
-    //         "clubName": "club2",
-    //         "school": "dankook",
-    //         "leader": "park"
-    //     }
-    // ]
-    const groupId = response.id;// id는 추후 결정될 것
-    AsyncStorage.setItem('groupId', groupId);
+
+   // console.log(response);
+    setColleages(response.data);
 };
 
 const upClub = async() =>{
-  const groupId = AsyncStorage.getItem('groupId');
-  const response = await request({
-    method : 'GET',
-    url : `/user/group/join/${groupId}`,
+  //console.log("분류");
+  AsyncStorage.getItem('groupId',(err, value) =>{
+    if(err){
+      console.log(err);
+    }
+    else{
+      setClubId(JSON.parse(value));
+    }
   });
-  const MyGroupId = response.data;
-  AsyncStorage.setItem('MyGroupId', MyGroupId);
-  navigation.navigate('Main');
+ // console.log("groupId: ", clubId); // 잘오는데 왜 아래 api가 먹통이냐아아아아
+ 
+  const response = await request({
+    method : 'POST',
+    url : `/user/group/join/${clubId}`,
+  });
+  if(response.result ==="SUCCESS"){
+   // console.log("MygroupId",response.data);
+    storeMygroupId(response.data);
+    navigation.navigate('Main');
+  }
+  else{
+    console.log("응답실패");
+  }
+
+  //navigation.navigate('Main');
 };
     return (
     <Container>
@@ -103,16 +149,60 @@ const upClub = async() =>{
            <Icon name="search" size={30} />
         </Touchable>
       </Search>
-      <List>
-
-        <FlatList
-
-
-        />
-
-      </List>
+      <View style={styles.groupList}>
+        {colleages.length ? (
+          // 배열이 하나라도 차있다면
+          <FlatList
+            data={colleages}
+            keyExtractor={item => item.clubId}
+            renderItem={renderItem}
+          />
+        ) : (
+          // 배열이 비어있다면
+          <Text style={styles.text}>본인의 학교를 검색해주세요!</Text>
+        )}
+      </View>
       <Button title = "선택 완료" onPress = {upClub}/>
     </Container>
     )
 }
+const styles = StyleSheet.create({
+  groupList: {
+    marginTop: 50,
+    marginBottom: 30,
+    flex: 4,
+    height: 600,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 25,
+  },
+})
+const ItemContainer = styled.TouchableOpacity`
+  flex-direction : row;
+  align-items: center;
+  border-bottom-width: 1px;
+  border-color : #111111;
+  padding: 15px 60px;
+`;
+const ItemTextContainer = styled.View`
+  flex-direction: column;
+  border-color : #a6a6a6;
+  background-color: #a6a6a6;
+`;
+const ItemClubName = styled.Text`
+  font-size: 20px;
+  font-weight: 600;
+  border-color : #a6a6a6;
+`;
+const ItemSchool = styled.Text`
+  font-size: 18px;
+  margin-top: 3px;
+  border-color : #a6a6a6;
+`;
+const ItemLeader = styled.Text`
+  font-size: 12px;
+`;
+
 export default SelectClub;
