@@ -18,8 +18,10 @@ import MyPage_Act_Detail from "./MyPage_Act_Detail";
 import Ranking_Club from "./Ranking_Club";
 import Ranking_Me_Club from "./Ranking_Me_Club";
 import Ranking_Me_Whole from "./Ranking_Me_Whole";
+import Ranking_ClubDetail from "./Ranking_ClubDetail";
+import Ranking_MemberInfo from "./Ranking_MemberInfo";
 export {Signin, Signup, SelectClub, CreateMeeting, Home, MyPage, QR, Ranking,
-    Ranking_Club,Ranking_Me_Club,Ranking_Me_Whole,
+    Ranking_Club,Ranking_Me_Club,Ranking_Me_Whole,Ranking_ClubDetail,Ranking_MemberInfo,
     MyPage_MyInfo, MyPage_Act, MyPage_MyClub,SplashScreen,MeetingDetail,MyPage_Act_Detail,QRScanner
 };
     //Auth,Main,
