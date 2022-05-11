@@ -2,7 +2,7 @@ import react from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 
-const MyPage_MyClub = () => {
+const Ranking_MemberInfo = () => {
 
     const data = [
         {
@@ -42,37 +42,49 @@ const MyPage_MyClub = () => {
         <View style={style.backview}>
 
             <View style={{flex:1,}}>
-                <View style={{flex:1, backgroundColor:'#c4c4c4', marginTop:30, maxHeight:100, flexDirection: 'row'}}>
-
-                    <View style={style.bigbox1}>
-                        <Text style={{fontSize: 30,fontWeight: 'bold',}}>FLY</Text>
-                    </View>
-                    <View style={{flex: 2}}>
-                        <View style={style.box1}>
-                            <Text style={{fontSize: 16,}}>단국대학교 죽전캠퍼스</Text>
-                        </View>
-                        <View style={{flex:1}}>
-                            <View style={style.box2}>
-                                    <Text style={{fontSize:14, paddingRight:20,}}>회원 수</Text>
-                                    <Text style={{fontSize:16, fontWeight:'bold', paddingRight: 5,}}>66</Text>
-                                    <Text style={{fontSize:16, }}>명</Text>
-                            </View>
-                        </View>
-                    </View>
-                </View>
+              <View style={style.box1}>
+              <View style={style.nameTextbox}>
+                  <Text style={style.nameText}>홍길동</Text>
+              </View>
+              <View style={style.clubschoolbox}>
+              <View style={style.clubnamebox}>
+                  <Text style={style.clubnameText}>FLY</Text>
+              </View>
+              <View style={style.schoolnamebox}>
+                  <Text style={style.schoolnameText}>단국대학교 죽전캠퍼스</Text>
+              </View>
+              </View>
+          </View>
                 
                 <View style={style.bigbox2}>
                     <View style={style.box3}>
                         <Text style={{fontSize:20, fontWeight:'bold',}}>랭킹</Text>
                     </View>
+
+                    <View style={{flex:1, flexDirection:'row', justifyContent:'space-around'}}>
+                    <View style={{flex:1}}>
                     <View style={style.box4}>
-                        <Text style={{fontSize:16,}}>동아리전체</Text>
+                        <Text style={{fontSize:16,}}>전체</Text>
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
                             <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>1</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
+                    </View>  
+                    </View>
+                    
+                    <View style={{flex:1}}>
+                    <View style={style.box4}>
+                        <Text style={{fontSize:16,}}>동아리내</Text>
+                    </View>
+                    <View style={style.box5}>
+                        <View style={style.box6}>
+                            <Text style={{fontSize:20, color:'red',paddingHorizontal:5,}}>1</Text>
+                            <Text style={{fontSize:16,}}>등</Text>
+                        </View>
+                    </View>  
+                    </View>
                     </View>
                 </View>
 
@@ -145,11 +157,45 @@ const style = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    box1: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        paddingRight: 20,
+    nameTextbox:{
+      flex:1, 
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    clubschoolbox:{
+        flex:3, 
+        flexDirection:'column', 
+        justifyContent:'center',
+        alignContent:'center',
+    },
+    clubnamebox:{
+        flex:1,
+        paddingLeft:'15%',
+        paddingBottom:5,
+        justifyContent:'flex-end',
+    },
+    schoolnamebox: {
+        flex:1,
+        paddingLeft:'15%',
+        paddingTop:5,
+        justifyContent:'flex-start',
+    },
+    nameText: {
+        fontSize:20,
+        fontWeight: 'bold',
+    },
+    clubnameText: {
+        fontSize:16,
+        fontWeight: 'bold',
+    },
+    schoolnameText: {
+        fontSize:16,
+    },
+    box1:{
+      flexDirection:'row', 
+      height: 80,
+      marginTop: 20,
+      backgroundColor:'#ededed'
     },
     box2: {
         flex:1, 
@@ -202,4 +248,4 @@ const style = StyleSheet.create({
     }
 });
 
-export default MyPage_MyClub;
+export default Ranking_MemberInfo;
