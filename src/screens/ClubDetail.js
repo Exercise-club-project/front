@@ -6,8 +6,11 @@ const ClubDetail = () => {
 
     return (
         <View style={style.backview}>
-            <View style={{flex:1,marginTop:10,}}>
-                <View style={{flex:1, backgroundColor:'#c4c4c4', maxHeight:80, flexDirection: 'row'}}>
+            <View style={style.sideview}></View>
+
+            <View style={{flex:1,}}>
+                <View style={{flex:1, maxHeight:100,}}></View>
+                <View style={{flex:1, backgroundColor:'gray', maxHeight:100, flexDirection: 'row'}}>
 
                     <View style={style.bigbox1}>
                         <Text style={{fontSize: 30,fontWeight: 'bold',}}>FLY</Text>
@@ -35,15 +38,15 @@ const ClubDetail = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, fontWeight:'bold',marginHorizontal:10, color:'red'}}>1</Text>
+                            <Text style={{fontSize:20, color:'red'}}>1</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>
                 </View>
 
                 <View style={style.bigbox3}>
-                    <View style={{flex:1, maxHeight:40,}}>
-                        <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
+                    <View style={{flex:1, maxHeight:40,backgroundColor:'green',}}>
+                        <View style={{flex:1, backgroundColor:'skyblue',flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
                             <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
                         </View>
@@ -92,7 +95,9 @@ const style = StyleSheet.create({
     backview: {
         flex:1, 
         flexDirection: 'row',
-        paddingHorizontal: 30,
+    },
+    sideview:{
+        width: 30, 
     },
     bigbox1: {
         flex: 1,
@@ -115,7 +120,7 @@ const style = StyleSheet.create({
     bigbox2: {
         flex:1,
         borderWidth: 2,
-        maxHeight: 110,
+        maxHeight: 140,
         marginTop: 20, 
         marginBottom:20,
     },
