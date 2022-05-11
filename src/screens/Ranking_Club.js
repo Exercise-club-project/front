@@ -1,25 +1,31 @@
-import React from 'react';
-import { ScrollView } from 'react-native-gesture-handler';
+import React,{useEffect, useState } from 'react';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { StyleSheet, Text, View } from "react-native";
-import styled from 'styled-components/native';
+import axios from 'axios';
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.background};
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
-const Ranking_Club = () =>{
 
-  const clubdata = {
-    header:["순위", "동아리", "학교", "점수"],
-    data: [
-      {num:"1", name:"FLY",school:"단국대학교 죽전캠퍼스", score:"1000"},
-      {num:"2", name:"굿민턴",school:"서강대학교", score:"900"},
-      {num:"3", name:"KUBC",school:"고려대학교", score:"800"},
-    ],
+
+const Ranking_Club = ({navigation}) =>{
+  const [clubdata, setclubdata] = useState([]);
+  const getRank = async() =>{
+    try{
+      const response = await axios.get(
+        `http://23.23.240.178:8080/rank/group`,
+      );
+      if(response.data.result === "SUCCESS"){
+        console.log('result : ', response.data.result);
+        console.log('data : ',response.data.data);
+        setclubdata(response.data.data);
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
   };
+  useEffect(() => {
+    getRank(); // api data 수정 된 후 사용
+    //setMeeting(TESTDATA)
+ }, []);
 
     return (
     <View style={style.container}>
@@ -40,14 +46,17 @@ const Ranking_Club = () =>{
 
       <ScrollView style={{backgroundColor: 'white',}}>
 
-        {clubdata.data.map((club)=>{
+        {clubdata.map((club)=>{
           return (
-            <View style={style.tablerow} key={club.name}>
+          <TouchableOpacity style={style.tablerow} key={club.num} 
+          onPress = {() => navigation.navigate('Ranking_ClubDetail')}
+          >
+
             <View style={style.tablenum}>
               <Text>{club.num}</Text>
             </View>
             <View style={style.tablename}>
-              <Text>{club.name}</Text>
+              <Text>{club.club}</Text>
             </View>
             <View style={style.tableschool}>
               <Text>{club.school}</Text>
@@ -55,7 +64,7 @@ const Ranking_Club = () =>{
             <View style={style.tablescore}>
               <Text>{club.score}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
           );
         })}
       </ScrollView>
