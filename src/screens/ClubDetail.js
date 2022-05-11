@@ -1,6 +1,6 @@
 import react from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { PieChart } from 'react-minimal-pie-chart';
+
 
 const ClubDetail = () => {
 
@@ -49,20 +49,13 @@ const ClubDetail = () => {
                         </View>
                     </View>
 
-                    <View style={{flex:1, alignItems:'center', justifyContent:'center', paddingTop:'5%',paddingBottom:'10%',}}>
-                        <PieChart
-                            data={[
-                                { title: '정기모임', value: 525, color: 'red' },
-                                { title: '번개모임', value: 525, color: 'blue' },
-                                { title: '총회', value: 1050, color: 'green' },
-                            ]}
-                            />
-                            {/* npm install react-minimal-pie-chart 필요함 */}
+                    <View style={{flex:1, backgroundColor:'red', alignItems:'center', justifyContent:'center'}}>
+                        <View style={{height:80, width:80,backgroundColor:'green'}}></View>
                     </View>
                 </View>
 
                 <View style={style.bottombox}>
-                    <View style={{flexDirection:'row',height:40, justifyContent:'space-around',}}>
+                    <View style={{flexDirection:'row',height:30, justifyContent:'space-around',}}>
                         <Text style={{fontSize:16, fontWeight: 'bold', paddingRight: '20%'}}>종류</Text>
                         <Text style={{fontSize:16, fontWeight: 'bold', paddingRight: '10%'}}>점수</Text>
                     </View>
@@ -90,7 +83,6 @@ const ClubDetail = () => {
                 </View>
             </View>
 
-           
         </View>
         
     );
@@ -148,7 +140,7 @@ const style = StyleSheet.create({
         flex:1,
         maxHeight: 30,
         flexDirection: 'row', 
-        alignItems: 'baseline',
+        alignItems: 'baseline', 
     },
     bigbox3: {
         flex:2,
@@ -156,8 +148,10 @@ const style = StyleSheet.create({
         backgroundColor:'#c4c4c4',
     },
     bottombox: {
+        flex:2,
+        maxHeight:150,
         marginTop:20,
-    },
+    }
 });
 
 export default ClubDetail;
