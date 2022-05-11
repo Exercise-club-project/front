@@ -70,7 +70,7 @@ const ClubDetail = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red'}}>1</Text>
+                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>1</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>
