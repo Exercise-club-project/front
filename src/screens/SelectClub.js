@@ -1,78 +1,94 @@
-import React, {useState,useRef, useContext} from 'react';
+import React, {useState,useRef, useEffect,useContext} from 'react';
 import styled from 'styled-components/native';
 import {Button, Input} from '../components';
-// import { FlatList, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   Alert,
-  FlatList,
   StyleSheet,
   View,
   Text,
 } from 'react-native';
-import { removeWhitespace } from '../util';
+// import { removeWhitespace } from '../util';
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.background};
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
-const StyledText = styled.Text`
-  font-size: 20px;
-`;
-const Explain = styled.Text`
-  font-size: 15px;
-`;
-
-const Search = styled.View`
-flex: 3;
-background-color: white;
-align-items: center;
-justify-content: center;
-flex-direction: row;
-margin-left: 30px;
-margin-top: 50px;
-`
-
-const Touchable = styled.TouchableOpacity`
-    margin-Left: 20px;
-    width: 40px;
-`;
-
-const List = styled.View`
-flex : 6;
-`;
-
+const ClubTestData = [
+  {
+    clubid: 1,
+    school: "단국대학교(죽전)", 
+    name: "FLY",
+  },
+  {
+    clubid: 2,
+    school: "고려대학교", 
+    name: "KUBC",
+  },
+  {
+    clubid: 3,
+    school: "서강대학교", 
+    name: "굿민턴",
+  },
+  {
+    clubid: 4,
+    school: "가천대학교", 
+    name: "Connect",
+  },
+  {
+    clubid: 5,
+    school: "강남대학교", 
+    name: "파닥파닥",
+  },
+  {
+    clubid: 6,
+    school: "연세대학교(서울)", 
+    name: "파워스",
+  },
+  {
+    clubid: 7,
+    school: "경기대학교", 
+    name: "세팅",
+  },
+  {
+    clubid: 8,
+    school: "경희대학교", 
+    name: "하이클리어",
+  },
+]
 
 const SelectClub = ({navigation}) =>{
+
+  const [searchTerm, setsearchTerm] = useState('');
+
   const [colleage ,setColleage] = useState('');
   const [clubId,setClubId] = useState('');
   const [colleages, setColleages] = useState([]);
 
   const refcolleage = useRef(null);
 
-  const renderItem = ({ item }) => (
-    <ItemContainer onPress = {
-      () => {storegroupId(item.clubId);
-        console.log("groupId: ", item.clubId);
-      Alert.alert('동아리 선택 완료!');
-      }
-  }>
-      <ItemTextContainer>
-          <ItemClubName>동아리명 : {item.clubName}</ItemClubName>
-          <ItemSchool>학교명 : {item.school}</ItemSchool>
-          <ItemLeader>회장 : {item.leader}</ItemLeader>
-      </ItemTextContainer>
-    </ItemContainer>
-  );
 
-  const _handleColleageChange = colleage=>{
-    setColleage(removeWhitespace(colleage)); // 대학교 공백제거
-}
+  const getClubs = async() =>{
+    try{
+      const response = await axios.get(
+        `http://23.23.240.178:8080/user/group/searchAll`,
+      );
+      if(response.data.result === "SUCCESS"){
+        // console.log('result : ', response.data.result);
+        // console.log('data : ',response.data.data);
+        setColleages(response.data.data);
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getClubs(); // api data 수정 된 후 사용
+    //setColleages(ClubTestData);
+  }, []);
+  
+
+
 const storegroupId = async (value) => {
   try {
     const jsonValue = JSON.stringify(value)
@@ -92,75 +108,76 @@ const storeMygroupId = async (value) => {
     // saving error
   }
 }
-const onClub = async() =>{
-    const response = await request({
-      method : 'GET',
-      url : `/user/group/search/${colleage}`,
+
+const upClub = async () => {
+  const groupId = await AsyncStorage.getItem('groupId');
+    const res = await request({
+      method: 'POST',
+      url: `/user/group/join/${groupId}`,
     });
 
-   // console.log(response);
-    setColleages(response.data);
+    if(res.result === "SUCCESS"){
+      storeMygroupId(res.data);
+      navigation.navigate('Signup');
+    }
 };
 
-const upClub = async() =>{
-  //console.log("분류");
-  const groupId = await AsyncStorage.getItem('groupId');
- 
-  const response = await request({
-    method : 'POST',
-    url : `/user/group/join/${groupId}`,
-  });
-  if(response.result ==="SUCCESS"){
-   // console.log("MygroupId",response.data);
-    storeMygroupId(response.data);
-    navigation.navigate('Main');
-  }
-  else{
-    console.log("응답실패");
-  }
+// 데이터 필터링 테스트용 로그
+// console.log(ClubTestData.filter(clubid => clubid.school.includes("단")));
 
-  //navigation.navigate('Main');
-};
     return (
-    <Container>
-      <StyledText>동아리 선택</StyledText>
-      <Explain>
-            가입 후 첫 로그인이시군요!
-      </Explain>
-      <Explain>
-            활동하고 계신 동아리를 선택해주세요!
-      </Explain>
-      <Search>
-        <Input 
-          ref = {refcolleage}
-          label = "검색(학교이름)" 
-          placeholder = "colleage" 
-          returnKeyType = "done" 
-          value = {colleage} 
-          onChangeText = {_handleColleageChange}
-        />
-       <Touchable onPress={onClub}>
-           <Icon name="search" size={30} />
-        </Touchable>
-      </Search>
-      <View style={styles.groupList}>
-        {colleages.length ? (
-          // 배열이 하나라도 차있다면
-          <FlatList
-            data={colleages}
-            keyExtractor={item => item.clubId}
-            renderItem={renderItem}
-          />
-        ) : (
-          // 배열이 비어있다면
-          <Text style={styles.text}>본인의 학교를 검색해주세요!</Text>
-        )}
+    <View style={style.Container}>
+
+      <View style={style.noticebox}>
+        <Text style={{fontSize: 20, fontWeight: 'bold', padding:'10%'}}>동아리 선택</Text>
+        <Text style={{fontSize: 16,}}>동아리를 선택해주세요!</Text>
       </View>
+  
+      <Input 
+          // label = "검색(학교이름)" 
+          placeholder = "학교명을 입력해주세요" 
+          returnKeyType = "next" 
+          value = {searchTerm} 
+          onChangeText = {setsearchTerm}
+        />
+
+      <View style={{flex:2, width:'100%',}}>
+        {/* 검색되는 리스트 렌더링 부분 */}
+        <ScrollView>
+          {colleages.filter(clubId => clubId.school.includes(searchTerm)).map((clubId) => {
+            return (
+              <TouchableOpacity
+              onPress = {
+                () => {storegroupId(clubId.clubId);
+                Alert.alert('동아리 선택 완료!');
+                }}
+              key={clubId.clubId} 
+              style={{flexDirection:'row', alignItems:'center',height: 50, borderWidth: 1, marginVertical:4, borderRadius:4}}>
+                <Text style={{fontSize:16,marginLeft:'20%'}}>{clubId.school}</Text>
+                <Text style={{fontSize:16,marginLeft: 15}}>{clubId.clubName}</Text>
+              </TouchableOpacity>
+            )
+          })}
+        </ScrollView>
+      </View>
+
       <Button title = "선택 완료" onPress = {upClub}/>
-    </Container>
+    </View>
     )
 }
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
+  Container: {
+    flex:1,
+    marginHorizontal: 30,
+    alignItems: 'center',
+  },
+  noticebox: {
+    flex:1,
+    maxHeight: 200,
+    width:'100%',
+    justifyContent:'center',
+    alignItems:'center',
+  },
   groupList: {
     marginTop: 50,
     marginBottom: 30,
@@ -169,10 +186,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
-    fontSize: 25,
-  },
 })
+
 const ItemContainer = styled.TouchableOpacity`
   flex-direction : row;
   align-items: center;
