@@ -109,17 +109,40 @@ const storeMygroupId = async (value) => {
   }
 }
 
-const upClub = async () => {
-  const groupId = await AsyncStorage.getItem('groupId');
-    const res = await request({
-      method: 'POST',
-      url: `/user/group/join/${groupId}`,
-    });
+// const upClub = async () => {
+//   // 헤더에 엑세스토큰 넣지말고 
+//   const userId = await AsyncStorage.getItem('MyUserId');
+//   const groupId = await AsyncStorage.getItem('groupId');
+//   console.log("userId : ", userId);
+//   console.log("groupId : ", groupId);
+//     const res = await request({
+//       method: 'POST',
+//       url: `/${userId}/group/join/${groupId}`,
+//     });
 
-    if(res.result === "SUCCESS"){
-      storeMygroupId(res.data);
-      navigation.navigate('Signup');
+//     if(res.result === "SUCCESS"){
+//       storeMygroupId(res.data);
+//       // 동아리가 가입되고 MygroupId가 스토리지에 저장됨
+//       navigation.navigate('Signin');
+//     }
+// };
+const upClub = async() =>{
+  const userId = await AsyncStorage.getItem('MyUserId');
+  const groupId = await AsyncStorage.getItem('groupId');
+  console.log("userId : ", userId);
+  console.log("groupId : ", groupId);
+  try{
+    const response = await axios.post(
+      `http://23.23.240.178:8080/${userId}/group/join/${groupId}`,
+    );
+    if(response.data.result === "SUCCESS"){
+      storeMygroupId(response.data.data);
+      navigation.navigate('Signin');
     }
+  }
+  catch(e){
+    console.log(e);
+  }
 };
 
 // 데이터 필터링 테스트용 로그

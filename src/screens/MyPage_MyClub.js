@@ -1,9 +1,30 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
+import request from '../funtion/request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MyPage_MyClub = () => {
 
+    const [groupdata, setGroupdata] = useState({});
+    const getGroupdata = async () => {
+        const groupId = await AsyncStorage.getItem('MygroupId');
+        const res = await request({
+          method: 'GET',
+          url: `/group/get/${groupId}`,
+        });
+      
+        if(res.result === "SUCCESS"){
+            setGroupdata(res.data);
+            //console.log("res.data: ",res.data);
+        }
+    };
+    useEffect(() => {
+        getGroupdata(); // api data 수정 된 후 사용
+         //setMeeting(TESTDATA)
+      }, []);
+    // /group/get/{groupId}
+    console.log("gropudata: ",groupdata);
     const data = [
         {
           name: "정기모임",
@@ -45,16 +66,16 @@ const MyPage_MyClub = () => {
                 <View style={{flex:1, backgroundColor:'#c4c4c4', marginTop:30, maxHeight:100, flexDirection: 'row'}}>
 
                     <View style={style.bigbox1}>
-                        <Text style={{fontSize: 30,fontWeight: 'bold',}}>FLY</Text>
+                        <Text style={{fontSize: 30,fontWeight: 'bold',}}>{groupdata.clubName}</Text>
                     </View>
                     <View style={{flex: 2}}>
                         <View style={style.box1}>
-                            <Text style={{fontSize: 16,}}>단국대학교 죽전캠퍼스</Text>
+                            <Text style={{fontSize: 16,}}>{groupdata.school}</Text>
                         </View>
                         <View style={{flex:1}}>
                             <View style={style.box2}>
                                     <Text style={{fontSize:14, paddingRight:20,}}>회원 수</Text>
-                                    <Text style={{fontSize:16, fontWeight:'bold', paddingRight: 5,}}>66</Text>
+                                    <Text style={{fontSize:16, fontWeight:'bold', paddingRight: 5,}}>{groupdata.number}</Text>
                                     <Text style={{fontSize:16, }}>명</Text>
                             </View>
                         </View>

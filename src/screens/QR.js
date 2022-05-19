@@ -1,9 +1,11 @@
-import React, {useContext}from 'react';
+import React, {useEffect, useState, useContext}from 'react';
 import styled from 'styled-components/native';
 import QRCode from "react-native-qrcode-svg";
 import { StyleSheet, Text, View } from "react-native";
 import {Button} from '../components';
 import { ThemeContext } from 'styled-components/native';
+import request from '../funtion/request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //"accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0ODExNDQ5NSwiZXhwIjoxNjQ4MTE2Mjk1fQ.8UVUiogz6SeJKGaxX_BfcA5FtTWxofeQuFi1QSHfs4M"
 
 // QR코드에 들어갈 정보 정립 필요
@@ -19,7 +21,29 @@ const Container = styled.View`
 `;
 const QR = ({navigation}) =>{
 
+
   const theme = useContext(ThemeContext);
+
+
+  const [value,setValue] = useState('');
+  const getQR = async () => {
+      const res = await request({
+        method: 'POST',
+        url: `/qr/create`,
+      });
+
+      if(res.result === "SUCCESS"){
+        setValue(res.data);
+        console.log("res : ",res);
+        console.log("res.data : ",res.data);
+        console.log("value : ",value);
+      }
+  };
+  
+  useEffect(() => {
+    getQR(); // api data 수정 된 후 사용
+    //setMeeting(TESTDATA)
+ }, []);
 
   return (
     <View style ={styles.qrcontainer}>

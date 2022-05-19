@@ -1,27 +1,61 @@
-import React from "react";
+import React , {useState, useEffect} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
+import request from '../funtion/request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const MyPage_MyInfo = () => {
 
+    const [userdata, setUserdata] = useState({});
+    
+    const getUserdata = async () => {
+        const userId = await AsyncStorage.getItem('MyUserId');
+        const res = await request({
+          method: 'GET',
+          url: `/user/history/${userId}`,
+        });
+      
+        if(res.result === "SUCCESS"){
+            setUserdata(res.data);
+        }
+    };
+    useEffect(() => {
+        getUserdata(); // api data 수정 된 후 사용
+         //setMeeting(TESTDATA)
+      }, []);
+      
+    const clubName = userdata.clubName;
+    const imp = userdata.impromptuScore;
+    const op = userdata.openScore;
+    const reg = userdata.regularScore;
+    const school = userdata.schoolName;
+    const name = userdata.userName;
+    const total = userdata.totalScore;
+
+    // 지금은 total이 0이라서 NaN이 뜸
+    var op_num = (op / total) * 100;
+    var imp_num = (imp / total) *100;
+    var reg_num = (reg / total) *100;
+ 
     const data = [
         {
+            // reg, imp, op의 값이 정해지지 않아서 차트가 보이지 않음
           name: "정기모임",
-          score: 525,
+          score: reg,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: 525,
+          score: imp,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: 1050,
+          score: op,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -44,14 +78,14 @@ const MyPage_MyInfo = () => {
             <View style={{flex:1,}}>
               <View style={style.box1}>
               <View style={style.nameTextbox}>
-                  <Text style={style.nameText}>홍길동</Text>
+                  <Text style={style.nameText}>{name}</Text>
               </View>
               <View style={style.clubschoolbox}>
               <View style={style.clubnamebox}>
-                  <Text style={style.clubnameText}>FLY</Text>
+                  <Text style={style.clubnameText}>{clubName}</Text>
               </View>
               <View style={style.schoolnamebox}>
-                  <Text style={style.schoolnameText}>단국대학교 죽전캠퍼스</Text>
+                  <Text style={style.schoolnameText}>{school}</Text>
               </View>
               </View>
           </View>
@@ -92,7 +126,7 @@ const MyPage_MyInfo = () => {
                     <View style={{flex:1, maxHeight:40,}}>
                         <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
-                            <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
+                            <Text style={{fontSize:20, paddingLeft:10,}}>{total}</Text>
                         </View>
                     </View>
 
@@ -121,22 +155,22 @@ const MyPage_MyInfo = () => {
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{reg_num}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{imp_num}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>1050</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>50.00%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{op_num}%</Text></View>
                     </View>
                 </View>
             </View>

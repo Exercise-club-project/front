@@ -6,31 +6,6 @@ import Ranking_Club from '../screens/Ranking_Club';
 import Ranking_Me_Club from '../screens/Ranking_Me_Club';
 import Ranking_Me_Whole from '../screens/Ranking_Me_Whole';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
-// const TabNavigator = createMaterialTopTabNavigator(
-//   {
-//     Ranking_Club: {
-//       screen: Ranking_Club
-//     },
-//     Ranking_Me_Club: {
-//       screen: Ranking_Me_Club
-//     },
-//     Rankinh_Me_Whole: {
-//       screen: Ranking_Me_Whole
-//     },
-//   },
-//   {
-//     tabBarComponent: Header,
-//     tabBarOptions: {
-//       activeTintColor: "#1BA1F3",
-//       inactiveTintColor: "#000"
-//     },
-//     initialRouteName: "Tweets"
-//   }
-// );
-
-// const Toptab = createAppContainer(TabNavigator);
-
-// export default Toptab;
 
 const Tab = createMaterialTopTabNavigator();
 

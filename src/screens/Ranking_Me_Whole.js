@@ -30,6 +30,7 @@ const Ranking_Me_Whole = ({navigation}) =>{
       console.log(e);
     }
   };
+  
   useEffect(() => {
     getRank(); // api data 수정 된 후 사용
     //setMeeting(TESTDATA)
@@ -58,7 +59,11 @@ const Ranking_Me_Whole = ({navigation}) =>{
         {clubdata.map((club)=>{
           return (
             <TouchableOpacity style={style.tablerow} key={club.num} 
-            onPress = {() => navigation.navigate('Ranking_MemberInfo')}
+            onPress = {() =>navigation.navigate('Rank_Mem_whole',{
+              id : club.userId,
+              rank : club.num,
+            }
+            )}
             >
             <View style={style.tablenum}>
               <Text>{club.num}</Text>

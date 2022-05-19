@@ -135,7 +135,7 @@ const Signin = ({navigation}) => {
         {/* <Button title="로그인" onPress={() => navigation.navigate('Profile')} disabled={disabled}/> */}
         <Button 
         title="회원가입" 
-        onPress={() => navigation.navigate('SelectClub')}
+        onPress={() => navigation.navigate('Signup')}
         containerStyle= {{marginTop:0, backgroundColor:'transparent'}}
         textStyle= {{color: theme.btnTextLink, fontSize: 18 }}
          />
