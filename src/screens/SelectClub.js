@@ -1,4 +1,4 @@
-import React, {useState,useRef, useContext} from 'react';
+import React, {useState,useRef, useEffect,useContext} from 'react';
 import styled from 'styled-components/native';
 import {Button, Input} from '../components';
 import {
@@ -7,10 +7,11 @@ import {
   View,
   Text,
 } from 'react-native';
-import { removeWhitespace } from '../util';
+// import { removeWhitespace } from '../util';
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 const ClubTestData = [
   {
@@ -65,24 +66,29 @@ const SelectClub = ({navigation}) =>{
 
   const refcolleage = useRef(null);
 
-  const renderItem = ({ item }) => (
-    <ItemContainer onPress = {
-      () => {storegroupId(item.clubId);
-        console.log("groupId: ", item.clubId);
-      Alert.alert('동아리 선택 완료!');
-      }
-  }>
-      <ItemTextContainer>
-          <ItemClubName>동아리명 : {item.clubName}</ItemClubName>
-          <ItemSchool>학교명 : {item.school}</ItemSchool>
-          <ItemLeader>회장 : {item.leader}</ItemLeader>
-      </ItemTextContainer>
-    </ItemContainer>
-  );
 
-  const _handleColleageChange = colleage=>{
-    setColleage(removeWhitespace(colleage)); // 대학교 공백제거
-}
+  const getClubs = async() =>{
+    try{
+      const response = await axios.get(
+        `http://23.23.240.178:8080/user/group/searchAll`,
+      );
+      if(response.data.result === "SUCCESS"){
+        // console.log('result : ', response.data.result);
+        // console.log('data : ',response.data.data);
+        setColleages(response.data.data);
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getClubs(); // api data 수정 된 후 사용
+    //setColleages(ClubTestData);
+  }, []);
+  
+
+
 const storegroupId = async (value) => {
   try {
     const jsonValue = JSON.stringify(value)
@@ -102,34 +108,41 @@ const storeMygroupId = async (value) => {
     // saving error
   }
 }
-const onClub = async() =>{
-    const response = await request({
-      method : 'GET',
-      url : `/user/group/search/${colleage}`,
-    });
 
-   // console.log(response);
-    setColleages(response.data);
-};
+// const upClub = async () => {
+//   // 헤더에 엑세스토큰 넣지말고 
+//   const userId = await AsyncStorage.getItem('MyUserId');
+//   const groupId = await AsyncStorage.getItem('groupId');
+//   console.log("userId : ", userId);
+//   console.log("groupId : ", groupId);
+//     const res = await request({
+//       method: 'POST',
+//       url: `/${userId}/group/join/${groupId}`,
+//     });
 
+//     if(res.result === "SUCCESS"){
+//       storeMygroupId(res.data);
+//       // 동아리가 가입되고 MygroupId가 스토리지에 저장됨
+//       navigation.navigate('Signin');
+//     }
+// };
 const upClub = async() =>{
-  //console.log("분류");
+  const userId = await AsyncStorage.getItem('MyUserId');
   const groupId = await AsyncStorage.getItem('groupId');
- 
-  const response = await request({
-    method : 'POST',
-    url : `/user/group/join/${groupId}`,
-  });
-  if(response.result ==="SUCCESS"){
-   // console.log("MygroupId",response.data);
-    storeMygroupId(response.data);
-    navigation.navigate('Main');
+  console.log("userId : ", userId);
+  console.log("groupId : ", groupId);
+  try{
+    const response = await axios.post(
+      `http://23.23.240.178:8080/${userId}/group/join/${groupId}`,
+    );
+    if(response.data.result === "SUCCESS"){
+      storeMygroupId(response.data.data);
+      navigation.navigate('Signin');
+    }
   }
-  else{
-    console.log("응답실패");
+  catch(e){
+    console.log(e);
   }
-
-  //navigation.navigate('Main');
 };
 
 // 데이터 필터링 테스트용 로그
@@ -154,13 +167,17 @@ const upClub = async() =>{
       <View style={{flex:2, width:'100%',}}>
         {/* 검색되는 리스트 렌더링 부분 */}
         <ScrollView>
-          {ClubTestData.filter(clubid => clubid.school.includes(searchTerm)).map((clubid) => {
+          {colleages.filter(clubId => clubId.school.includes(searchTerm)).map((clubId) => {
             return (
               <TouchableOpacity
-              key={clubid.clubid} 
+              onPress = {
+                () => {storegroupId(clubId.clubId);
+                Alert.alert('동아리 선택 완료!');
+                }}
+              key={clubId.clubId} 
               style={{flexDirection:'row', alignItems:'center',height: 50, borderWidth: 1, marginVertical:4, borderRadius:4}}>
-                <Text style={{fontSize:16,marginLeft:'20%'}}>{clubid.school}</Text>
-                <Text style={{fontSize:16,marginLeft: 15}}>{clubid.name}</Text>
+                <Text style={{fontSize:16,marginLeft:'20%'}}>{clubId.school}</Text>
+                <Text style={{fontSize:16,marginLeft: 15}}>{clubId.clubName}</Text>
               </TouchableOpacity>
             )
           })}

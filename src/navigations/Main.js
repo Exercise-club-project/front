@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ThemeContext } from 'styled-components/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { CreateMeeting,MeetingDetail,MyPage_Act,MyPage_MyClub,MyPage_MyInfo,
-  QRScanner,MyPage_Act_Detail, Ranking_ClubDetail,Ranking_MemberInfo } from '../screens';
+  QRScanner,MyPage_Act_Detail, Ranking_ClubDetail,Rank_Mem_whole ,Rank_Mem_club} from '../screens';
 import Form from './Form';
 const Stack = createStackNavigator();
 
@@ -27,7 +27,8 @@ const Main = () => {
       <Stack.Screen name = "MyPage_MyInfo" component={MyPage_MyInfo}/>
       <Stack.Screen name = "QRScanner" component={QRScanner}/>
       <Stack.Screen name = "Ranking_ClubDetail" component={Ranking_ClubDetail}/>
-      <Stack.Screen name = "Ranking_MemberInfo" component={Ranking_MemberInfo}/>
+      <Stack.Screen name = "Rank_Mem_whole" component={Rank_Mem_whole}/>
+      <Stack.Screen name = "Rank_Mem_club" component={Rank_Mem_club}/>
     </Stack.Navigator>
   );
 };

@@ -40,6 +40,15 @@ const Signup = ({navigation}) => {
     const refSex = useRef(null);
     const refDidMount = useRef(null);
 
+    const storeuserId = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem("MyUserId", jsonValue)
+      } catch (e) {
+        // saving error
+      }
+    }
+
     useEffect(() => {
         setDisabled(
             !(name && email && password && passwordConfirm && birthday && phoneNumber
@@ -89,13 +98,10 @@ const Signup = ({navigation}) => {
           //const userid = response.data.data;
           const res = response.data;
           if(res.result === "SUCCESS"){
-            const MyUserId = JSON.stringify(res.data);
-            // const MyUserId = res.data;
-            AsyncStorage.setItem('MyUserId', JSON.stringify(MyUserId));
+            storeuserId(res.data);
             // userid받는 부분
-            // api변경요청 -> 로그인화면으로
-            navigation.navigate('Signin');
-            // 회원가입 후 로그인 화면으로 이동
+            
+            navigation.navigate('SelectClub');
           }
           else{
             Alert.alert(res.data);

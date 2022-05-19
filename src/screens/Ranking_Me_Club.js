@@ -5,18 +5,11 @@ import styled from 'styled-components/native';
 import request from '../funtion/request';
 import axios from 'axios';
 
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.background};
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px;
-`;
 const Ranking_Me_Club = ({navigation}) =>{
 
   const [clubdata, setclubdata] = useState([]);
-  const getRank = async() =>{
-    try{
+  
+  const getRank = async () => {
       const res = await request({
         method: 'GET',
         url: `/rank/group/user`,
@@ -24,14 +17,10 @@ const Ranking_Me_Club = ({navigation}) =>{
 
       if(res.result === "SUCCESS"){
         setclubdata(res.data);
-      };
-    }
-    catch(e){
-      console.log(e);
-    }
+      }
   };
   useEffect(() => {
-    getRank(); // api data 수정 된 후 사용
+    getRank(); // 
     //setMeeting(TESTDATA)
  }, []);
 
@@ -58,7 +47,11 @@ const Ranking_Me_Club = ({navigation}) =>{
         {clubdata.map((club)=>{
           return (
             <TouchableOpacity style={style.tablerow} key={club.num} 
-          onPress = {() => navigation.navigate('Ranking_MemberInfo')}
+          onPress = {() => navigation.navigate('Rank_Mem_club',{
+            id : club.userId,
+            rank : club.num,
+          }
+          )}
           >
             <View style={style.tablenum}>
               <Text>{club.num}</Text>

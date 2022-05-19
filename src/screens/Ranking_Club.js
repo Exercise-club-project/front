@@ -49,8 +49,12 @@ const Ranking_Club = ({navigation}) =>{
         {clubdata.map((club)=>{
           return (
           <TouchableOpacity style={style.tablerow} key={club.num} 
-          onPress = {() => navigation.navigate('Ranking_ClubDetail')}
-          >
+          onPress = {() => navigation.navigate('Ranking_ClubDetail',{
+            id : club.clubId,
+            rank : club.num,
+          }
+          )
+        }>
 
             <View style={style.tablenum}>
               <Text>{club.num}</Text>
