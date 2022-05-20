@@ -21,38 +21,6 @@ const Container = styled.View`
 const ItemContainer = styled.TouchableOpacity`
 `;
 
-const TESTDATA = [
-  {
-    meetingId: 1,
-    meetingName: "24일 정기모임!!!",
-    meetingType: "정기모임",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 2,
-    meetingName: "모임2",
-    meetingType: "번개모임",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 3,
-    meetingName: "모임3",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 4,
-    meetingName: "모임4",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
-  {
-    meetingId: 5,
-    meetingName: "모임5",
-    meetingType: "총회",
-    startTime: "2022-04-09 15:30",
-  },
-];
 
 const Home = ({navigation}) =>{
   const [Meeting, setMeeting] = useState([]);
@@ -95,6 +63,11 @@ const Home = ({navigation}) =>{
      getMeeting(); // api data 수정 된 후 사용
      //setMeeting(TESTDATA)
   }, []);
+
+//   useEffect(() => {
+//     getMeeting(); // api data 수정 된 후 사용
+//     //setMeeting(TESTDATA)
+//  });
 
     return (
     <Container>

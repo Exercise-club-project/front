@@ -33,29 +33,26 @@ const MyPage_MyInfo = () => {
     const total = userdata.totalScore;
 
     // 지금은 total이 0이라서 NaN이 뜸
-    var op_num = (op / total) * 100;
-    var imp_num = (imp / total) *100;
-    var reg_num = (reg / total) *100;
  
     const data = [
         {
             // reg, imp, op의 값이 정해지지 않아서 차트가 보이지 않음
           name: "정기모임",
-          score: reg,
+          score: 10,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: imp,
+          score: 10,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: op,
+          score: 80,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -156,21 +153,21 @@ const MyPage_MyInfo = () => {
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{reg_num}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>10%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{imp_num}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>10%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{op_num}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>80%</Text></View>
                     </View>
                 </View>
             </View>

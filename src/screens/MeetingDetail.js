@@ -48,7 +48,10 @@ const MeetingDetail = ({route , navigation}) =>{
        <Input label="시작시간" value={Meeting.startDate} disabled/>
        <Input label="종료시간" value={Meeting.endDate} disabled/>
        <Input label="설명" value={Meeting.description} disabled/>
-      <Button title = "QR 스캔하기" onPress = {() => navigation.navigate('QRScanner')}/>
+      <Button title = "QR 스캔하기" onPress = {() => navigation.navigate('QRScanner',{
+      id : meetingId,
+    }
+    )}/>
     </Container>
     
     )

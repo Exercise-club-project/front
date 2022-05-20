@@ -109,23 +109,6 @@ const storeMygroupId = async (value) => {
   }
 }
 
-// const upClub = async () => {
-//   // 헤더에 엑세스토큰 넣지말고 
-//   const userId = await AsyncStorage.getItem('MyUserId');
-//   const groupId = await AsyncStorage.getItem('groupId');
-//   console.log("userId : ", userId);
-//   console.log("groupId : ", groupId);
-//     const res = await request({
-//       method: 'POST',
-//       url: `/${userId}/group/join/${groupId}`,
-//     });
-
-//     if(res.result === "SUCCESS"){
-//       storeMygroupId(res.data);
-//       // 동아리가 가입되고 MygroupId가 스토리지에 저장됨
-//       navigation.navigate('Signin');
-//     }
-// };
 const upClub = async() =>{
   const userId = await AsyncStorage.getItem('MyUserId');
   const groupId = await AsyncStorage.getItem('groupId');
