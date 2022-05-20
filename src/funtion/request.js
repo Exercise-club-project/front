@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const baseURL = 'http://23.23.240.178:8080';
 const request = async config => {
   var token = await AsyncStorage.getItem('accessToken');
-  //console.log('token : ', token);
+  // console.log('token : ', token);
   const requestConfiguration = {
     ...config,
     baseURL,

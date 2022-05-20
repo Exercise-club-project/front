@@ -78,7 +78,7 @@ const Signin = ({navigation}) => {
         const token= data.tokenDto;
         // console.log("accesstoken : " ,token.accessToken);
         // console.log("refreshToken : " ,token.refreshToken);
-
+        console.log(token.accessToken);
         if(response.data.result === "SUCCESS"){
           // 로그인성공시 accessToken을 받음
             accessToken(token.accessToken);
