@@ -16,6 +16,9 @@ const Container = styled.View`
 `;
 
 const CreateMeeting = ({navigation}) =>{
+  const [date, setDate] = useState(new Date())
+  const [open, setOpen] = useState(false)
+
   const [meetingName, setMeetingName] = useState('');
   const [meetingType, setMeetingType] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -81,6 +84,8 @@ useEffect(() => {
     return (
       <KeyboardAwareScrollView>
     <Container>
+      
+      
       <Input 
       label = "meetingName" 
       placeholder = "meetingName" 

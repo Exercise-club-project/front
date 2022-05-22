@@ -4,8 +4,9 @@ import { PieChart } from "react-native-chart-kit";
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MyPage_MyInfo = () => {
-
+const MyPage_MyInfo = ({route}) => {
+    const grouprank = route.params.grouprank;
+    const myrank = route.params.myrank;
     const [userdata, setUserdata] = useState({});
     
     const getUserdata = async () => {
@@ -38,21 +39,21 @@ const MyPage_MyInfo = () => {
         {
             // reg, imp, op의 값이 정해지지 않아서 차트가 보이지 않음
           name: "정기모임",
-          score: 10,
+          score: reg,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: 10,
+          score: imp,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: 80,
+          score: op,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -99,7 +100,7 @@ const MyPage_MyInfo = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>1</Text>
+                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>{myrank}</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>  
@@ -111,7 +112,7 @@ const MyPage_MyInfo = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red',paddingHorizontal:5,}}>1</Text>
+                            <Text style={{fontSize:20, color:'red',paddingHorizontal:5,}}>{grouprank}</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>  
