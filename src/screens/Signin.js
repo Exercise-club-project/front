@@ -83,13 +83,13 @@ const Signin = ({navigation}) => {
           // 로그인성공시 accessToken을 받음
             accessToken(token.accessToken);
             refreshToken(token.refreshToken);
-            AsyncStorage.getItem('MyGroupId').then(() =>
-            navigation.navigate('Main'),
+            AsyncStorage.getItem('MyGroupId').then((value) =>
+            navigation.replace(value !== 0 ? 'Main' : 'SelectClub'),
             );
             
         }
         else{
-          Alert.alert('계정이 존재하지 않습니다');
+          Alert.alert(response.data.data);
           //setUser(token.accessToken); // 로그인 후 동아리 선택으로 넘어가므로
           // 이 함수는 동아리선택화면으로 넘기자
           

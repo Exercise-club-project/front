@@ -4,7 +4,8 @@ import { PieChart } from "react-native-chart-kit";
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MyPage_MyClub = () => {
+const MyPage_MyClub = ({route}) => {
+    const rank = route.params.rank;
 
     const [groupdata, setGroupdata] = useState({});
     const getGroupdata = async () => {
@@ -91,7 +92,7 @@ const MyPage_MyClub = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>1</Text>
+                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>{rank}</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>
