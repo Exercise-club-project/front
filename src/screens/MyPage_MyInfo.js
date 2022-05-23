@@ -39,21 +39,21 @@ const MyPage_MyInfo = ({route}) => {
         {
             // reg, imp, op의 값이 정해지지 않아서 차트가 보이지 않음
           name: "정기모임",
-          score: reg,
+          score: 10,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: imp,
+          score: 10,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: op,
+          score: 80,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15

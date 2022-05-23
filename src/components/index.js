@@ -4,4 +4,6 @@ import Input from './input';
 import ErrorMessage from './ErrorMessage';
 import Spinner from './Spinner';
 import Header from './Header';
-export {Button, Image, Input, ErrorMessage,Header, Spinner};
+import Desc from './Desc';
+import Datetime from './Datetime';
+export {Button, Datetime,Image, Desc, Input, ErrorMessage,Header, Spinner};
