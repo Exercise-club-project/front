@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect} from 'react';
 import styled from 'styled-components/native';
-import {Button,Input,ErrorMessage} from '../components';
+import {Button,Input,ErrorMessage,Datetime} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Alert } from 'react-native';
 import {validateEmail,validatePhonenumber,removeWhitespace} from '../util';
@@ -177,6 +177,7 @@ const Signup = ({navigation}) => {
         onChangeText = {setEmail}
         onSubmitEditing = {() => refName.current.focus()}
         onBlur={()=> setEmail(removeWhitespace(email))}
+        right={<Input.Icon name="eye" />}
         />
          <Input 
         ref = {refName}
@@ -219,7 +220,7 @@ const Signup = ({navigation}) => {
                     pointerEvents="none"
                     style={styles.textInput}
                     placeholder={placeholder}
-                    placeholderTextColor='#000000'
+                    placeholderTextColor='#a6a6a6'
                     underlineColorAndroid="transparent"
                     editable={false}
                     value={birthday}
