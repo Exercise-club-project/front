@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, TextInput,Text } from 'react-native'
 import DateTimePicker from "react-native-modal-datetime-picker";
 import styled from 'styled-components/native';
 
@@ -55,12 +55,14 @@ const Datetime = ({label,mode}) => {
     };
 
     const handleConfirm = (date) => {
-        console.log("dateFormat: ", date.format("yyyy-MM-dd"));
+        console.log("dateFormat: ", date.format("yyyy-MM-dd hh:mm"));
         hideDatePicker();
-        onChangeText(date.format("yyyy-MM-dd"))
+        onChangeText(date.format("yyyy-MM-dd hh:mm"))
     };
+    
 
     return (
+        <View style = {styles.rowcontainer}>
         <View style={styles.container}>
             <Label isFocused={isFocused}>{label}</Label>
             <TouchableOpacity onPress={showDatePicker}>
@@ -80,11 +82,12 @@ const Datetime = ({label,mode}) => {
                 <DateTimePicker
                     headerTextIOS={placeholder}
                     isVisible={isDatePickerVisible}
-                    mode="date"
+                    mode="datetime"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                 />
             </TouchableOpacity>
+        </View>
         </View>
   );
 }
@@ -96,11 +99,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'white',
     },
+    rowcontainer: {
+        flexDirection : 'row',
+    },
     textInput: {
         fontSize: 16,
         color: '#000000',
         height: 50, 
-        width: 300, 
+        width: 170, 
         borderColor: '#000000', 
         borderWidth: 1, 
         borderRadius: 12,
