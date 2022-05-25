@@ -1,11 +1,12 @@
 const Colors = {
     white: '#ffffff',
+    flower:'#E6E6FA',
     black: '#111111',
-    main: '#949494',
+    main: '#3679fe',
     grey_0: '#d5d5d5',
     grey_1: '#a6a6a6',
     red: '#e84118',
-};
+  };
 
 export const theme = {
     background: Colors.white,

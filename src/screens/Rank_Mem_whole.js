@@ -1,12 +1,31 @@
-
-import React from "react";
-
-import react from "react";
+import React , {useState, useEffect} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
+import request from '../funtion/request';
 
-const Ranking_MemberInfo = () => {
+const Rank_Mem_whole = ({route}) => {
 
+    const userId = route.params.id;
+    const rank = route.params.rank;
+    // 개인(전체)에서 누를 경우 rank_whole이 오고 rank_Club은 undefined뜸
+    // 개인(전체)에서 누를 경우 rank_Club이 오고 rank_whole은 undefined뜸
+    
+    const [userdata, setUserdata] = useState({});
+    const getUserdata = async () => {
+        const res = await request({
+          method: 'GET',
+          url: `/user/history/${userId}`,
+        });
+      
+        if(res.result === "SUCCESS"){
+            setUserdata(res.data);
+            //console.log("res.data: ",res.data);
+        }
+    };
+    useEffect(() => {
+        getUserdata(); // api data 수정 된 후 사용
+         //setMeeting(TESTDATA)
+      }, []);
     const data = [
         {
           name: "정기모임",
@@ -47,14 +66,14 @@ const Ranking_MemberInfo = () => {
             <View style={{flex:1,}}>
               <View style={style.box1}>
               <View style={style.nameTextbox}>
-                  <Text style={style.nameText}>홍길동</Text>
+                  <Text style={style.nameText}>{userdata.userName}</Text>
               </View>
               <View style={style.clubschoolbox}>
               <View style={style.clubnamebox}>
-                  <Text style={style.clubnameText}>FLY</Text>
+                  <Text style={style.clubnameText}>{userdata.clubName}</Text>
               </View>
               <View style={style.schoolnamebox}>
-                  <Text style={style.schoolnameText}>단국대학교 죽전캠퍼스</Text>
+                  <Text style={style.schoolnameText}>{userdata.schoolName}</Text>
               </View>
               </View>
           </View>
@@ -71,19 +90,7 @@ const Ranking_MemberInfo = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>1</Text>
-                            <Text style={{fontSize:16,}}>등</Text>
-                        </View>
-                    </View>  
-                    </View>
-                    
-                    <View style={{flex:1}}>
-                    <View style={style.box4}>
-                        <Text style={{fontSize:16,}}>동아리내</Text>
-                    </View>
-                    <View style={style.box5}>
-                        <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red',paddingHorizontal:5,}}>1</Text>
+                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>{rank}</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>  
@@ -95,7 +102,7 @@ const Ranking_MemberInfo = () => {
                     <View style={{flex:1, maxHeight:40,}}>
                         <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
-                            <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
+                            <Text style={{fontSize:20, paddingLeft:10,}}>{userdata.totalScore}</Text>
                         </View>
                     </View>
 
@@ -124,21 +131,21 @@ const Ranking_MemberInfo = () => {
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{userdata.regularScore}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{userdata.impromptuScore}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>1050</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{userdata.openScore}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>50.00%</Text></View>
                     </View>
                 </View>
@@ -251,4 +258,4 @@ const style = StyleSheet.create({
     }
 });
 
-export default Ranking_MemberInfo;
+export default Rank_Mem_whole;

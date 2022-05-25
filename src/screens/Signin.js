@@ -72,35 +72,24 @@ const Signin = ({navigation}) => {
             password: password,
           },
         );
-        const token = response.data.data;
-        // token에 담긴 값 =>
-        // "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0ODExNDQ5NSwiZXhwIjoxNjQ4MTE2Mjk1fQ.8UVUiogz6SeJKGaxX_BfcA5FtTWxofeQuFi1QSHfs4M",
-        // "refreshToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0ODExNDQ5NSwiZXhwIjoxNjQ4NzE5Mjk1fQ.UHHBexQF_zXyL13k4busDa9jrNs1NIgIsvRX8XOxegM",
-        // "accessTokenTime": 1800000,
-        // "refreshTokenTime": 604800000
-
+        // console.log("responsedata : " ,response.data);
+        const data = response.data.data;
+        // console.log("clubId : " ,data.clubId);
+        const token= data.tokenDto;
+        // console.log("accesstoken : " ,token.accessToken);
+        // console.log("refreshToken : " ,token.refreshToken);
+        console.log(token.accessToken);
         if(response.data.result === "SUCCESS"){
-
-         // AsyncStorage.setItem('accessToken', token.accessToken);
-
-         
           // 로그인성공시 accessToken을 받음
             accessToken(token.accessToken);
             refreshToken(token.refreshToken);
-            // AsyncStorage.setItem('accessToken', token.accessToken);
-            // AsyncStorage.setItem('refreshToken', token.refreshToken);
-            // 동아리 id를 받은 상태라면 Main으로 아니라면 동아리 선택화면으로!!
             AsyncStorage.getItem('MyGroupId').then((value) =>
-            navigation.replace(value === null ? 'SelectClub': 'Main'),
+            navigation.replace(value !== 0 ? 'Main' : 'SelectClub'),
             );
             
-            // 동아리 id 받기전 임시 main 이동
-            // navigation.navigate('Main');
-            
-          // 로그인성공시 동아리 선택화면으로 이동
         }
         else{
-          Alert.alert('계정이 존재하지 않습니다');
+          Alert.alert(response.data.data);
           //setUser(token.accessToken); // 로그인 후 동아리 선택으로 넘어가므로
           // 이 함수는 동아리선택화면으로 넘기자
           

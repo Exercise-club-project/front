@@ -2,13 +2,13 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const baseURL = 'http://23.23.240.178:8080';
-const request = async config => {
-  var token = await AsyncStorage.getItem('accessToken');
+const QRrequest = async config => {
+  var token = await AsyncStorage.getItem('qrToken');
   // console.log('token : ', token);
   const requestConfiguration = {
     ...config,
     baseURL,
-    headers: { 'Access_Token': token },
+    headers: { 'Qrcode_Token': token },
   };
   try{
     const { data } = await axios(requestConfiguration);
@@ -26,4 +26,4 @@ const request = async config => {
   
 };
 
-export default request;
+export default QRrequest;

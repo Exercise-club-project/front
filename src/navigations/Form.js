@@ -33,7 +33,9 @@ const Form = ({navigation, route}) => {
               focused,
             }),
             headerShown:false
-        }}/>
+        }}
+        headerTitle = "홈"
+        />
         <Tab.Screen name = "Ranking" component = {Ranking}
         options={{
             tabBarIcon: ({ focused }) =>

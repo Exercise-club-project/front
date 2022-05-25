@@ -1,13 +1,28 @@
-
-import React from "react";
-
-import react from "react";
-
+import React , {useState, useEffect} from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
+import request from '../funtion/request';
 
-const Ranking_ClubDetail = () => {
+const Ranking_ClubDetail = ({route}) => {
 
+    const clubId = route.params.id;
+    const rank = route.params.rank;
+    const [groupdata, setGroupdata] = useState({});
+    const getGroupdata = async () => {
+        const res = await request({
+          method: 'GET',
+          url: `/group/get/${clubId}`,
+        });
+      
+        if(res.result === "SUCCESS"){
+            setGroupdata(res.data);
+            console.log("res.data: ",res.data);
+        }
+    };
+    useEffect(() => {
+        getGroupdata(); // api data 수정 된 후 사용
+         //setMeeting(TESTDATA)
+      }, []);
     const data = [
         {
           name: "정기모임",
@@ -49,16 +64,16 @@ const Ranking_ClubDetail = () => {
                 <View style={{flex:1, backgroundColor:'#c4c4c4', marginTop:30, maxHeight:100, flexDirection: 'row'}}>
 
                     <View style={style.bigbox1}>
-                        <Text style={{fontSize: 30,fontWeight: 'bold',}}>FLY</Text>
+                        <Text style={{fontSize: 30,fontWeight: 'bold',}}>{groupdata.clubName}</Text>
                     </View>
                     <View style={{flex: 2}}>
                         <View style={style.box1}>
-                            <Text style={{fontSize: 16,}}>단국대학교 죽전캠퍼스</Text>
+                            <Text style={{fontSize: 16,}}>{groupdata.school}</Text>
                         </View>
                         <View style={{flex:1}}>
                             <View style={style.box2}>
                                     <Text style={{fontSize:14, paddingRight:20,}}>회원 수</Text>
-                                    <Text style={{fontSize:16, fontWeight:'bold', paddingRight: 5,}}>66</Text>
+                                    <Text style={{fontSize:16, fontWeight:'bold', paddingRight: 5,}}>{groupdata.number}</Text>
                                     <Text style={{fontSize:16, }}>명</Text>
                             </View>
                         </View>
@@ -74,7 +89,7 @@ const Ranking_ClubDetail = () => {
                     </View>
                     <View style={style.box5}>
                         <View style={style.box6}>
-                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>1</Text>
+                            <Text style={{fontSize:20, color:'red', paddingHorizontal:5,}}>{rank}</Text>
                             <Text style={{fontSize:16,}}>등</Text>
                         </View>
                     </View>
@@ -84,7 +99,7 @@ const Ranking_ClubDetail = () => {
                     <View style={{flex:1, maxHeight:40,}}>
                         <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
-                            <Text style={{fontSize:20, paddingLeft:10,}}>2100</Text>
+                            <Text style={{fontSize:20, paddingLeft:10,}}>{groupdata.totalScore}</Text>
                         </View>
                     </View>
 
@@ -113,21 +128,21 @@ const Ranking_ClubDetail = () => {
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{groupdata.regularScore}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>525</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{groupdata.impromptuScroe}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>1050</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{groupdata.openScore}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>50.00%</Text></View>
                     </View>
                 </View>

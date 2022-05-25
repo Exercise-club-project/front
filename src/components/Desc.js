@@ -21,13 +21,14 @@ const StyledInput = styled.TextInput.attrs(({ theme }) => ({
     editable ? theme.inputBackground : theme.inputDisabled};
   color: ${({ theme }) => theme.text};
   padding: 20px 10px;
+  height: 200px;
   font-size: 16px;
   border: 1px solid
     ${({ theme, isFocused }) => (isFocused ? theme.text : theme.inputBorder)};
   border-radius: 15px;
 `;
 
-const Input = forwardRef(
+const Desc = forwardRef(
   (
     {
       label,
@@ -73,13 +74,13 @@ const Input = forwardRef(
   }
 );
 
-Input.defaultProps = {
+Desc.defaultProps = {
   onBlur: () => {},
 };
 
-Input.propTypes = {
+Desc.propTypes = {
   label: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   onChangeText: PropTypes.func,
   onSubmitEditing: PropTypes.func,
   onBlur: PropTypes.func,
@@ -90,4 +91,4 @@ Input.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default Input;
+export default Desc;

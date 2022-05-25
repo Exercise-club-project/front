@@ -1,21 +1,10 @@
 import React,{useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import {Button, Input} from '../components';
+import {Button, Input, Desc} from '../components';
 import axios from 'axios';
 
-const TESTDATA = 
-  {
-      meetingName: "모임1",
-      meetingType: "정기모임",
-      startDate: "2022-04-09 15:30",
-      endDate: "2022-04-09 15:30",
-      description: "for test"
-  
-  }
-;
-
 const MeetingDetail = ({route , navigation}) =>{
-  console.log(route.params.id);
+  // console.log(route.params.id);
   const meetingId = route.params.id;
   const [Meeting, setMeeting] = useState({});
 
@@ -26,8 +15,8 @@ const MeetingDetail = ({route , navigation}) =>{
         `http://23.23.240.178:8080/user/meetingInfo/get/${meetingId}`,
       );
       if(response.data.result === "SUCCESS"){
-        console.log('result : ', response.data.result);
-        console.log('data : ',response.data.data);
+        // console.log('result : ', response.data.result);
+        // console.log('data : ',response.data.data);
         setMeeting(response.data.data);
       }
     }
@@ -41,14 +30,19 @@ const MeetingDetail = ({route , navigation}) =>{
      getMeeting(); // 왜 안되는지 아직 모르겠음
     //setMeeting(TESTDATA); // 임시 데이터
   }, []);
+
+
     return (
     <Container>
        <Input label="이름" value={Meeting.meetingName} disabled/>
        <Input label="종류" value={Meeting.meetingType} disabled/>
        <Input label="시작시간" value={Meeting.startDate} disabled/>
        <Input label="종료시간" value={Meeting.endDate} disabled/>
-       <Input label="설명" value={Meeting.description} disabled/>
-      <Button title = "QR 스캔하기" onPress = {() => navigation.navigate('QRScanner')}/>
+       <Desc label="설명" value={Meeting.description}  disabled/>
+      <Button title = "QR 스캔하기" onPress = {() => navigation.navigate('QRScanner',{
+      id : meetingId,
+    }
+    )}/>
     </Container>
     
     )

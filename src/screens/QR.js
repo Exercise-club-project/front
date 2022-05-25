@@ -1,9 +1,9 @@
-import React, {useContext}from 'react';
-import styled from 'styled-components/native';
+import React, {useEffect, useState, useContext}from 'react';
 import QRCode from "react-native-qrcode-svg";
 import { StyleSheet, Text, View } from "react-native";
 import {Button} from '../components';
-import { ThemeContext } from 'styled-components/native';
+import request from '../funtion/request';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 //"accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0ODExNDQ5NSwiZXhwIjoxNjQ4MTE2Mjk1fQ.8UVUiogz6SeJKGaxX_BfcA5FtTWxofeQuFi1QSHfs4M"
 
 // QR코드에 들어갈 정보 정립 필요
@@ -12,14 +12,51 @@ import { ThemeContext } from 'styled-components/native';
 
 const QR = ({navigation}) =>{
 
-  const theme = useContext(ThemeContext);
+  const [qr,getqr] = useState("nothing");
+  const [time,settime] = useState(0);
+  const getQR = async () => {
+    try{
+      const res = await request({
+        method: 'POST',
+        url: `/qr/create`,
+      });
+
+      if(res.result === "SUCCESS"){
+        getqr(res.data.qrcodeToken);
+        settime(res.data.expiredTime / 1000);
+        //console.log("expiredTime : ", qrtime);
+        // console.log("res.data : ",res.data);
+        // console.log("value : ",value);
+      }
+    }catch(e){
+      console.log(e);
+    }
+  };
+  //console.log("qr : ",qr);
+
+  useEffect(() => {
+    getQR(); // qr에 새 token값을 넣어주고 time을 초기화함
+ }, [qr]); // qr에 값이 들어가면 화면이 바뀜
+  useEffect(()=> {
+    const countdown = setInterval(()=>{
+      if(time > 0){
+        settime(time - 1);
+      }
+      if(time === 0){
+        getQR();
+        clearInterval(countdown);
+      }
+    }, 1000);
+    return ()=> clearImmediate(countdown);
+  }, [time]);
 
   return (
+
     <View style={{flex:1, paddingHorizontal:30, backgroundColor:'white'}}>
     <View style ={styles.qrcontainer}>
       <QRCode
       //value = qr값 임시로 access 토큰 값 입력해두었음
-      value ="eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0Iiwicm9sZXMiOlsiUk9MRV9VU0VSIl0sImlhdCI6MTY0ODExNDQ5NSwiZXhwIjoxNjQ4MTE2Mjk1fQ.8UVUiogz6SeJKGaxX_BfcA5FtTWxofeQuFi1QSHfs4M"
+      value = {qr}
       
       color="black"
       
@@ -33,7 +70,7 @@ const QR = ({navigation}) =>{
       <View style={{flexDirection: 'row'}// 남은시간, 초 구분을 위해 가로정렬
       }>
       <Text style={styles.subtext}>남은 시간 :</Text>
-      <Text style={styles.resttime}>15초</Text>
+      <Text style={styles.resttime}>{time}</Text>
       </View>
 
       
