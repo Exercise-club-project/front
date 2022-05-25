@@ -8,6 +8,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import { ChonseSelect } from 'react-native-chonse-select';
 
 
 Date.prototype.format = function(f) {
@@ -256,7 +257,6 @@ const Signup = ({navigation}) => {
         onChangeText = {setSex}
         onSubmitEditing = {_handleSignupBtnPress}
         />
-        
         <ErrorMessage message = {errorMessage}/>
         <Button 
         title="회원가입" 

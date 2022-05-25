@@ -27,17 +27,22 @@ const QR = ({navigation}) =>{
         //console.log("expiredTime : ", qrtime);
         // console.log("res.data : ",res.data);
         // console.log("value : ",value);
+        console.log("qr : ",qr);
+        console.log("blank");
       }
     }catch(e){
       console.log(e);
     }
-  };
-  //console.log("qr : ",qr);
 
-  useEffect(() => {
+  };
+  
+
+  useEffect(() => { // 첫 qr화면 클릭시 실행 => getQR로 qr값이랑 expiredtime값 받음
     getQR(); // qr에 새 token값을 넣어주고 time을 초기화함
- }, [qr]); // qr에 값이 들어가면 화면이 바뀜
-  useEffect(()=> {
+ }, []); // qr에 값이 들어가면 화면이 바뀜
+
+ 
+  useEffect(()=> { // getQR을 통해 expiredtime값 받아서 time에 들어오면 실행
     const countdown = setInterval(()=>{
       if(time > 0){
         settime(time - 1);
@@ -48,7 +53,8 @@ const QR = ({navigation}) =>{
       }
     }, 1000);
     return ()=> clearImmediate(countdown);
-  }, [time]);
+  }, [time]); // time값이 변경 될 대마다 useEffect가 실행
+  // 15초마다 잘되는데?
 
   return (
 

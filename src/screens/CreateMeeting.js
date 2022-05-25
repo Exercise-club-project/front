@@ -176,6 +176,7 @@ useEffect(() => {
         <View style={styles.container}>
             <Label isFocused={isFocused}>시작시간</Label>
             <TouchableOpacity onPress={showDatePicker1}>
+              {/* 오전 오후 구분 */}
                 <TextInput
                     pointerEvents="none"
                     style={styles.textInput}
@@ -233,7 +234,6 @@ useEffect(() => {
       returnKeyType = "next" 
       value = {description} 
       onChangeText = {setDescription}
-      onSubmitEditing = {_handleCreateMeetingBtnPress}
       />
       <ErrorMessage message = {errorMessage}/>
         <Button 

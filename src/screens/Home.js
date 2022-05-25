@@ -62,7 +62,7 @@ const Home = ({navigation}) =>{
   useEffect(() => {
      getMeeting(); // api data 수정 된 후 사용
      //setMeeting(TESTDATA)
-  }, []);
+  });
 
 //   useEffect(() => {
 //     getMeeting(); // api data 수정 된 후 사용
