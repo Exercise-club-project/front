@@ -20,6 +20,19 @@ const MyPage_MyInfo = ({route}) => {
             setUserdata(res.data);
         }
     };
+    // res의 형태 =>
+    // {
+    //     "result": "SUCCESS",
+    //     "data": {
+    //         "userName": "test4",
+    //         "schoolName": "단국대학교",
+    //         "clubName": "test",
+    //         "totalScore": 0,
+    //         "openScore": 0,
+    //         "regularScore": 0,
+    //         "impromptuScore": 0
+    //     }
+    // }
     useEffect(() => {
         getUserdata(); // api data 수정 된 후 사용
          //setMeeting(TESTDATA)
@@ -33,7 +46,23 @@ const MyPage_MyInfo = ({route}) => {
     const name = userdata.userName;
     const total = userdata.totalScore;
 
-    // 지금은 total이 0이라서 NaN이 뜸
+    const [opPerc,setOpPerc] = useState(0);
+    const [regPerc,setRegPerc] = useState(0);
+    const [impPerc,setImpPerc] = useState(0);
+    
+    // 이론상구현
+    if(total === 0){
+        setOpPerc(0);
+        setRegPerc(0);
+        setRegPerc(0);
+    }
+    else{ 
+        setOpPerc((op / total)*100);
+        setRegPerc((reg / total)*100);
+        setImpPerc((imp / total)*100);
+    }
+    // 각각 op(총회), reg(정기모임),  imp(번개모임)을 total로 나누어서 퍼센티지 나타낼 때
+    // total이 0일때 total에 1을 넣어서 퍼센티지 나타내도록
  
     const data = [
         {

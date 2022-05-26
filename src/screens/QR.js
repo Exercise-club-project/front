@@ -28,7 +28,7 @@ const QR = ({navigation}) =>{
         // console.log("res.data : ",res.data);
         // console.log("value : ",value);
         console.log("qr : ",qr);
-        console.log("blank");
+        console.log("RENEWAL 15 seconds");
       }
     }catch(e){
       console.log(e);
