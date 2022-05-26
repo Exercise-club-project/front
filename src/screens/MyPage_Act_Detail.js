@@ -35,7 +35,6 @@ const MyPage_Act_Detail = ({route}) =>{
     <Container>
        <Input label="이름" value={Meeting.meetingName} disabled/>
        <Input label="종류" value={Meeting.meetingType} disabled/>
-        <Datetime label = "asda"/>
        <Input label="시작시간" value={Meeting.startDate} disabled/>
        <Input label="종료시간" value={Meeting.endDate} disabled/>
        <Desc label="설명" value={Meeting.description} disabled/>

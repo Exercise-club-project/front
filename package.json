@@ -29,6 +29,7 @@
     "react-native": "^0.64.3",
     "react-native-autocomplete-input": "^5.0.2",
     "react-native-chart-kit": "^6.12.0",
+    "react-native-chonse-select": "^1.0.5",
     "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",

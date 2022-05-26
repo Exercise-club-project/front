@@ -18,7 +18,7 @@ const Main = () => {
         cardStyle: { backgroundColor: theme.background },
       }}
     >
-      <Stack.Screen name = "Form" component={Form}/>
+      <Stack.Screen name = "Form" component={Form} options={{ title: 'My home' }}/>
       <Stack.Screen name = "CreateMeeting" component={CreateMeeting}/>
       <Stack.Screen name = "MeetingDetail" component={MeetingDetail}/>
       <Stack.Screen name = "MyPage_Act" component={MyPage_Act}/>
