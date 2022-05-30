@@ -55,6 +55,13 @@ const Signin = ({navigation}) => {
         // saving error
       }
     }
+    const getmyGrade = async (value) => {
+      try {
+        await AsyncStorage.setItem('myGrade', value)
+      } catch (e) {
+        // saving error
+      }
+    }
     const refreshToken = async (value) => {
       try {
         await AsyncStorage.setItem('refreshToken', value)
@@ -75,12 +82,15 @@ const Signin = ({navigation}) => {
         // console.log("responsedata : " ,response.data);
         const data = response.data.data;
         // console.log("clubId : " ,data.clubId);
+        const grade = data.grade;
         const token= data.tokenDto;
         // console.log("accesstoken : " ,token.accessToken);
         // console.log("refreshToken : " ,token.refreshToken);
+        console.log(grade);
         console.log(token.accessToken);
         if(response.data.result === "SUCCESS"){
           // 로그인성공시 accessToken을 받음
+            getmyGrade(grade);
             accessToken(token.accessToken);
             refreshToken(token.refreshToken);
             AsyncStorage.getItem('MyGroupId').then((value) =>
