@@ -26,7 +26,9 @@ const QRScanner = ({route}) => {
   const handleBarCodeScanned = async({ type, data }) => {
     setScanned(true);
     alert(`바코드의 형태 : ${type} 데이터 값 :  ${data}`);
+    console.log("읽어온 qr코드 :", data);
     storeQRtoken(data);
+
     const res = await QRrequest({
       method: 'GET',
       url: `/qr/get`,
@@ -41,7 +43,6 @@ const QRScanner = ({route}) => {
       if(response.result === "SUCCESS"){
         setMeeting(response.data);
       }
-      res.data;
       // console.log("res : ",res);
       // console.log("res.data : ",res.data);
       // console.log("value : ",value);
