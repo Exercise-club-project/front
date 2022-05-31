@@ -10,7 +10,7 @@ const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
+  border-radius: 12px;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 const Title = styled.Text`
