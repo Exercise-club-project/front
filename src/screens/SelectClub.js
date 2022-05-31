@@ -158,7 +158,7 @@ const upClub = async() =>{
                 Alert.alert('동아리 선택 완료!');
                 }}
               key={clubId.clubId} 
-              style={{flexDirection:'row', alignItems:'center',height: 50, borderWidth: 1, marginVertical:4, borderRadius:4}}>
+              style={{flexDirection:'row', alignItems:'center',height: 50, borderWidth: 1, marginVertical:4, borderRadius:12}}>
                 <Text style={{fontSize:16,marginLeft:'20%'}}>{clubId.school}</Text>
                 <Text style={{fontSize:16,marginLeft: 15}}>{clubId.clubName}</Text>
               </TouchableOpacity>
