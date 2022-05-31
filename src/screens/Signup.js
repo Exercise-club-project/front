@@ -172,18 +172,17 @@ const Signup = ({navigation}) => {
     <Container>
         <Input 
         label = "Email" 
-        placeholder = "" 
+        placeholder = "Email을 입력하세요." 
         returnKeyType = "next" 
         value = {email} 
         onChangeText = {setEmail}
         onSubmitEditing = {() => refName.current.focus()}
         onBlur={()=> setEmail(removeWhitespace(email))}
-        right={<Input.Icon name="eye" />}
         />
          <Input 
         ref = {refName}
         label = "이름" 
-        placeholder = "" 
+        placeholder = "이름을 입력하세요." 
         returnKeyType = "next" 
         value = {name} 
         onChangeText = {setName}
@@ -283,12 +282,12 @@ const styles = StyleSheet.create({
   textInput: {
       fontSize: 16,
       color: '#000000',
-      height: 50, 
+      // height: 50, 
       width: '100%', 
       borderColor: '#a6a6a6', 
       borderWidth: 1, 
       borderRadius: 12,
-      paddingVertical: 30,
+      paddingVertical: 20,
       paddingHorizontal: 10,
   }
 })
