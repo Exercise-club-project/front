@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
-import QRrequest from '../funtion/QRrequest';
 import request from '../funtion/request';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
+import QRrequest from '../funtion/QRrequest';
 const QRScanner = ({route}) => {
   const meetingId = route.params.id;
   const [hasPermission, setHasPermission] = useState(null);
@@ -25,14 +23,15 @@ const QRScanner = ({route}) => {
     })();
   }, []);
 
-  const handleBarCodeScanned = async({ type, token }) => {
+  const handleBarCodeScanned = async({ type, data }) => {
     setScanned(true);
-    alert(`바코드의 형태 : ${type} 데이터 값 :  ${token}`);
+    alert(`바코드의 형태 : ${type} 데이터 값 :  ${data}`);
+    console.log("읽어온 qr코드 :", data);
+    storeQRtoken(data);
 
-    storeQRtoken(token);
     const res = await QRrequest({
-      method: 'POST',
-      url: `/qr/create`,
+      method: 'GET',
+      url: `/qr/get`,
     });
 
     if(res.result === "SUCCESS"){
@@ -44,7 +43,6 @@ const QRScanner = ({route}) => {
       if(response.result === "SUCCESS"){
         setMeeting(response.data);
       }
-      res.data;
       // console.log("res : ",res);
       // console.log("res.data : ",res.data);
       // console.log("value : ",value);

@@ -92,6 +92,7 @@ const MyPage_Act = ({navigation}) =>{
     // ]
       if(res.result === "SUCCESS"){
         setMeeting(res.data);
+        console.log(res.data);
       }
   };
 

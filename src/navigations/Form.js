@@ -32,9 +32,9 @@ const Form = ({navigation, route}) => {
               name: 'home',
               focused,
             }),
-            headerShown:false
+            headerShown:false,
         }}
-        headerTitle = "홈"
+        
         />
         <Tab.Screen name = "Ranking" component = {Ranking}
         options={{
