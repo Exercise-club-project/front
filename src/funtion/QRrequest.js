@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const baseURL = 'http://23.23.240.178:8080';
 const QRrequest = async config => {
   var token = await AsyncStorage.getItem('qrToken');
+  console.log("qrtoken : ", token);
   // console.log('token : ', token);
   const requestConfiguration = {
     ...config,

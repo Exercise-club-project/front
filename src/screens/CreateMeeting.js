@@ -70,9 +70,9 @@ const CreateMeeting = ({navigation}) =>{
     };
 
     const handleConfirm1 = (date) => {
-        console.log("dateFormat: ", date.format("yyyy-MM-dd hh:mm"));
+        console.log("dateFormat: ", date.format("yyyy-MM-dd HH:mm"));
         hideDatePicker1();
-        onChangeStart(date.format("yyyy-MM-dd hh:mm"));
+        onChangeStart(date.format("yyyy-MM-dd HH:mm"));
     };
     const showDatePicker2 = () => {
       setDatePickerVisibility2(true);
@@ -82,13 +82,13 @@ const CreateMeeting = ({navigation}) =>{
       setDatePickerVisibility2(false);
   };
     const handleConfirm2 = (date) => {
-      console.log("dateFormat: ", date.format("yyyy-MM-dd hh:mm"));
+      console.log("dateFormat: ", date.format("yyyy-MM-dd HH:mm"));
       hideDatePicker2();
-      onChangeEnd(date.format("yyyy-MM-dd hh:mm"));
+      onChangeEnd(date.format("yyyy-MM-dd HH:mm"));
   };
 
   const [meetingName, setMeetingName] = useState('');
-  const [meetingType, setMeetingType] = useState('');
+  const [meetingType, setMeetingType] = useState('모임종류를 선택해주세요');
   const [description, setDescription] = useState('');
   const [errorMessage,setErrorMessage] = useState('');
   const [disabled, setDisabled] =useState(true);
@@ -154,8 +154,6 @@ useEffect(() => {
       onChangeText = {setMeetingName}
       onSubmitEditing = {() => refType.current.focus()}
       />
-      <View style={styles.container}>
-      <Label isFocused={isFocused}>모임종류</Label>
       <RNPickerSelect
       ref = {refType}
       placeholder={{
@@ -171,7 +169,7 @@ useEffect(() => {
       ]}
       onSubmitEditing = {() => refDesc.current.focus()}
      />
-     </View>
+
       <View style = {styles.rowcontainer}>
         <View style={styles.container}>
             <Label isFocused={isFocused}>시작시간</Label>

@@ -47,7 +47,6 @@ const MeetingDetail = ({route , navigation}) =>{
        <Desc label="설명" value={Meeting.description}  disabled/>
       <Button 
       title = "QR 스캔하기" 
-      disabled = {disabled}
       onPress = {() => navigation.navigate('QRScanner',{
       id : meetingId,
     })}
