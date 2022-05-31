@@ -103,6 +103,7 @@ const style = StyleSheet.create({
     marginTop:10,
     marginBottom: 10,
     borderWidth: 2,
+    borderRadius: 12,
   },
   textmeetingName: {
     fontSize:18
@@ -127,6 +128,7 @@ const style = StyleSheet.create({
     marginTop:10, 
     marginBottom:5, 
     borderWidth:1,
+    borderRadius: 12,
     alignItems: 'center',
     backgroundColor: '#EDEDED',
   },

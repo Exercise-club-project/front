@@ -55,7 +55,7 @@ padding: 50px 20px;
 `;
 
 const Signup = ({navigation}) => {
-    const placeholder = "날짜를 선택해주세요";
+    const placeholder = "생년월일을 선택해주세요";
 
     const [isFocused, setIsFocused] = useState(false);
 
@@ -172,7 +172,7 @@ const Signup = ({navigation}) => {
     <Container>
         <Input 
         label = "Email" 
-        placeholder = "Email" 
+        placeholder = "" 
         returnKeyType = "next" 
         value = {email} 
         onChangeText = {setEmail}
@@ -182,8 +182,8 @@ const Signup = ({navigation}) => {
         />
          <Input 
         ref = {refName}
-        label = "Name" 
-        placeholder = "Name" 
+        label = "이름" 
+        placeholder = "" 
         returnKeyType = "next" 
         value = {name} 
         onChangeText = {setName}
@@ -193,8 +193,8 @@ const Signup = ({navigation}) => {
         />
         <Input 
         ref = {refPassword}
-        label = "Password" 
-        placeholder = "Password" 
+        label = "비밀번호" 
+        placeholder = "사용하실 비밀번호를 입력하세요." 
         returnKeyType = "next" 
         value = {password} 
         onChangeText = {setPassword}
@@ -205,8 +205,8 @@ const Signup = ({navigation}) => {
         />
         <Input 
         ref = {refPasswordConfirm}
-        label = "PasswordConfirm" 
-        placeholder = "PasswordConfirm" 
+        label = "비밀번호 확인" 
+        placeholder = "사용하실 비밀번호를 재입력해주세요." 
         returnKeyType = "next" 
         value = {passwordConfirm} 
         onChangeText = {setPasswordConfirm}
@@ -214,8 +214,9 @@ const Signup = ({navigation}) => {
         onSubmitEditing = {() => refPhoneNumber.current.focus()}
         onBlur = {() => setPasswordConfirm(removeWhitespace(passwordConfirm))}
         />
+
         <View style={styles.container}>
-            <Label isFocused={isFocused}>Birthday</Label>
+            <Label isFocused={isFocused}>생년월일</Label>
             <TouchableOpacity onPress={showDatePicker}>
                 <TextInput
                     pointerEvents="none"
@@ -239,10 +240,11 @@ const Signup = ({navigation}) => {
                 />
             </TouchableOpacity>
         </View>
+
         <Input 
         ref = {refPhoneNumber}
-        label = "PhoneNumber" 
-        placeholder = "010-xxxx-xxxx" 
+        label = "전화번호" 
+        placeholder = "010-0000-0000" 
         returnKeyType = "next" 
         value = {phoneNumber} 
         onChangeText = {setPhoneNumber}
@@ -250,7 +252,7 @@ const Signup = ({navigation}) => {
         />
         <Input 
         ref = {refSex}
-        label = "Sex" 
+        label = "성별(M/F)" 
         placeholder = "M/F" 
         returnKeyType = "done" 
         value = {sex} 
@@ -271,20 +273,23 @@ const Signup = ({navigation}) => {
 
 const styles = StyleSheet.create({ 
   container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      // flex: 1,
+      width: '100%',
+      marginVertical: 10,
+      // justifyContent: 'center',
+      // alignItems: 'center',
       backgroundColor: 'white',
   },
   textInput: {
       fontSize: 16,
       color: '#000000',
       height: 50, 
-      width: 300, 
-      borderColor: '#000000', 
+      width: '100%', 
+      borderColor: '#a6a6a6', 
       borderWidth: 1, 
       borderRadius: 12,
-      padding: 10
+      paddingVertical: 30,
+      paddingHorizontal: 10,
   }
 })
 export default Signup;
