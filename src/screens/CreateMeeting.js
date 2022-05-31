@@ -156,6 +156,7 @@ useEffect(() => {
       onSubmitEditing = {() => refType.current.focus()}
       />
       <View style={styles.container}>
+        <Label>모임 종류</Label>
         <RNPickerSelect
         ref = {refType}
         placeholder={{
