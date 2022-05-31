@@ -60,11 +60,7 @@ const SelectClub = ({navigation}) =>{
 
   const [searchTerm, setsearchTerm] = useState('');
 
-  const [colleage ,setColleage] = useState('');
-  const [clubId,setClubId] = useState('');
   const [colleages, setColleages] = useState([]);
-
-  const refcolleage = useRef(null);
 
 
   const getClubs = async() =>{

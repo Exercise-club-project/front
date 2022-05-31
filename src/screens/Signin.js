@@ -69,6 +69,13 @@ const Signin = ({navigation}) => {
         // saving error
       }
     }
+    const getmyEmail = async (value) => {
+      try {
+        await AsyncStorage.setItem('myEmail', value)
+      } catch (e) {
+        // saving error
+      }
+    }
     const onLogin = async() =>{
       try{
         //spinner.start();
@@ -83,20 +90,25 @@ const Signin = ({navigation}) => {
         const data = response.data.data;
         // console.log("clubId : " ,data.clubId);
         const grade = data.grade;
+        const clubId = data.clubId;
         const token= data.tokenDto;
         // console.log("accesstoken : " ,token.accessToken);
         // console.log("refreshToken : " ,token.refreshToken);
         console.log(grade);
         console.log(token.accessToken);
+        console.log("userId : ",clubId);
         if(response.data.result === "SUCCESS"){
           // 로그인성공시 accessToken을 받음
             getmyGrade(grade);
             accessToken(token.accessToken);
             refreshToken(token.refreshToken);
-            AsyncStorage.getItem('MyGroupId').then((value) =>
-            navigation.replace(value !== 0 ? 'Main' : 'SelectClub'),
-            );
-            
+            getmyEmail(email);
+            if(clubId === 0){
+              navigation.navigate('SelectClub');
+            }
+            else{
+              navigation.navigate('Main');
+            }
         }
         else{
           Alert.alert(response.data.data);

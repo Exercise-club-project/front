@@ -35,7 +35,6 @@ const QR = ({navigation}) =>{
     }
 
   };
-  
 
   useEffect(() => { // 첫 qr화면 클릭시 실행 => getQR로 qr값이랑 expiredtime값 받음
     getQR(); // qr에 새 token값을 넣어주고 time을 초기화함
