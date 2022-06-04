@@ -4,9 +4,9 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 import request from '../funtion/request';
 import QRrequest from '../funtion/QRrequest';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Alert } from 'react-native-web';
-
-const QRScanner = ({route}) => {
+import { Alert } from 'react-native';
+import axios from 'axios';
+const QRScanner = ({route,navigation}) => {
   const meetingId = route.params.id;
   const [userId, setuserId] = useState(0);
   const [hasPermission, setHasPermission] = useState(null);
@@ -26,18 +26,40 @@ const QRScanner = ({route}) => {
     })();
   }, []);
 
-  const joinMeeting = async () =>{
-      console.log("Qr찍는 사람이 고른 모임id : ", meetingId);
-      console.log("Qr찍은사람의 userid : ",userId);
-    const response = await request({
-      method: 'POST',
-      url: `/${userId}/meeting/join/${meetingId}`,
-    });
-    Alert.alert('참석완료!');
-    navigation.navigate('Home');
-    // console.log(response.result);
-    // console.log(response.data);
-  }
+  const joinMeeting = async() =>{
+    console.log("Qr찍는 사람이 고른 모임id : ", meetingId);
+    console.log("Qr찍은사람의 userid : ",userId);
+    
+    try{
+      const response = await axios.post(
+        `http://23.23.240.178:8080/${userId}/meeting/join/${meetingId}`,
+      );
+      console.log(response.data.result);
+      console.log(response.data.data);
+      if(response.data.result === "SUCCESS"){
+        // console.log('result : ', response.data.result);
+        // console.log('data : ',response.data.data);
+        Alert.alert('참석완료! ', response.result);
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+  };
+  // const joinMeeting = async () =>{
+  //     console.log("Qr찍는 사람이 고른 모임id : ", meetingId);
+  //     console.log("Qr찍은사람의 userid : ",userId);
+  //   const response = await request({
+  //     method: 'POST',
+  //     url: `/${userId}/meeting/join/${meetingId}`,
+  //   });
+  //   // 이미 meeting에 참석한 userId면 안되도록
+  //   // 지금 참석은 되는데 Request failed with status code 500
+  //   Alert.alert('참석완료! ', response.result);
+  //   navigation.navigate('Home');
+  //   // console.log(response.result);
+  //   // console.log(response.data);
+  // }
   const handleBarCodeScanned = async({ data }) => {
     setScanned(true);
     storeQRtoken(data);

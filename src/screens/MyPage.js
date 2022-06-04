@@ -92,6 +92,9 @@ const MyPage = ({navigation}) => {
         getGroupRank(); 
         getGroupUserRank();
         getWholeUserRank();
+        console.log(groupUser[0].name);
+        console.log(group[0].club);
+        console.log(group[0].school);
      }, []);
 
     return (

@@ -8,7 +8,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { View, StyleSheet, TouchableOpacity, TextInput } from 'react-native'
 import DateTimePicker from "react-native-modal-datetime-picker";
-
+import RNPickerSelect from 'react-native-picker-select';
 
 Date.prototype.format = function(f) {
   if (!this.valueOf()) return " ";
@@ -177,7 +177,6 @@ const Signup = ({navigation}) => {
         onChangeText = {setEmail}
         onSubmitEditing = {() => refName.current.focus()}
         onBlur={()=> setEmail(removeWhitespace(email))}
-        right={<Input.Icon name="eye" />}
         />
          <Input 
         ref = {refName}
@@ -247,15 +246,23 @@ const Signup = ({navigation}) => {
         onChangeText = {setPhoneNumber}
         onSubmitEditing = {() => refSex.current.focus()}
         />
-        <Input 
-        ref = {refSex}
-        label = "Sex" 
-        placeholder = "M/F" 
-        returnKeyType = "done" 
-        value = {sex} 
-        onChangeText = {setSex}
-        onSubmitEditing = {_handleSignupBtnPress}
-        />
+        <View style={styles.container}>
+          <Label>성별</Label>
+          <RNPickerSelect
+          ref = {refSex}
+          placeholder={{
+            label: "성별을 선택해주세요.",
+          }}
+          value={sex}
+          onValueChange={setSex}
+          items={[
+            { label: '남성', value: 'M' },
+            { label: '여성', value: 'F' },
+          ]}
+          onSubmitEditing = {_handleSignupBtnPress}
+          style={pickerSelectStyles}
+          />
+        </View>
         <ErrorMessage message = {errorMessage}/>
         <Button 
         title="회원가입" 
@@ -267,7 +274,30 @@ const Signup = ({navigation}) => {
     </KeyboardAwareScrollView>
     );
 };
-
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+});
 const styles = StyleSheet.create({ 
   container: {
       flex: 1,

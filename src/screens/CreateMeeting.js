@@ -52,7 +52,8 @@ const Container = styled.View`
 
 const CreateMeeting = ({navigation}) =>{
 
-  const placeholder = "날짜와 시간을 선택해주세요";
+  const placeholder1 = "시작 시간을 선택해주세요";
+  const placeholder2 = "종료 시간을 선택해주세요";
 
     const [isFocused, setIsFocused] = useState(false);
 
@@ -88,7 +89,7 @@ const CreateMeeting = ({navigation}) =>{
   };
 
   const [meetingName, setMeetingName] = useState('');
-  const [meetingType, setMeetingType] = useState('모임종류를 선택해주세요');
+  const [meetingType, setMeetingType] = useState('모임 종류를 선택해주세요');
   const [description, setDescription] = useState('');
   const [errorMessage,setErrorMessage] = useState('');
   const [disabled, setDisabled] =useState(true);
@@ -107,7 +108,7 @@ const CreateMeeting = ({navigation}) =>{
 useEffect(() => {
     if(refDidMount.current){
         let error = '';
-        if(!meetingName) error = '동아리 이름을 입력해주세요!';
+        if(!meetingName) error = '모임 이름을 입력해주세요!';
         setErrorMessage(error);
     }
     else{
@@ -147,28 +148,32 @@ useEffect(() => {
     <Container>
       
       <Input 
-      label = "meetingName" 
-      placeholder = "meetingName" 
+      label = "모임 이름" 
+      placeholder = "모임 이름을 입력해주세요." 
       returnKeyType = "next" 
       value = {meetingName} 
       onChangeText = {setMeetingName}
       onSubmitEditing = {() => refType.current.focus()}
       />
-      <RNPickerSelect
-      ref = {refType}
-      placeholder={{
-        label: meetingType,
-      }}
-      value={meetingType}
-      // onChangeText = {setMeetingType}
-      onValueChange={setMeetingType}
-      items={[
-        { label: '정기모임', value: '정기모임' },
-        { label: '번개모임', value: '번개모임' },
-        { label: '총회', value: '총회' },
-      ]}
-      onSubmitEditing = {() => refDesc.current.focus()}
-     />
+      <View style={styles.container}>
+        <Label>모임 종류</Label>
+        <RNPickerSelect
+        ref = {refType}
+        placeholder={{
+          label: meetingType,
+        }}
+        value={meetingType}
+        // onChangeText = {setMeetingType}
+        onValueChange={setMeetingType}
+        items={[
+          { label: '정기모임', value: '정기모임' },
+          { label: '번개모임', value: '번개모임' },
+          { label: '총회', value: '총회' },
+        ]}
+        onSubmitEditing = {() => refDesc.current.focus()}
+        style={pickerSelectStyles}
+      />
+     </View>
 
       <View style = {styles.rowcontainer}>
         <View style={styles.container}>
@@ -178,7 +183,7 @@ useEffect(() => {
                 <TextInput
                     pointerEvents="none"
                     style={styles.textInput}
-                    placeholder={placeholder}
+                    placeholder={placeholder1}
                     placeholderTextColor='#a6a6a6'
                     underlineColorAndroid="transparent"
                     editable={false}
@@ -189,7 +194,7 @@ useEffect(() => {
                     onFocus={() => setIsFocused(true)}
                 />
                 <DateTimePicker
-                    headerTextIOS={placeholder}
+                    headerTextIOS={placeholder1}
                     isVisible={isDatePickerVisible1}
                     mode="datetime"
                     onConfirm={handleConfirm1}
@@ -205,7 +210,7 @@ useEffect(() => {
                 <TextInput
                     pointerEvents="none"
                     style={styles.textInput}
-                    placeholder={placeholder}
+                    placeholder={placeholder2}
                     placeholderTextColor='#a6a6a6'
                     underlineColorAndroid="transparent"
                     editable={false}
@@ -216,7 +221,7 @@ useEffect(() => {
                     onFocus={() => setIsFocused(true)}
                 />
                 <DateTimePicker
-                    headerTextIOS={placeholder}
+                    headerTextIOS={placeholder2}
                     isVisible={isDatePickerVisible2}
                     mode="datetime"
                     onConfirm={handleConfirm2}
@@ -227,8 +232,8 @@ useEffect(() => {
         </View>
       <Desc 
       ref = {refDesc}
-      label = "description" 
-      placeholder = "description" 
+      label = "모임 설명" 
+      placeholder = "모임 설명을 입력해주세요." 
       returnKeyType = "next" 
       value = {description} 
       onChangeText = {setDescription}
@@ -246,25 +251,52 @@ useEffect(() => {
 
 const styles = StyleSheet.create({ 
   container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
+      // flex: 1,
+      width: '100%',
+      marginVertical: 10,
+      // justifyContent: 'center',
+      // alignItems: 'center',
       backgroundColor: 'white',
-      margin: 10,
   },
   rowcontainer: {
       flexDirection : 'row',
   },
   textInput: {
-      fontSize: 16,
-      color: '#000000',
-      height: 50, 
-      width: 370, 
-      borderColor: '#000000', 
-      borderWidth: 1, 
-      borderRadius: 12,
-      padding: 10
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
   }
 })
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+});
 
 export default CreateMeeting;

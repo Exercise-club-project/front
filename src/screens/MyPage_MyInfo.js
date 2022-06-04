@@ -8,61 +8,49 @@ const MyPage_MyInfo = ({route}) => {
     const grouprank = route.params.grouprank;
     const myrank = route.params.myrank;
     const [userdata, setUserdata] = useState({});
-    
+    const [opPer,setopPer] = useState(33);
+    const [regPer,setregPer] = useState(33);
+    const [impPer,setimpPer] = useState(33);
+    const imp = userdata.impromptuScore;
+    const op = userdata.openScore;
+    const reg = userdata.regularScore;
+    const total = userdata.totalScore;
     const getUserdata = async () => {
         const userId = await AsyncStorage.getItem('MyUserId');
         const res = await request({
           method: 'GET',
           url: `/user/history/${userId}`,
         });
-      
+        const data = res.data;
         if(res.result === "SUCCESS"){
-            setUserdata(res.data);
+            // console.log("total : ",total,typeof(typeof(total)));
+            await setUserdata(res.data);
+            // typeof(total) !== 'undefined'&&total !== null
+                // console.log("total이 0 or undefined이면 뜨면 안되는 문장");
+                // console.log("total in if : ",total,typeof(total));
+            if(total !== 0){
+                setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
+                setimpPer(((data.impromptuScroe / data.totalScore)*100).toFixed(3));
+                setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
+            }
         }
     };
-    // res의 형태 =>
-    // {
-    //     "result": "SUCCESS",
-    //     "data": {
-    //         "userName": "test4",
-    //         "schoolName": "단국대학교",
-    //         "clubName": "test",
-    //         "totalScore": 0,
-    //         "openScore": 0,
-    //         "regularScore": 0,
-    //         "impromptuScore": 0
-    //     }
-    // }
     useEffect(() => {
         getUserdata(); // api data 수정 된 후 사용
-         //setMeeting(TESTDATA)
-      }, []);
-      
-    const clubName = userdata.clubName;
-    const imp = userdata.impromptuScore;
-    const op = userdata.openScore;
-    const reg = userdata.regularScore;
-    const school = userdata.schoolName;
-    const name = userdata.userName;
-    const total = userdata.totalScore;
+      },[]);
+      useEffect(() => {
+        isNaNs()
+      });
 
-    // const [opPerc,setOpPerc] = useState(0);
-    // const [regPerc,setRegPerc] = useState(0);
-    // const [impPerc,setImpPerc] = useState(0);
+    const isNaNs = async () =>{
+        if(isNaN(opPer) == true &&isNaN(regPer) == true &&isNaN(impPer) == true){
+            console.log("세개다 NAN");
+            await setopPer(0);
+            await setregPer(0);
+            await setimpPer(0);
+        }
+    }
     
-    // // 이론상구현
-    // if(total === 0){
-    //     setOpPerc(0);
-    //     setRegPerc(0);
-    //     setRegPerc(0);
-    // }
-    // else{ 
-    //     setOpPerc((op / total)*100);
-    //     setRegPerc((reg / total)*100);
-    //     setImpPerc((imp / total)*100);
-    // }
-    // 각각 op(총회), reg(정기모임),  imp(번개모임)을 total로 나누어서 퍼센티지 나타낼 때
-    // total이 0일때 total에 1을 넣어서 퍼센티지 나타내도록
  
     const data = [
         {
@@ -82,7 +70,7 @@ const MyPage_MyInfo = ({route}) => {
         },
         {
           name: "총회",
-          score: 80,
+          score: 10,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -105,14 +93,14 @@ const MyPage_MyInfo = ({route}) => {
             <View style={{flex:1,}}>
               <View style={style.box1}>
               <View style={style.nameTextbox}>
-                  <Text style={style.nameText}>{name}</Text>
+                  <Text style={style.nameText}>{userdata.userName}</Text>
               </View>
               <View style={style.clubschoolbox}>
               <View style={style.clubnamebox}>
-                  <Text style={style.clubnameText}>{clubName}</Text>
+                  <Text style={style.clubnameText}>{userdata.clubName}</Text>
               </View>
               <View style={style.schoolnamebox}>
-                  <Text style={style.schoolnameText}>{school}</Text>
+                  <Text style={style.schoolnameText}>{userdata.schoolName}</Text>
               </View>
               </View>
           </View>
@@ -158,6 +146,7 @@ const MyPage_MyInfo = ({route}) => {
                     </View>
 
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
+                        {/* 로딩아이콘? */}
                         <PieChart
                             data={data}
                             width={150}
@@ -183,21 +172,21 @@ const MyPage_MyInfo = ({route}) => {
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>10%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{regPer}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>10%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{impPer}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>80%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{opPer}%</Text></View>
                     </View>
                 </View>
             </View>

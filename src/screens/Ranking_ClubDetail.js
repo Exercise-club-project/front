@@ -8,6 +8,9 @@ const Ranking_ClubDetail = ({route}) => {
     const clubId = route.params.id;
     const rank = route.params.rank;
     const [groupdata, setGroupdata] = useState({});
+    const [opPer,setopPer] = useState(0);
+    const [regPer,setregPer] = useState(0);
+    const [impPer,setimpPer] = useState(0);
     const getGroupdata = async () => {
         const res = await request({
           method: 'GET',
@@ -16,31 +19,41 @@ const Ranking_ClubDetail = ({route}) => {
       
         if(res.result === "SUCCESS"){
             setGroupdata(res.data);
-            console.log("res.data: ",res.data);
+            console.log("res.data: ", res.data);
+            if(total !== 0){
+                setopPer(((op / total)*100).toFixed(3));
+                setimpPer(((imp / total)*100).toFixed(3));
+                setregPer(((reg / total)*100).toFixed(3));
+            }
         }
     };
     useEffect(() => {
         getGroupdata(); // api data 수정 된 후 사용
          //setMeeting(TESTDATA)
       }, []);
+    const imp = groupdata.impromptuScroe;
+    const op = groupdata.openScore;
+    const reg = groupdata.regularScore;
+    const total = groupdata.totalScore;
+
     const data = [
         {
           name: "정기모임",
-          score: 525,
+          score: 10,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: 525,
+          score: 10,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: 1050,
+          score: 10,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -99,7 +112,7 @@ const Ranking_ClubDetail = ({route}) => {
                     <View style={{flex:1, maxHeight:40,}}>
                         <View style={{flex:1,flexDirection:'row',alignItems: 'center', paddingLeft:10,}}>
                             <Text style={{fontSize:20, fontWeight:'bold',}}>점수</Text>
-                            <Text style={{fontSize:20, paddingLeft:10,}}>{groupdata.totalScore}</Text>
+                            <Text style={{fontSize:20, paddingLeft:10,}}>{total}</Text>
                         </View>
                     </View>
 
@@ -128,22 +141,22 @@ const Ranking_ClubDetail = ({route}) => {
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{groupdata.regularScore}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{regPer}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{groupdata.impromptuScroe}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>25.00%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{impPer}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{groupdata.openScore}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>50.00%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{opPer}%</Text></View>
                     </View>
                 </View>
             </View>

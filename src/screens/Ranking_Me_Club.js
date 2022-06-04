@@ -8,6 +8,9 @@ import axios from 'axios';
 const Ranking_Me_Club = ({navigation}) =>{
 
   const [clubdata, setclubdata] = useState([]);
+  const [opPer,setopPer] = useState(0);
+  const [regPer,setregPer] = useState(0);
+  const [impPer,setimpPer] = useState(0);
   
   const getRank = async () => {
       const res = await request({

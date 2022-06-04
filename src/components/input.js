@@ -24,7 +24,7 @@ const StyledInput = styled.TextInput.attrs(({ theme }) => ({
   font-size: 16px;
   border: 1px solid
     ${({ theme, isFocused }) => (isFocused ? theme.text : theme.inputBorder)};
-  border-radius: 15px;
+  border-radius: 12px;
 `;
 
 const Input = forwardRef(

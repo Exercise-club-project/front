@@ -86,19 +86,12 @@ const Signin = ({navigation}) => {
             password: password,
           },
         );
-        // console.log("responsedata : " ,response.data);
-        const data = response.data.data;
-        // console.log("clubId : " ,data.clubId);
-        const grade = data.grade;
-        const clubId = data.clubId;
-        const token= data.tokenDto;
-        // console.log("accesstoken : " ,token.accessToken);
-        // console.log("refreshToken : " ,token.refreshToken);
-        console.log(grade);
-        console.log(token.accessToken);
-        console.log("userId : ",clubId);
         if(response.data.result === "SUCCESS"){
           // 로그인성공시 accessToken을 받음
+            const data = response.data.data;
+            const grade = data.grade;
+            const clubId = data.clubId;
+            const token= data.tokenDto;
             getmyGrade(grade);
             accessToken(token.accessToken);
             refreshToken(token.refreshToken);
@@ -110,7 +103,7 @@ const Signin = ({navigation}) => {
               navigation.navigate('Main');
             }
         }
-        else{
+        else if(response.data.result === "FAIL"){
           Alert.alert(response.data.data);
           //setUser(token.accessToken); // 로그인 후 동아리 선택으로 넘어가므로
           // 이 함수는 동아리선택화면으로 넘기자
