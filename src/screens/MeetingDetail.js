@@ -24,7 +24,7 @@ const MeetingDetail = ({route , navigation}) =>{
         // console.log('result : ', response.data.result);
         // console.log('data : ',response.data.data);
         setMeeting(response.data.data);
-        console.log(response.data.data.joinList[0]);
+        console.log(response.data.data);
       }
     }
     catch(e){

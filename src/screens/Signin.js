@@ -76,6 +76,24 @@ const Signin = ({navigation}) => {
         // saving error
       }
     }
+    const getmyId = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem("MyUserId", jsonValue)
+      } catch (e) {
+        // saving error
+      }
+    }
+    const storeMygroupId = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value)
+        await AsyncStorage.setItem("MygroupId", jsonValue)
+        // MygroupId 받는 부분
+        // api변경요청 -> 로그인화면으로
+      } catch (e) {
+        // saving error
+      }
+    }
     const onLogin = async() =>{
       try{
         //spinner.start();
@@ -86,20 +104,25 @@ const Signin = ({navigation}) => {
             password: password,
           },
         );
+        console.log(response.data);
         if(response.data.result === "SUCCESS"){
           // 로그인성공시 accessToken을 받음
             const data = response.data.data;
             const grade = data.grade;
             const clubId = data.clubId;
             const token= data.tokenDto;
+            const userId = data.userId; // userid받는 부분
             getmyGrade(grade);
             accessToken(token.accessToken);
+            console.log(token.accessToken);
             refreshToken(token.refreshToken);
             getmyEmail(email);
+            getmyId(userId);
             if(clubId === 0){
               navigation.navigate('SelectClub');
             }
             else{
+              storeMygroupId(clubId);
               navigation.navigate('Main');
             }
         }

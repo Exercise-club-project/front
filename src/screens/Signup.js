@@ -93,15 +93,6 @@ const Signup = ({navigation}) => {
     const refSex = useRef(null);
     const refDidMount = useRef(null);
 
-    const storeuserId = async (value) => {
-      try {
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem("MyUserId", jsonValue)
-      } catch (e) {
-        // saving error
-      }
-    }
-
     useEffect(() => {
         setDisabled(
             !(name && email && password && passwordConfirm && birthday && phoneNumber
@@ -150,9 +141,6 @@ const Signup = ({navigation}) => {
           //const userid = response.data.data;
           const res = response.data;
           if(res.result === "SUCCESS"){
-            storeuserId(res.data);
-            // userid받는 부분
-            
             navigation.navigate('SelectClub');
           }
           else{

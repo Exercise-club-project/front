@@ -17,6 +17,7 @@ const MyPage_MyInfo = ({route}) => {
     const total = userdata.totalScore;
     const getUserdata = async () => {
         const userId = await AsyncStorage.getItem('MyUserId');
+        console.log("userId:",userId);
         const res = await request({
           method: 'GET',
           url: `/user/history/${userId}`,
@@ -38,9 +39,10 @@ const MyPage_MyInfo = ({route}) => {
     useEffect(() => {
         getUserdata(); // api data 수정 된 후 사용
       },[]);
-      useEffect(() => {
-        isNaNs()
-      });
+
+    useEffect(() => {
+    isNaNs()
+    });
 
     const isNaNs = async () =>{
         if(isNaN(opPer) == true &&isNaN(regPer) == true &&isNaN(impPer) == true){
