@@ -80,7 +80,8 @@ const Signup = ({navigation}) => {
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [sex, setSex] = useState('');
+    const [sex, setSex] = useState('성별을 선택해주세요');
+    const [meetingType, setMeetingType] = useState('모임 종류를 선택해주세요');
 
     console.log(birthday);
     const [errorMessage,setErrorMessage] = useState('');
@@ -239,7 +240,7 @@ const Signup = ({navigation}) => {
           <RNPickerSelect
           ref = {refSex}
           placeholder={{
-            label: "성별을 선택해주세요.",
+            label: sex,
           }}
           value={sex}
           onValueChange={setSex}
@@ -288,11 +289,13 @@ const pickerSelectStyles = StyleSheet.create({
 });
 const styles = StyleSheet.create({ 
   container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'white',
-  },
+    // flex: 1,
+    width: '100%',
+    marginVertical: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: 'white',
+},
   textInput: {
       fontSize: 16,
       color: '#000000',

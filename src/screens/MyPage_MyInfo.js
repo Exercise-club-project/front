@@ -29,7 +29,7 @@ const MyPage_MyInfo = ({route}) => {
             // typeof(total) !== 'undefined'&&total !== null
                 // console.log("total이 0 or undefined이면 뜨면 안되는 문장");
                 // console.log("total in if : ",total,typeof(total));
-            if(total !== 0){
+            if(total !== 0){ // total이 undefined일 경우도 추가해야하는데
                 setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
                 setimpPer(((data.impromptuScroe / data.totalScore)*100).toFixed(3));
                 setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
