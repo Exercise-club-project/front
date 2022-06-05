@@ -47,11 +47,11 @@ const MyPage = ({navigation}) => {
           );
           if(response.data.result === "SUCCESS"){
             const groups = response.data.data;
-            //console.log(groups);
             const groupId = await AsyncStorage.getItem('MygroupId');
             //console.log(groupId);
             const selectgroup = groups.filter(it => it.clubId===parseInt(groupId));
             setGroup(selectgroup);
+            console.log("group: ",selectgroup);
           }
         }
         catch(e){
@@ -67,8 +67,10 @@ const MyPage = ({navigation}) => {
         if(res.result === "SUCCESS"){
             const users = res.data;
             const userId = await AsyncStorage.getItem('MyUserId');
+            console.log("userId", userId);
             const selectuser = users.filter(it => it.userId===parseInt(userId));
             setGroupUser(selectuser);
+            console.log("user: ",selectuser);
             
         }
     };
@@ -77,9 +79,12 @@ const MyPage = ({navigation}) => {
           const response = await axios.get(
             `http://23.23.240.178:8080/rank/user`,
           );
+          console.log(response.data.data);
           if(response.data.result === "SUCCESS"){
             const users = response.data.data;
+            console.log("userswhole : ", users);
             const userId = await AsyncStorage.getItem('MyUserId');
+            console.log("userId", userId);
             const selectuser = users.filter(it => it.userId===parseInt(userId));
             setWholeUser(selectuser);
           }
@@ -89,9 +94,12 @@ const MyPage = ({navigation}) => {
         }
       };
       useEffect(() => {
-        getGroupRank(); 
-        getGroupUserRank();
-        getWholeUserRank();
+          getGroupRank(); 
+          getGroupUserRank();
+          getWholeUserRank();
+        // console.log(groupUser[0].name);
+        // console.log(group[0].club);
+        // console.log(group[0].school);
      }, []);
 
     return (

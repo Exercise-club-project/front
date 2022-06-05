@@ -81,7 +81,8 @@ const Signup = ({navigation}) => {
     const [password, setPassword] = useState('');
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [sex, setSex] = useState('');
+    const [sex, setSex] = useState('성별을 선택해주세요');
+    const [meetingType, setMeetingType] = useState('모임 종류를 선택해주세요');
 
     console.log(birthday);
     const [errorMessage,setErrorMessage] = useState('');
@@ -93,15 +94,6 @@ const Signup = ({navigation}) => {
     const refPhoneNumber = useRef(null);
     const refSex = useRef(null);
     const refDidMount = useRef(null);
-
-    const storeuserId = async (value) => {
-      try {
-        const jsonValue = JSON.stringify(value)
-        await AsyncStorage.setItem("MyUserId", jsonValue)
-      } catch (e) {
-        // saving error
-      }
-    }
 
     useEffect(() => {
         setDisabled(
@@ -151,9 +143,6 @@ const Signup = ({navigation}) => {
           //const userid = response.data.data;
           const res = response.data;
           if(res.result === "SUCCESS"){
-            storeuserId(res.data);
-            // userid받는 부분
-            
             navigation.navigate('SelectClub');
           }
           else{
@@ -249,23 +238,15 @@ const Signup = ({navigation}) => {
         onChangeText = {setPhoneNumber}
         onSubmitEditing = {() => refSex.current.focus()}
         />
-        
-        {/* <Input 
-        ref = {refSex}
-        label = "성별(M/F)" 
-        placeholder = "M/F" 
-        returnKeyType = "done" 
-        value = {sex} 
-        onChangeText = {setSex}
-        onSubmitEditing = {_handleSignupBtnPress}
-        /> */}
 
         <View style={styles.container}>
           <Label>성별</Label>
           <RNPickerSelect
           ref = {refSex}
           placeholder={{
-            label: "성별을 선택해주세요.",
+
+            label: sex,
+
           }}
           value={sex}
           onValueChange={setSex}
@@ -289,9 +270,41 @@ const Signup = ({navigation}) => {
     </KeyboardAwareScrollView>
     );
 };
-
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+  inputAndroid: {
+    fontSize: 16,
+    color: '#000000',
+    // height: 50, 
+    width: '100%', 
+    borderColor: '#a6a6a6', 
+    borderWidth: 1, 
+    borderRadius: 12,
+    paddingVertical: 20,
+    paddingHorizontal: 10,
+  },
+});
 const styles = StyleSheet.create({ 
   container: {
+
+    // flex: 1,
+    width: '100%',
+    marginVertical: 10,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    backgroundColor: 'white',
+},
+
       // flex: 1,
       width: '100%',
       marginVertical: 10,

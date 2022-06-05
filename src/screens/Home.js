@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {Button} from '../components';
 import request from '../funtion/request';
+import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -47,17 +48,24 @@ const Home = ({navigation}) =>{
     </ItemContainer>
   );
 
-  const getMeeting = async () => {
+  const getMeeting = async() =>{
     const groupId = await AsyncStorage.getItem('MygroupId');
-      const res = await request({
-        method: 'GET',
-        url: `/user/meeting/get/${groupId}`,
-      });
-
-      if(res.result === "SUCCESS"){
-        setMeeting(res.data);
+    
+    try{
+      const response = await axios.get(
+        `http://23.23.240.178:8080/user/meeting/get/${groupId}`,
+      );
+      if(response.data.result === "SUCCESS"){
+        // console.log('result : ', response.data.result);
+        // console.log('data : ',response.data.data);
+        setMeeting(response.data.data);
       }
+    }
+    catch(e){
+      console.log(e);
+    }
   };
+
 
   useEffect(() => {
      getMeeting(); // api data 수정 된 후 사용

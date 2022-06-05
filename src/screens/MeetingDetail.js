@@ -24,7 +24,7 @@ const MeetingDetail = ({route , navigation}) =>{
         // console.log('result : ', response.data.result);
         // console.log('data : ',response.data.data);
         setMeeting(response.data.data);
-        console.log(grade);
+        console.log(response.data.data);
       }
     }
     catch(e){
@@ -47,9 +47,13 @@ const MeetingDetail = ({route , navigation}) =>{
        <Input label="시작시간" value={Meeting.startDate} disabled/>
        <Input label="종료시간" value={Meeting.endDate} disabled/>
        <Input label="설명" value={Meeting.description} disabled/>
+
+       <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
+
        {/* Desc 를 쓰면 오류 발생, Input으로 적기로 협의함 */}
       <Button 
       title = "QR 스캔하기" 
+      disabled = {disabled}
       onPress = {() => navigation.navigate('QRScanner',{
       id : meetingId,
     })}
