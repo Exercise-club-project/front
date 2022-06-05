@@ -26,7 +26,17 @@ const MyPage_MyClub = ({route}) => {
         if(res.result === "SUCCESS"){
             setGroupdata(res.data);
             console.log(res.data);
-            if(total !== 0){
+            
+            if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true){
+                setopPer(0);
+            }
+            else if(isNaN(((data.impromptuScroe / data.totalScore)*100).toFixed(3)) == true){
+                setimpPer(0);
+            }
+            else if(((data.regularScore / data.totalScore)*100).toFixed(3) == true){
+                setregPer(0);
+            }
+            else{
                 setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
                 setimpPer(((data.impromptuScroe / data.totalScore)*100).toFixed(3));
                 setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
@@ -37,7 +47,8 @@ const MyPage_MyClub = ({route}) => {
         getGroupdata(); // api data 수정 된 후 사용
          //setMeeting(TESTDATA)
       },[]);
-    // /group/get/{groupId}
+    // score에 NAN값이 담기면 오류가 뜸
+    // opPer, regPer, impPer체크
     const data = [
         {
           name: "정기모임",

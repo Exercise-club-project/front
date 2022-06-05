@@ -16,15 +16,22 @@ const Ranking_ClubDetail = ({route}) => {
           method: 'GET',
           url: `/group/get/${clubId}`,
         });
-      
+        const data = res.data;
         if(res.result === "SUCCESS"){
             setGroupdata(res.data);
-            console.log("res.data: ", res.data);
-            if(total !== 0){
-                setopPer(((op / total)*100).toFixed(3));
-                setimpPer(((imp / total)*100).toFixed(3));
-                setregPer(((reg / total)*100).toFixed(3));
+            if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true &&
+            isNaN(((data.impromptuScroe / data.totalScore)*100).toFixed(3)) == true &&
+            isNaN(((data.regularScore / data.totalScore)*100).toFixed(3)) == true){
+                setopPer(0);
+                setregPer(0);
+                setimpPer(0);
             }
+            else{
+                setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
+                setimpPer(((data.impromptuScroe / data.totalScore)*100).toFixed(3));
+                setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
+            }
+            
         }
     };
     useEffect(() => {
