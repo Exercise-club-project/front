@@ -8,56 +8,14 @@ import {
   Text,
 } from 'react-native';
 // import { removeWhitespace } from '../util';
-import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 
-const ClubTestData = [
-  {
-    clubid: 1,
-    school: "단국대학교(죽전)", 
-    name: "FLY",
-  },
-  {
-    clubid: 2,
-    school: "고려대학교", 
-    name: "KUBC",
-  },
-  {
-    clubid: 3,
-    school: "서강대학교", 
-    name: "굿민턴",
-  },
-  {
-    clubid: 4,
-    school: "가천대학교", 
-    name: "Connect",
-  },
-  {
-    clubid: 5,
-    school: "강남대학교", 
-    name: "파닥파닥",
-  },
-  {
-    clubid: 6,
-    school: "연세대학교(서울)", 
-    name: "파워스",
-  },
-  {
-    clubid: 7,
-    school: "경기대학교", 
-    name: "세팅",
-  },
-  {
-    clubid: 8,
-    school: "경희대학교", 
-    name: "하이클리어",
-  },
-]
+const SelectClub = ({navigation,route}) =>{
 
-const SelectClub = ({navigation}) =>{
-
+  const userId = route.params.id;
+  
   const [searchTerm, setsearchTerm] = useState('');
 
   const [colleages, setColleages] = useState([]);
@@ -106,7 +64,7 @@ const storeMygroupId = async (value) => {
 }
 
 const upClub = async() =>{
-  const userId = await AsyncStorage.getItem('MyUserId');
+  // const userId = await AsyncStorage.getItem('MyUserId');
   const groupId = await AsyncStorage.getItem('groupId');
   console.log("userId : ", userId);
   console.log("groupId : ", groupId);
@@ -190,30 +148,5 @@ const style = StyleSheet.create({
   },
 })
 
-const ItemContainer = styled.TouchableOpacity`
-  flex-direction : row;
-  align-items: center;
-  border-bottom-width: 1px;
-  border-color : #111111;
-  padding: 15px 60px;
-`;
-const ItemTextContainer = styled.View`
-  flex-direction: column;
-  border-color : #a6a6a6;
-  background-color: #a6a6a6;
-`;
-const ItemClubName = styled.Text`
-  font-size: 20px;
-  font-weight: 600;
-  border-color : #a6a6a6;
-`;
-const ItemSchool = styled.Text`
-  font-size: 18px;
-  margin-top: 3px;
-  border-color : #a6a6a6;
-`;
-const ItemLeader = styled.Text`
-  font-size: 12px;
-`;
 
 export default SelectClub;

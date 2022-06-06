@@ -117,9 +117,12 @@ const Signin = ({navigation}) => {
             console.log(token.accessToken);
             refreshToken(token.refreshToken);
             getmyEmail(email);
-            getmyId(userId);
+            getmyId(userId); // 갖고다닐 userid저장
+            console.log("로그인 response userid : ", userId);
             if(clubId === 0){
-              navigation.navigate('SelectClub');
+              navigation.navigate('SelectClub',{
+                id : userId, // 회원의 id값을 인자로 전달
+              });
             }
             else{
               storeMygroupId(clubId);

@@ -70,7 +70,7 @@ const Signup = ({navigation}) => {
     };
 
     const handleConfirm = (date) => {
-        console.log("dateFormat: ", date.format("yyyy-MM-dd"));
+        // console.log("dateFormat: ", date.format("yyyy-MM-dd"));
         hideDatePicker();
         setBirthday(date.format("yyyy-MM-dd"))
     };
@@ -82,7 +82,6 @@ const Signup = ({navigation}) => {
     const [passwordConfirm, setPasswordConfirm] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [sex, setSex] = useState('성별을 선택해주세요');
-    const [meetingType, setMeetingType] = useState('모임 종류를 선택해주세요');
 
     console.log(birthday);
     const [errorMessage,setErrorMessage] = useState('');
@@ -143,7 +142,10 @@ const Signup = ({navigation}) => {
           //const userid = response.data.data;
           const res = response.data;
           if(res.result === "SUCCESS"){
-            navigation.navigate('SelectClub');
+            console.log("회원가입 response userid : ", res.data);
+            navigation.navigate('SelectClub',{
+              id : res.data, // 회원의 id값을 인자로 전달
+            });
           }
           else{
             Alert.alert(res.data);

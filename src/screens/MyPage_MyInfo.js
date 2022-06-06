@@ -8,30 +8,37 @@ const MyPage_MyInfo = ({route}) => {
     const grouprank = route.params.grouprank;
     const myrank = route.params.myrank;
     const [userdata, setUserdata] = useState({});
-    const [opPer,setopPer] = useState(33);
-    const [regPer,setregPer] = useState(33);
-    const [impPer,setimpPer] = useState(33);
+    const [opPer,setopPer] = useState(0);
+    const [regPer,setregPer] = useState(0);
+    const [impPer,setimpPer] = useState(0);
     const imp = userdata.impromptuScore;
     const op = userdata.openScore;
     const reg = userdata.regularScore;
     const total = userdata.totalScore;
     const getUserdata = async () => {
         const userId = await AsyncStorage.getItem('MyUserId');
-        console.log("userId:",userId);
+        //console.log("userId:",userId);
         const res = await request({
           method: 'GET',
           url: `/user/history/${userId}`,
         });
         const data = res.data;
         if(res.result === "SUCCESS"){
-            // console.log("total : ",total,typeof(typeof(total)));
-            await setUserdata(res.data);
-            // typeof(total) !== 'undefined'&&total !== null
-                // console.log("total이 0 or undefined이면 뜨면 안되는 문장");
-                // console.log("total in if : ",total,typeof(total));
-            if(total !== 0){ // total이 undefined일 경우도 추가해야하는데
+            setUserdata(res.data);
+            console.log(res.data);
+            console.log("opPer: ",((data.openScore / data.totalScore)*100).toFixed(3));
+            console.log("impPer: ",((data.impromptuScore / data.totalScore)*100).toFixed(3));
+            console.log("regPer: ",((data.regularScore / data.totalScore)*100).toFixed(3));
+            if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true ||
+                isNaN(((data.impromptuScore / data.totalScore)*100).toFixed(3)) == true ||
+                isNaN(((data.regularScore / data.totalScore)*100).toFixed(3)) == true){
+                    setopPer(0);
+                    setregPer(0);
+                    setimpPer(0);
+                }
+            else{
                 setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
-                setimpPer(((data.impromptuScroe / data.totalScore)*100).toFixed(3));
+                setimpPer(((data.impromptuScore / data.totalScore)*100).toFixed(3));
                 setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
             }
         }
@@ -40,20 +47,10 @@ const MyPage_MyInfo = ({route}) => {
         getUserdata(); // api data 수정 된 후 사용
       },[]);
 
-    useEffect(() => {
-    isNaNs()
-    });
-
-    const isNaNs = async () =>{
-        if(isNaN(opPer) == true &&isNaN(regPer) == true &&isNaN(impPer) == true){
-            console.log("세개다 NAN");
-            await setopPer(0);
-            await setregPer(0);
-            await setimpPer(0);
-        }
-    }
     
  
+    // score에 NAN값이 담기면 오류가 뜸
+    // opPer, regPer, impPer체크
     const data = [
         {
             // reg, imp, op의 값이 정해지지 않아서 차트가 보이지 않음
@@ -72,7 +69,7 @@ const MyPage_MyInfo = ({route}) => {
         },
         {
           name: "총회",
-          score: 10,
+          score: opPer,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15

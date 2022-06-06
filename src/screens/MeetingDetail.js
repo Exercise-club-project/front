@@ -1,6 +1,6 @@
 import React,{useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import {Button, Input, Desc} from '../components';
+import {Button, Input} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
