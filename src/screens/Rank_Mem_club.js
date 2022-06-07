@@ -144,21 +144,21 @@ const Rank_Mem_club = ({route}) => {
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF', borderRadius:4}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{regPer}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99', borderRadius:4}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{impPer}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A', borderRadius:4}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{opPer}%</Text></View>
@@ -183,7 +183,7 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     nameTextbox:{
-      flex:1, 
+      flex:2, 
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -220,7 +220,8 @@ const style = StyleSheet.create({
       flexDirection:'row', 
       height: 80,
       marginTop: 20,
-      backgroundColor:'#ededed'
+      backgroundColor:'#ededed',
+      borderRadius: 12,
     },
     box2: {
         flex:1, 
@@ -232,6 +233,8 @@ const style = StyleSheet.create({
     bigbox2: {
         flex:1,
         borderWidth: 2,
+        borderRadius: 12,
+        minHeight: 80,
         maxHeight: 140,
         marginTop: 20, 
         marginBottom:20,
@@ -263,6 +266,7 @@ const style = StyleSheet.create({
         flex:2,
         maxHeight:300,
         borderWidth: 2,
+        borderRadius: 12,
         backgroundColor: '#ededed'
     },
     bottombox: {
