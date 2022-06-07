@@ -19,22 +19,22 @@ const MyPage = ({navigation}) => {
 
     const [group, setGroup] = useState([{
       "num":1,
-      "club": "club1",
+      "club": "club",
       "school": "dankook",
       "score": 20,
       "clubId":1 // 화면을 넘어갈때 인자로 줘서 /group/get/{groupId}를 요청해서 그룹값을 받아야 되서
   },]);
     const [groupUser, setGroupUser] = useState([{
       "num":1,
-      "name": "park",
-      "club": "club1",
+      "name": "name",
+      "club": "club",
       "score": 10,
       "userId": 1,
   },]);
     const [wholeUser, setWholeUser] = useState([{
       "num":1,
-      "name": "park",
-      "club": "club1",
+      "name": "name",
+      "club": "club",
       "score": 10,
       "userId": 1,
   },]);

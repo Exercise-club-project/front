@@ -42,7 +42,9 @@ const Ranking_ClubDetail = ({route}) => {
     const op = groupdata.openScore;
     const reg = groupdata.regularScore;
     const total = groupdata.totalScore;
-
+    
+    // score에 NAN값이 담기면 오류가 뜸
+    // opPer, regPer, impPer체크
     const data = [
         {
           name: "정기모임",

@@ -34,7 +34,7 @@ const Rank_Mem_whole = ({route}) => {
         getUserdata(); // api data 수정 된 후 사용
          //setMeeting(TESTDATA)
       }, []);
-    const imp = userdata.impromptuScore;
+    const imp = userdata.impromptuScoree;
     const op = userdata.openScore;
     const reg = userdata.regularScore;
     const total = userdata.totalScore;

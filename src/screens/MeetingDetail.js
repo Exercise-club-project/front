@@ -24,7 +24,6 @@ const MeetingDetail = ({route , navigation}) =>{
         // console.log('result : ', response.data.result);
         // console.log('data : ',response.data.data);
         setMeeting(response.data.data);
-        console.log(response.data.data);
       }
     }
     catch(e){
@@ -36,7 +35,7 @@ const MeetingDetail = ({route , navigation}) =>{
   useEffect(() => {
      getMeeting(); // 왜 안되는지 아직 모르겠음
     //setMeeting(TESTDATA); // 임시 데이터
-  }, []);
+  });
 
 
     return (
