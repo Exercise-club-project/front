@@ -11,10 +11,19 @@ const MyPage_MyInfo = ({route}) => {
     const [opPer,setopPer] = useState(0);
     const [regPer,setregPer] = useState(0);
     const [impPer,setimpPer] = useState(0);
+    const [a,seta] = useState(0);
+    const [b,setb] = useState(0);
+    const [c,setc] = useState(0);
     const imp = userdata.impromptuScore;
     const op = userdata.openScore;
     const reg = userdata.regularScore;
     const total = userdata.totalScore;
+    function percentage(partialValue, totalValue) {
+        if(totalValue === 0){
+            return 0;
+        }
+        return ((100 * partialValue) / totalValue).toFixed(3);
+     } 
     const getUserdata = async () => {
         const userId = await AsyncStorage.getItem('MyUserId');
         //console.log("userId:",userId);
@@ -26,21 +35,13 @@ const MyPage_MyInfo = ({route}) => {
         if(res.result === "SUCCESS"){
             setUserdata(res.data);
             console.log(res.data);
-            console.log("opPer: ",((data.openScore / data.totalScore)*100).toFixed(3));
-            console.log("impPer: ",((data.impromptuScore / data.totalScore)*100).toFixed(3));
-            console.log("regPer: ",((data.regularScore / data.totalScore)*100).toFixed(3));
-            if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true ||
-                isNaN(((data.impromptuScore / data.totalScore)*100).toFixed(3)) == true ||
-                isNaN(((data.regularScore / data.totalScore)*100).toFixed(3)) == true){
-                    setopPer(0);
-                    setregPer(0);
-                    setimpPer(0);
-                }
-            else{
-                setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
-                setimpPer(((data.impromptuScore / data.totalScore)*100).toFixed(3));
-                setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
-            }
+            // setregPer(percentage(data.regularScore,data.totalScore));
+            // setimpPer(percentage(data.impromptuScore,data.totalScore));
+            // setopPer(percentage(data.openScore,data.totalScore));
+            seta(percentage(data.regularScore,data.totalScore));
+            setb(percentage(data.impromptuScore,data.totalScore));
+            
+            setc(percentage(data.openScore,data.totalScore));
         }
     };
     useEffect(() => {
@@ -55,21 +56,21 @@ const MyPage_MyInfo = ({route}) => {
         {
             // reg, imp, op의 값이 정해지지 않아서 차트가 보이지 않음
           name: "정기모임",
-          score: 10,
+          score: a,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: 10,
+          score: b,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: opPer,
+          score: c,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -171,21 +172,21 @@ const MyPage_MyInfo = ({route}) => {
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{regPer}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{a}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{impPer}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{b}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{opPer}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{c}%</Text></View>
                     </View>
                 </View>
             </View>

@@ -3,18 +3,26 @@ import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import Pie from 'react-native-pie';
+
 
 const MyPage_MyClub = ({route}) => {
     const rank = route.params.rank;
 
     const [groupdata, setGroupdata] = useState({});
-    const [opPer,setopPer] = useState(0);
-    const [regPer,setregPer] = useState(0);
-    const [impPer,setimpPer] = useState(0);
+    const [a,seta] = useState(0);
+    const [b,setb] = useState(0);
+    const [c,setc] = useState(0);
     const imp = groupdata.impromptuScroe;
     const op = groupdata.openScore;
     const reg = groupdata.regularScore;
     const total = groupdata.totalScore;
+    function percentage(partialValue, totalValue) {
+        if(totalValue === 0){
+            return 0;
+        }
+        return (100 * partialValue) / totalValue;
+     } 
     const getGroupdata = async () => {
         const groupId = await AsyncStorage.getItem('MygroupId');
         const res = await request({
@@ -26,21 +34,29 @@ const MyPage_MyClub = ({route}) => {
         if(res.result === "SUCCESS"){
             setGroupdata(res.data);
             console.log(res.data);
-            
-            if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true){
-                setopPer(0);
-            }
-            else if(isNaN(((data.impromptuScroe / data.totalScore)*100).toFixed(3)) == true){
-                setimpPer(0);
-            }
-            else if(((data.regularScore / data.totalScore)*100).toFixed(3) == true){
-                setregPer(0);
-            }
-            else{
-                setopPer(((data.openScore / data.totalScore)*100).toFixed(3));
-                setimpPer(((data.impromptuScroe / data.totalScore)*100).toFixed(3));
-                setregPer(((data.regularScore / data.totalScore)*100).toFixed(3));
-            }
+            // console.log("opPer: ",((data.openScore / data.totalScore)*100).toFixed(3));
+            // console.log("impPer: ",((data.impromptuScroe / data.totalScore)*100).toFixed(3));
+            // console.log("regPer: ",((data.regularScore / data.totalScore)*100).toFixed(3));
+            // if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true){
+            //     setopPer(0);
+            //     console.log("opPer is NAN", opPer);
+            // }
+            // else if(isNaN(((data.impromptuScroe / data.totalScore)*100).toFixed(3)) == true){
+            //     setimpPer(0);
+            //     console.log("impPer is NAN", impPer);
+            // }
+            // else if(((data.regularScore / data.totalScore)*100).toFixed(3) == true){
+            //     setregPer(0);
+            //     console.log("regPer is NAN", regPer);
+            // }
+            // else{
+            //     setopPer(percentage(data.regularScore,data.totalScore));
+            //     setimpPer(percentage(data.impromptuScroe,data.totalScore));
+            //     setregPer(percentage(data.openScore,data.totalScore));
+            // }
+            seta(percentage(data.regularScore,data.totalScore));
+            setb(percentage(data.impromptuScroe,data.totalScore));
+            setc(percentage(data.openScore,data.totalScore));
         }
     };
     useEffect(() => {
@@ -49,24 +65,24 @@ const MyPage_MyClub = ({route}) => {
       },[]);
     // score에 NAN값이 담기면 오류가 뜸
     // opPer, regPer, impPer체크
-    const data = [
+    const meetdata = [
         {
           name: "정기모임",
-          score: 10,
+          score: a,
           color: "#00CFFF",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "번개모임",
-          score: 10,
+          score: b,
           color: "#046B99",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
         },
         {
           name: "총회",
-          score: 10,
+          score: c,
           color: "#1C304A",
           legendFontColor: "#7F7F7F",
           legendFontSize: 15
@@ -131,7 +147,7 @@ const MyPage_MyClub = ({route}) => {
 
                     <View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
                         <PieChart
-                            data={data}
+                            data={meetdata}
                             width={150}
                             height={150}
                             chartConfig={chartConfig}
@@ -155,21 +171,21 @@ const MyPage_MyClub = ({route}) => {
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{regPer}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{a.toFixed(3)}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{impPer}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{b.toFixed(3)}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{opPer}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{c.toFixed(3)}%</Text></View>
                     </View>
                 </View>
             </View>
