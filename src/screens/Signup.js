@@ -272,41 +272,8 @@ const Signup = ({navigation}) => {
     </KeyboardAwareScrollView>
     );
 };
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    color: '#000000',
-    // height: 50, 
-    width: '100%', 
-    borderColor: '#a6a6a6', 
-    borderWidth: 1, 
-    borderRadius: 12,
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-  },
-  inputAndroid: {
-    fontSize: 16,
-    color: '#000000',
-    // height: 50, 
-    width: '100%', 
-    borderColor: '#a6a6a6', 
-    borderWidth: 1, 
-    borderRadius: 12,
-    paddingVertical: 20,
-    paddingHorizontal: 10,
-  },
-});
 const styles = StyleSheet.create({ 
   container: {
-
-    // flex: 1,
-    width: '100%',
-    marginVertical: 10,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-    backgroundColor: 'white',
-},
-
       // flex: 1,
       width: '100%',
       marginVertical: 10,
