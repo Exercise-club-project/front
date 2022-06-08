@@ -46,7 +46,7 @@ if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링
           <Input label="종료시간" value={Meeting.endDate} disabled/>
           <Input label="설명" value={Meeting.description} disabled/>
 
-          <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
+          {/* <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/> */}
       </Container>
       </KeyboardAwareScrollView>
     );
@@ -61,7 +61,8 @@ if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링
           <Input label="종료시간" value={Meeting.endDate} disabled/>
           <Input label="설명" value={Meeting.description} disabled/>
 
-          <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
+          {/* <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/> */}
+          {/* 참석한 인원 출력은 포기 */}
 
       
           {/* Desc 를 쓰면 오류 발생, Input으로 적기로 협의함 */}
