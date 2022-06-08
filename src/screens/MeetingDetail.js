@@ -36,9 +36,7 @@ const MeetingDetail = ({route , navigation}) =>{
      getMeeting(); // 왜 안되는지 아직 모르겠음
     //setMeeting(TESTDATA); // 임시 데이터
   });
-
-
-  if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링 안됨
+if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링 안됨
     return (
       <KeyboardAwareScrollView>
       <Container>
@@ -77,6 +75,8 @@ const MeetingDetail = ({route , navigation}) =>{
     );
   }
 }
+
+
 
 const Container = styled.View`
   flex: 1;

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet} from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 import QRrequest from '../funtion/QRrequest';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Alert } from 'react-native';
 import axios from 'axios';
+import {Button} from '../components';
 
 const QRScanner = ({route,navigation}) => {
   const meetingId = route.params.id;
@@ -73,10 +74,24 @@ const QRScanner = ({route,navigation}) => {
   };
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>;
+    return (
+    <View style={{flex:1, alignItems: 'center', justifyContent: 'center',}}>
+      <View>
+        <Text style={{fontSize:30, justifyContent:'center'}}>카메라 권한을</Text>
+        <Text style={{fontSize:30, justifyContent:'center'}}>요청중입니다.</Text>
+      </View>
+    </View>
+    );
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+    return (
+      <View style={{flex:1, alignContent: 'center', justifyContent: 'center'}}>
+        <View>
+          <Text style={{fontSize:30, justifyContent:'center'}}>카메라 접근 권한이</Text>
+          <Text style={{fontSize:30, justifyContent:'center'}}>없습니다.</Text>
+        </View>
+      </View>
+      );
   }
 
   return (
@@ -85,7 +100,9 @@ const QRScanner = ({route,navigation}) => {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+      <View style={{flex:2}}></View>
+      {scanned && <Button title={'다시 스캔하기'} onPress={() => setScanned(false)} />}
+      <View style={{flex:1}}></View>
     </View>
   );
 }
@@ -93,6 +110,7 @@ const QRScanner = ({route,navigation}) => {
 const styles = StyleSheet.create({
     container: {
         flex:1,
+        paddingHorizontal: 20,
     },
 });
 
