@@ -1,6 +1,6 @@
 import React,{useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import {Button, Input} from '../components';
+import {Button, Input, Desc} from '../components';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -44,7 +44,7 @@ if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링
           <Input label="종류" value={Meeting.meetingType} disabled/>
           <Input label="시작시간" value={Meeting.startDate} disabled/>
           <Input label="종료시간" value={Meeting.endDate} disabled/>
-          <Input label="설명" value={Meeting.description} disabled/>
+          <Desc label="설명" value={Meeting.description} disabled/>
 
           {/* <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/> */}
       </Container>

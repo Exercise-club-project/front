@@ -1,6 +1,6 @@
 import React,{useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import {Input, Desc, Datetime} from '../components';
+import {Input, Desc} from '../components';
 import axios from 'axios';
 
 
@@ -9,6 +9,7 @@ const MyPage_Act_Detail = ({route}) =>{
   const meetingId = route.params.id;
   const [Meeting, setMeeting] = useState({});
 
+  console.log(meetingId);
   
   const getMeeting = async() =>{
     try{
@@ -17,7 +18,7 @@ const MyPage_Act_Detail = ({route}) =>{
       );
       if(response.data.result === "SUCCESS"){
         // console.log('result : ', response.data.result);
-        // console.log('data : ',response.data.data);
+        console.log('data : ',response.data.data);
         setMeeting(response.data.data);
       }
     }

@@ -67,10 +67,10 @@ const MyPage = ({navigation}) => {
         if(res.result === "SUCCESS"){
             const users = res.data;
             const userId = await AsyncStorage.getItem('MyUserId');
-            console.log("userId", userId);
+           // console.log("userId", userId);
             const selectuser = users.filter(it => it.userId===parseInt(userId));
             setGroupUser(selectuser);
-            console.log("user: ",selectuser);
+           // console.log("user: ",selectuser);
             
         }
     };
@@ -79,12 +79,12 @@ const MyPage = ({navigation}) => {
           const response = await axios.get(
             `http://23.23.240.178:8080/rank/user`,
           );
-          console.log(response.data.data);
+         // console.log(response.data.data);
           if(response.data.result === "SUCCESS"){
             const users = response.data.data;
-            console.log("userswhole : ", users);
+           // console.log("userswhole : ", users);
             const userId = await AsyncStorage.getItem('MyUserId');
-            console.log("userId", userId);
+            //console.log("userId", userId);
             const selectuser = users.filter(it => it.userId===parseInt(userId));
             setWholeUser(selectuser);
           }

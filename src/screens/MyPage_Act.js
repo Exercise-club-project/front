@@ -68,21 +68,6 @@ const MyPage_Act = ({navigation}) =>{
         url: `/user/meeting/history`,
       });
     
-      // res.data =>
-    //   "data": [
-    //     {
-    //         "id" : 1 // 백엔드에 추가요청 해야함
-    //         "name": "모임1",
-    //         "type": "정기모임",
-    //         "startTime": "2022-04-09 21:00"
-    //     },
-    //     {
-    //         "id" : 2 // 백엔드에 추가요청 해야함
-    //         "name": "모임2",
-    //         "type": "정기모임",
-    //         "startTime": "2022-04-09 21:00"
-    //     }
-    // ]
       if(res.result === "SUCCESS"){
         setMeeting(res.data);
         console.log(res.data);
