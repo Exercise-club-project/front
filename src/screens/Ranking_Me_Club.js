@@ -22,7 +22,7 @@ const Ranking_Me_Club = ({navigation}) =>{
   useEffect(() => {
     getRank(); // 
     //setMeeting(TESTDATA)
- }, []);
+ });
 
     return (
     <View style={style.container}>

@@ -29,7 +29,7 @@ const Rank_Mem_whole = ({route}) => {
         if(res.result === "SUCCESS"){
             setUserdata(res.data);
             setregPer(percentage(data.regularScore,data.totalScore));
-            setimpPer(percentage(data.impromptuScroe,data.totalScore));
+            setimpPer(percentage(data.impromptuScore,data.totalScore));
             setopPer(percentage(data.openScore,data.totalScore));
             
         }

@@ -242,6 +242,7 @@ const Signup = ({navigation}) => {
         />
 
         <View style={styles.container}>
+
           <Label>성별</Label> 
           <View style = {{borderColor: '#a6a6a6', 
                           borderWidth: 1, 
@@ -322,3 +323,4 @@ const pickerSelectStyles = StyleSheet.create({
 });
 
 export default Signup;
+

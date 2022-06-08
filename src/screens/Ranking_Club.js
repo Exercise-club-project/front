@@ -13,8 +13,8 @@ const Ranking_Club = ({navigation}) =>{
         `http://23.23.240.178:8080/rank/group`,
       );
       if(response.data.result === "SUCCESS"){
-        console.log('result : ', response.data.result);
-        console.log('data : ',response.data.data);
+        // console.log('result : ', response.data.result);
+        // console.log('data : ',response.data.data);
         setclubdata(response.data.data);
       }
     }
@@ -25,7 +25,7 @@ const Ranking_Club = ({navigation}) =>{
   useEffect(() => {
     getRank(); // api data 수정 된 후 사용
     //setMeeting(TESTDATA)
- }, []);
+ });
 
     return (
     <View style={style.container}>
