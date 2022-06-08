@@ -38,26 +38,44 @@ const MeetingDetail = ({route , navigation}) =>{
   });
 
 
+  if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링 안됨
     return (
-    <KeyboardAwareScrollView>
-    <Container>
-       <Input label="이름" value={Meeting.meetingName} disabled/>
-       <Input label="종류" value={Meeting.meetingType} disabled/>
-       <Input label="시작시간" value={Meeting.startDate} disabled/>
-       <Input label="종료시간" value={Meeting.endDate} disabled/>
-       <Input label="설명" value={Meeting.description} disabled/>
-       <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
-       {/* Desc 를 쓰면 오류 발생, Input으로 적기로 협의함 */}
-      <Button 
-      title = "QR 스캔하기" 
-      disabled = {disabled}
-      onPress = {() => navigation.navigate('QRScanner',{
-      id : meetingId,
-    })}
-    />
-    </Container>
-    </KeyboardAwareScrollView>
-    )
+      <KeyboardAwareScrollView>
+      <Container>
+          <Input label="이름" value={Meeting.meetingName} disabled/>
+          <Input label="종류" value={Meeting.meetingType} disabled/>
+          <Input label="시작시간" value={Meeting.startDate} disabled/>
+          <Input label="종료시간" value={Meeting.endDate} disabled/>
+          <Input label="설명" value={Meeting.description} disabled/>
+
+          <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
+      </Container>
+      </KeyboardAwareScrollView>
+    );
+  }
+  else if (disabled === false) {//운영진인 경우 QR스캔하기 버튼 렌더링
+    return (
+      <KeyboardAwareScrollView>
+        <Container>
+          <Input label="이름" value={Meeting.meetingName} disabled/>
+          <Input label="종류" value={Meeting.meetingType} disabled/>
+          <Input label="시작시간" value={Meeting.startDate} disabled/>
+          <Input label="종료시간" value={Meeting.endDate} disabled/>
+          <Input label="설명" value={Meeting.description} disabled/>
+
+          <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
+
+      
+          {/* Desc 를 쓰면 오류 발생, Input으로 적기로 협의함 */}
+          <Button 
+            title = "QR 스캔하기" 
+            disabled = {disabled}
+            onPress = {() => navigation.navigate('QRScanner',{id : meetingId,})}
+          />
+        </Container>
+      </KeyboardAwareScrollView>
+    );
+  }
 }
 
 const Container = styled.View`

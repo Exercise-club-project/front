@@ -135,6 +135,7 @@ const style = StyleSheet.create({
     marginLeft: 30,
     marginRight: 30,
     borderWidth: 2,
+    borderRadius: 12,
   },
   textmeetingName: {
     fontSize:18

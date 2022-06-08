@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import Pie from 'react-native-pie';
 
 
 const MyPage_MyClub = ({route}) => {
@@ -34,29 +33,10 @@ const MyPage_MyClub = ({route}) => {
         if(res.result === "SUCCESS"){
             setGroupdata(res.data);
             console.log(res.data);
-            // console.log("opPer: ",((data.openScore / data.totalScore)*100).toFixed(3));
-            // console.log("impPer: ",((data.impromptuScroe / data.totalScore)*100).toFixed(3));
-            // console.log("regPer: ",((data.regularScore / data.totalScore)*100).toFixed(3));
-            // if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true){
-            //     setopPer(0);
-            //     console.log("opPer is NAN", opPer);
-            // }
-            // else if(isNaN(((data.impromptuScroe / data.totalScore)*100).toFixed(3)) == true){
-            //     setimpPer(0);
-            //     console.log("impPer is NAN", impPer);
-            // }
-            // else if(((data.regularScore / data.totalScore)*100).toFixed(3) == true){
-            //     setregPer(0);
-            //     console.log("regPer is NAN", regPer);
-            // }
-            // else{
-            //     setopPer(percentage(data.regularScore,data.totalScore));
-            //     setimpPer(percentage(data.impromptuScroe,data.totalScore));
-            //     setregPer(percentage(data.openScore,data.totalScore));
-            // }
             seta(percentage(data.regularScore,data.totalScore));
             setb(percentage(data.impromptuScroe,data.totalScore));
             setc(percentage(data.openScore,data.totalScore));
+            
         }
     };
     useEffect(() => {
@@ -103,10 +83,10 @@ const MyPage_MyClub = ({route}) => {
         <View style={style.backview}>
 
             <View style={{flex:1,}}>
-                <View style={{flex:1, backgroundColor:'#c4c4c4', marginTop:30, maxHeight:100, flexDirection: 'row'}}>
+                <View style={{flex:1, backgroundColor:'#c4c4c4', marginTop:30, paddingHorizontal:10, maxHeight:100, flexDirection: 'row',borderRadius: 12,}}>
 
                     <View style={style.bigbox1}>
-                        <Text style={{fontSize: 30,fontWeight: 'bold',}}>{groupdata.clubName}</Text>
+                        <Text style={{fontSize: 26,fontWeight: 'bold',}}>{groupdata.clubName}</Text>
                     </View>
                     <View style={{flex: 2}}>
                         <View style={style.box1}>
@@ -168,21 +148,21 @@ const MyPage_MyClub = ({route}) => {
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF', borderRadius: 4,}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{a.toFixed(3)}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99', borderRadius: 4,}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{b.toFixed(3)}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
-                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A'}}></View></View>
+                    <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A', borderRadius: 4,}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{c.toFixed(3)}%</Text></View>
@@ -202,7 +182,7 @@ const style = StyleSheet.create({
         paddingHorizontal: 30,
     },
     bigbox1: {
-        flex: 1,
+        flex: 2,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -222,6 +202,8 @@ const style = StyleSheet.create({
     bigbox2: {
         flex:1,
         borderWidth: 2,
+        borderRadius: 12,
+        minHeight: 50,
         maxHeight: 140,
         marginTop: 20, 
         marginBottom:20,
@@ -251,8 +233,10 @@ const style = StyleSheet.create({
     },
     bigbox3: {
         flex:2,
-        maxHeight:300,
+        minHeight:100,
+        maxHeight:240,
         borderWidth: 2,
+        borderRadius: 12,
         backgroundColor: '#ededed'
     },
     bottombox: {

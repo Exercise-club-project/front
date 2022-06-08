@@ -146,10 +146,11 @@ const style= StyleSheet.create({
         height: 80,
         marginTop: 20,
         marginHorizontal: 30,
-        backgroundColor:'#ededed'
+        backgroundColor:'#ededed',
+        borderRadius: 12,
     },
     nameTextbox:{
-        flex:1, 
+        flex:2, 
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -188,6 +189,7 @@ const style= StyleSheet.create({
         marginHorizontal:30,
         paddingHorizontal:10,
         paddingBottom:10,
+        borderRadius: 12,
     },
     mypagebutton: {
         height:50,
