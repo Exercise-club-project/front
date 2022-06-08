@@ -3,7 +3,6 @@ import { StyleSheet, Text, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
 import request from '../funtion/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-// import Pie from 'react-native-pie';
 
 
 const MyPage_MyClub = ({route}) => {
@@ -34,29 +33,10 @@ const MyPage_MyClub = ({route}) => {
         if(res.result === "SUCCESS"){
             setGroupdata(res.data);
             console.log(res.data);
-            // console.log("opPer: ",((data.openScore / data.totalScore)*100).toFixed(3));
-            // console.log("impPer: ",((data.impromptuScroe / data.totalScore)*100).toFixed(3));
-            // console.log("regPer: ",((data.regularScore / data.totalScore)*100).toFixed(3));
-            // if(isNaN(((data.openScore / data.totalScore)*100).toFixed(3)) == true){
-            //     setopPer(0);
-            //     console.log("opPer is NAN", opPer);
-            // }
-            // else if(isNaN(((data.impromptuScroe / data.totalScore)*100).toFixed(3)) == true){
-            //     setimpPer(0);
-            //     console.log("impPer is NAN", impPer);
-            // }
-            // else if(((data.regularScore / data.totalScore)*100).toFixed(3) == true){
-            //     setregPer(0);
-            //     console.log("regPer is NAN", regPer);
-            // }
-            // else{
-            //     setopPer(percentage(data.regularScore,data.totalScore));
-            //     setimpPer(percentage(data.impromptuScroe,data.totalScore));
-            //     setregPer(percentage(data.openScore,data.totalScore));
-            // }
             seta(percentage(data.regularScore,data.totalScore));
             setb(percentage(data.impromptuScroe,data.totalScore));
             setc(percentage(data.openScore,data.totalScore));
+            
         }
     };
     useEffect(() => {

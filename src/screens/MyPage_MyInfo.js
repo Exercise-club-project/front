@@ -22,7 +22,7 @@ const MyPage_MyInfo = ({route}) => {
         if(totalValue === 0){
             return 0;
         }
-        return ((100 * partialValue) / totalValue).toFixed(3);
+        return (100 * partialValue) / totalValue;
      } 
     const getUserdata = async () => {
         const userId = await AsyncStorage.getItem('MyUserId');
@@ -35,20 +35,14 @@ const MyPage_MyInfo = ({route}) => {
         if(res.result === "SUCCESS"){
             setUserdata(res.data);
             console.log(res.data);
-            // setregPer(percentage(data.regularScore,data.totalScore));
-            // setimpPer(percentage(data.impromptuScore,data.totalScore));
-            // setopPer(percentage(data.openScore,data.totalScore));
             seta(percentage(data.regularScore,data.totalScore));
             setb(percentage(data.impromptuScore,data.totalScore));
-            
             setc(percentage(data.openScore,data.totalScore));
         }
     };
     useEffect(() => {
         getUserdata(); // api data 수정 된 후 사용
       },[]);
-
-    
  
     // score에 NAN값이 담기면 오류가 뜸
     // opPer, regPer, impPer체크
@@ -172,21 +166,21 @@ const MyPage_MyInfo = ({route}) => {
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#00CFFF', borderRadius: 4,}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>정기모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{reg}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{a}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{a.toFixed(3)}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#046B99', borderRadius: 4,}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>번개모임</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{imp}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{b}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{b.toFixed(3)}%</Text></View>
                     </View>
 
                     <View style={{flexDirection:'row',height:40, justifyContent:'center',}}>
                     <View style={{flex:0.6, justifyContent:'center',alignItems: 'flex-start',}}><View style={{height:20, width:20, backgroundColor:'#1C304A', borderRadius: 4,}}></View></View>
                     <View style={{flex:2,justifyContent:'center'}}><Text style={{fontSize:14}}>총회</Text></View>
                     <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14}}>{op}</Text></View>
-                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{c}%</Text></View>
+                    <View style={{flex:1,justifyContent:'center'}}><Text style={{fontSize:14, color:'gray'}}>{c.toFixed(3)}%</Text></View>
                     </View>
                 </View>
             </View>

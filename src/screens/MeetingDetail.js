@@ -36,8 +36,7 @@ const MeetingDetail = ({route , navigation}) =>{
      getMeeting(); // 왜 안되는지 아직 모르겠음
     //setMeeting(TESTDATA); // 임시 데이터
   });
-
-  if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링 안됨
+if (disabled === true) {//일반회원인 경우 QR스캔하기 버튼 렌더링 안됨
     return (
       <KeyboardAwareScrollView>
       <Container>
@@ -61,9 +60,10 @@ const MeetingDetail = ({route , navigation}) =>{
           <Input label="시작시간" value={Meeting.startDate} disabled/>
           <Input label="종료시간" value={Meeting.endDate} disabled/>
           <Input label="설명" value={Meeting.description} disabled/>
-    
+
           <Input label="참석한 인원" value={JSON.stringify(Meeting.joinList)} disabled/>
 
+      
           {/* Desc 를 쓰면 오류 발생, Input으로 적기로 협의함 */}
           <Button 
             title = "QR 스캔하기" 
@@ -75,6 +75,8 @@ const MeetingDetail = ({route , navigation}) =>{
     );
   }
 }
+
+
 
 const Container = styled.View`
   flex: 1;
