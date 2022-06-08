@@ -242,23 +242,25 @@ const Signup = ({navigation}) => {
         />
 
         <View style={styles.container}>
-          <Label>성별</Label>
-          <RNPickerSelect
-          ref = {refSex}
-          placeholder={{
-
-            label: sex,
-
-          }}
-          value={sex}
-          onValueChange={setSex}
-          items={[
-            { label: '남성', value: 'M' },
-            { label: '여성', value: 'F' },
-          ]}
-          onSubmitEditing = {_handleSignupBtnPress}
-          style={pickerSelectStyles}
-          />
+          <Label>성별</Label> 
+          <View style = {{borderColor: '#a6a6a6', 
+                          borderWidth: 1, 
+                          borderRadius: 12,
+                          paddingVertical: 6,
+                          }}>
+            <RNPickerSelect
+            ref = {refSex}
+            placeholder={{label: sex,}}
+            value={sex}
+            onValueChange={setSex}
+            items={[
+              { label: '남성', value: 'M' },
+              { label: '여성', value: 'F' },
+            ]}
+            onSubmitEditing = {_handleSignupBtnPress}
+            style={pickerSelectStyles}
+            />
+          </View>
         </View>
 
         <ErrorMessage message = {errorMessage}/>
@@ -301,9 +303,9 @@ const pickerSelectStyles = StyleSheet.create({
     // height: 50, 
     width: '100%', 
     borderColor: '#a6a6a6', 
-    borderWidth: 1, 
+    // borderWidth: 1, 
     borderRadius: 12,
-    paddingVertical: 20,
+    paddingVertical: 14,
     paddingHorizontal: 10,
   },
   inputAndroid: {
