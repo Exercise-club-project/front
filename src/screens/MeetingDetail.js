@@ -22,7 +22,7 @@ const MeetingDetail = ({route , navigation}) =>{
       );
       if(response.data.result === "SUCCESS"){
         // console.log('result : ', response.data.result);
-        // console.log('data : ',response.data.data);
+        //console.log('data : ',response.data.data);
         setMeeting(response.data.data);
       }
     }
