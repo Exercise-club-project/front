@@ -22,7 +22,6 @@ const Container = styled.View`
 const ItemContainer = styled.TouchableOpacity`
 `;
 
-
 const Home = ({navigation}) =>{
   const [Meeting, setMeeting] = useState([]);
   const renderItem = ({ item }) => (
@@ -41,7 +40,7 @@ const Home = ({navigation}) =>{
             </View>
         </View>
           <View style={{paddingVertical:5}}>
-          <Text style={style.textstartTime}>{item.startTime}</Text>
+          <Text style={style.textstartTime}>{item.startTime} ~ {item.endTime.slice(-11)}</Text>
           </View>
       </View>
 

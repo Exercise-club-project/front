@@ -157,22 +157,26 @@ useEffect(() => {
       />
       <View style={styles.container}>
         <Label>모임 종류</Label>
-        <RNPickerSelect
-        ref = {refType}
-        placeholder={{
-          label: meetingType,
-        }}
-        value={meetingType}
-        // onChangeText = {setMeetingType}
-        onValueChange={setMeetingType}
-        items={[
-          { label: '정기모임', value: '정기모임' },
-          { label: '번개모임', value: '번개모임' },
-          { label: '총회', value: '총회' },
-        ]}
-        onSubmitEditing = {() => refDesc.current.focus()}
-        style={pickerSelectStyles}
-      />
+        <View style = {{borderColor: '#a6a6a6', 
+                        borderWidth: 1, 
+                        borderRadius: 12,
+                        paddingVertical: 6,
+                        }}>
+          <RNPickerSelect
+          ref = {refType}
+          placeholder={{label: meetingType,}}
+          value={meetingType}
+          // onChangeText = {setMeetingType}
+          onValueChange={setMeetingType}
+          items={[
+            { label: '정기모임', value: '정기모임' },
+            { label: '번개모임', value: '번개모임' },
+            { label: '총회모임', value: '총회모임' },
+          ]}
+          onSubmitEditing = {() => refDesc.current.focus()}
+          style={pickerSelectStyles}
+          />
+      </View>
      </View>
 
       <View style = {styles.rowcontainer}>
@@ -281,9 +285,9 @@ const pickerSelectStyles = StyleSheet.create({
     // height: 50, 
     width: '100%', 
     borderColor: '#a6a6a6', 
-    borderWidth: 1, 
+    // borderWidth: 1, 
     borderRadius: 12,
-    paddingVertical: 20,
+    paddingVertical: 14,
     paddingHorizontal: 10,
   },
   inputAndroid: {
