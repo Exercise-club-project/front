@@ -84,17 +84,31 @@ QR 코드 기반 동아리 모임 출석 체크 및 활동 관리 애플리케�
 
 https://github.com/user-attachments/assets/bee8f196-7fb7-4e2e-ba21-b82e1cff67ef
 
+#### 마이페이지
 
-<!-- ![회원가입](docs/videos/signup-flow.gif) -->
+https://github.com/user-attachments/assets/52ff6a11-0b2a-400e-9c3c-1c04bbfb54ca
 
-#### 모임 생성 및 상세보기
-<!-- ![모임생성](docs/videos/meeting-flow.gif) -->
+#### 홈화면
 
-#### QR 출석 체크
-<!-- ![출석체크](docs/videos/attendance-flow.gif) -->
 
-#### 랭킹 조회
-<!-- ![랭킹조회](docs/videos/ranking-flow.gif) -->
+https://github.com/user-attachments/assets/35dc97bc-61cb-4d7e-9997-7c980ecbd365
+
+#### 랭킹
+
+https://github.com/user-attachments/assets/93e5103f-1e6e-4bdb-95c9-94bc45143860
+
+
+#### QR(일반)
+
+
+https://github.com/user-attachments/assets/442ee08e-129f-46be-83ea-7e75f4fe5e07
+
+
+#### QR(운영자)
+
+https://github.com/user-attachments/assets/509641f0-621d-475c-a7d6-0e0c90cb1998
+
+
 
 ---
 
