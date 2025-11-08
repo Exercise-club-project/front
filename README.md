@@ -77,15 +77,14 @@ QR 코드 기반 동아리 모임 출석 체크 및 활동 관리 애플리케�
 
 ---
 
-## 시연 영상
+## 기능별 시연 영상
 
-### 전체 기능 시연
-<!-- 전체 시연 영상 링크 -->
-<!-- [![시연영상](docs/images/demo-thumbnail.png)](https://youtube.com/watch?v=YOUR_VIDEO_ID) -->
-
-### 기능별 시연
 
 #### 회원가입 및 동아리 선택
+
+https://github.com/user-attachments/assets/bee8f196-7fb7-4e2e-ba21-b82e1cff67ef
+
+
 <!-- ![회원가입](docs/videos/signup-flow.gif) -->
 
 #### 모임 생성 및 상세보기
